@@ -5,6 +5,7 @@ import Select from '../ui/Select.astro';
 import Textarea from '../ui/Textarea.astro';
 import Icon from '../ui/Icon.astro';
 import { services } from '../../data/services.js';
+import { url } from '../../utils/url.js';
 
 export interface Props {
   variant?: 'full' | 'compact';
@@ -100,7 +101,7 @@ const serviceOptions = services.map(s => ({
     />
     <label for="consent" class="text-small text-w4s-navy/70">
       J'accepte d'être recontacté par W4S pour ma demande. 
-      <a href="/politique-confidentialite" class="text-w4s-accent hover:underline">
+      <a href={url('/politique-confidentialite')} class="text-w4s-accent hover:underline">
         Politique de confidentialité
       </a>
     </label>

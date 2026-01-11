@@ -5,6 +5,7 @@ import Button from '../components/ui/Button.astro';
 import Icon from '../components/ui/Icon.astro';
 import EmergencyBand from '../components/sections/EmergencyBand.astro';
 import { siteConfig } from '../data/site.js';
+import { url } from '../utils/url.js';
 
 const breadcrumbs = [
   { name: 'Nos artisans' }
@@ -167,7 +168,7 @@ const stats = [
         <p class="text-body-lg text-w4s-navy/70 mb-6">
           Rejoignez notre réseau et accédez à de nouvelles missions.
         </p>
-        <Button variant="outline" href="/contact">
+        <Button variant="outline" href={url('/contact')}>
           Candidater
           <Icon name="arrow-right" size={18} />
         </Button>

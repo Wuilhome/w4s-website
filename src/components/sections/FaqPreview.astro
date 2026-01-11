@@ -2,6 +2,7 @@
 import Button from '../ui/Button.astro';
 import Icon from '../ui/Icon.astro';
 import { getFaqPreview } from '../../data/faq.js';
+import { url } from '../../utils/url.js';
 
 const faqItems = getFaqPreview(3);
 ---
@@ -42,7 +43,7 @@ const faqItems = getFaqPreview(3);
       
       <!-- CTA -->
       <div class="text-center">
-        <Button variant="ghost" href="/faq">
+        <Button variant="ghost" href={url('/faq')}>
           Voir toutes les questions
           <Icon name="arrow-right" size={18} />
         </Button>

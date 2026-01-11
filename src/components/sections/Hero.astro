@@ -2,6 +2,7 @@
 import Button from '../ui/Button.astro';
 import Icon from '../ui/Icon.astro';
 import { siteConfig } from '../../data/site.js';
+import { url } from '../../utils/url.js';
 ---
 
 <section class="relative overflow-hidden bg-gradient-to-b from-w4s-concrete/20 to-white">
@@ -12,24 +13,24 @@ import { siteConfig } from '../../data/site.js';
         <span class="w-2 h-2 bg-w4s-success rounded-full"></span>
         Artisans disponibles maintenant
       </div>
-      
+
       <!-- Heading -->
       <h1 class="text-h1 md:text-display font-bold text-w4s-navy mb-6 text-balance">
         Dépannage et bricolage, <span class="text-w4s-accent">simplifié.</span>
       </h1>
-      
+
       <!-- Subheading -->
       <p class="text-body-lg text-w4s-navy/70 mb-8 max-w-2xl mx-auto">
         Artisans vérifiés · Intervention rapide · Devis transparent
       </p>
-      
+
       <!-- CTAs -->
       <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
-        <Button variant="primary" size="lg" href="/contact">
+        <Button variant="primary" size="lg" href={url('/contact')}>
           Demander une intervention
           <Icon name="arrow-right" size={20} />
         </Button>
-        <Button variant="urgent" size="lg" href="/urgence">
+        <Button variant="urgent" size="lg" href={url('/urgence')}>
           <span class="w-2 h-2 bg-white rounded-full"></span>
           Urgence 24/7
         </Button>

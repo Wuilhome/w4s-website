@@ -2,6 +2,7 @@
 import Button from '../ui/Button.astro';
 import Icon from '../ui/Icon.astro';
 import { siteConfig } from '../../data/site.js';
+import { url } from '../../utils/url.js';
 ---
 
 <section class="section bg-white">
@@ -29,7 +30,7 @@ import { siteConfig } from '../../data/site.js';
         )}
       </div>
       
-      <Button variant="ghost" href="/zones">
+      <Button variant="ghost" href={url('/zones')}>
         Voir toutes les zones
         <Icon name="arrow-right" size={18} />
       </Button>

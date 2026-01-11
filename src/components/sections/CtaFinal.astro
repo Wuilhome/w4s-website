@@ -1,6 +1,7 @@
 ---
 import Button from '../ui/Button.astro';
 import Icon from '../ui/Icon.astro';
+import { url } from '../../utils/url.js';
 ---
 
 <section class="section bg-white">
@@ -12,7 +13,7 @@ import Icon from '../ui/Icon.astro';
       <p class="text-body-lg text-w4s-navy/70 mb-8">
         Décrivez votre besoin, on s'occupe du reste.
       </p>
-      <Button variant="primary" size="lg" href="/contact">
+      <Button variant="primary" size="lg" href={url('/contact')}>
         Demander une intervention
         <Icon name="arrow-right" size={20} />
       </Button>

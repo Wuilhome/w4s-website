@@ -4,6 +4,7 @@ import Breadcrumb from '../components/layout/Breadcrumb.astro';
 import Button from '../components/ui/Button.astro';
 import Icon from '../components/ui/Icon.astro';
 import EmergencyBand from '../components/sections/EmergencyBand.astro';
+import { url } from '../utils/url.js';
 
 const breadcrumbs = [
   { name: 'Comment ça marche' }
@@ -136,7 +137,7 @@ const guarantees = [
       
       <!-- CTA intermédiaire -->
       <div class="text-center mb-20">
-        <Button variant="primary" size="lg" href="/contact">
+        <Button variant="primary" size="lg" href={url('/contact')}>
           Faire une demande
           <Icon name="arrow-right" size={20} />
         </Button>

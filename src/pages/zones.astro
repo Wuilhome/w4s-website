@@ -5,6 +5,7 @@ import Button from '../components/ui/Button.astro';
 import Icon from '../components/ui/Icon.astro';
 import EmergencyBand from '../components/sections/EmergencyBand.astro';
 import { siteConfig } from '../data/site.js';
+import { url } from '../utils/url.js';
 
 const breadcrumbs = [
   { name: 'Zones d\'intervention' }
@@ -175,7 +176,7 @@ const zones = [
         <p class="text-body text-w4s-navy/70 mb-6">
           Contactez-nous pour vérifier si nous pouvons intervenir chez vous.
         </p>
-        <Button variant="primary" href="/contact">
+        <Button variant="primary" href={url('/contact')}>
           Vérifier ma zone
           <Icon name="arrow-right" size={18} />
         </Button>

@@ -7,6 +7,7 @@ import Card from '../../components/ui/Card.astro';
 import EmergencyBand from '../../components/sections/EmergencyBand.astro';
 import { services, getServiceBySlug } from '../../data/services.js';
 import { generateServiceSchema, generateFAQSchema } from '../../utils/seo.js';
+import { url } from '../../utils/url.js';
 
 export function getStaticPaths() {
   return services.map(service => ({
@@ -18,7 +19,7 @@ export function getStaticPaths() {
 const { service } = Astro.props;
 
 const breadcrumbs = [
-  { name: 'Services', url: '/services' },
+  { name: 'Services', url: url('/services') },
   { name: service.shortTitle }
 ];
 
@@ -59,11 +60,11 @@ const jsonLd = [
         </p>
         
         <div class="flex flex-col sm:flex-row gap-4 mb-6">
-          <Button variant="primary" size="lg" href="/contact">
+          <Button variant="primary" size="lg" href={url('/contact')}>
             Demander un devis gratuit
             <Icon name="arrow-right" size={20} />
           </Button>
-          <Button variant="urgent" size="lg" href="/urgence">
+          <Button variant="urgent" size="lg" href={url('/urgence')}>
             <span class="w-2 h-2 bg-white rounded-full"></span>
             Urgence {service.shortTitle.toLowerCase()}
           </Button>
@@ -189,7 +190,7 @@ const jsonLd = [
       <p class="text-body-lg text-white/80 mb-8">
         Décrivez votre problème, on vous rappelle sous 30 minutes.
       </p>
-      <Button variant="secondary" size="lg" href="/contact">
+      <Button variant="secondary" size="lg" href={url('/contact')}>
         Demander un devis gratuit
         <Icon name="arrow-right" size={20} />
       </Button>
@@ -205,7 +206,7 @@ const jsonLd = [
       
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
         {relatedServices.map((related) => (
-          <Card href={`/services/${related.slug}`} padding="md" class="group text-center">
+          <Card href={url(`/services/${related.slug}`)} padding="md" class="group text-center">
             <div class="w-12 h-12 bg-w4s-accent/10 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:bg-w4s-accent/20 transition-colors">
               <span class="text-xl">{related.emoji}</span>
             </div>

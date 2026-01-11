@@ -1,6 +1,7 @@
 ---
 import Icon from '../ui/Icon.astro';
 import { navigation, siteConfig } from '../../data/site.js';
+import { url } from '../../utils/url.js';
 ---
 
 <footer class="bg-w4s-navy text-white">
@@ -9,7 +10,7 @@ import { navigation, siteConfig } from '../../data/site.js';
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
       <!-- Brand -->
       <div class="lg:col-span-1">
-        <a href="/" class="inline-block mb-4">
+        <a href={url('/')} class="inline-block mb-4">
           <span class="text-2xl font-bold">W4S</span>
         </a>
         <p class="text-w4s-steel mb-4">
@@ -36,7 +37,7 @@ import { navigation, siteConfig } from '../../data/site.js';
         <ul class="space-y-2">
           {navigation.footer.services.map((item) => (
             <li>
-              <a href={item.href} class="text-w4s-steel hover:text-white transition-colors">
+              <a href={url(item.href)} class="text-w4s-steel hover:text-white transition-colors">
                 {item.name}
               </a>
             </li>
@@ -50,7 +51,7 @@ import { navigation, siteConfig } from '../../data/site.js';
         <ul class="space-y-2">
           {navigation.footer.info.map((item) => (
             <li>
-              <a href={item.href} class="text-w4s-steel hover:text-white transition-colors">
+              <a href={url(item.href)} class="text-w4s-steel hover:text-white transition-colors">
                 {item.name}
               </a>
             </li>
@@ -118,11 +119,11 @@ import { navigation, siteConfig } from '../../data/site.js';
         <p>© {new Date().getFullYear()} W4S. Tous droits réservés.</p>
         <nav class="flex flex-wrap items-center justify-center gap-4 md:gap-6">
           {navigation.footer.legal.map((item) => (
-            <a href={item.href} class="hover:text-white transition-colors">
+            <a href={url(item.href)} class="hover:text-white transition-colors">
               {item.name}
             </a>
           ))}
-          <a href="/sitemap.xml" class="hover:text-white transition-colors">
+          <a href={url('/sitemap.xml')} class="hover:text-white transition-colors">
             Plan du site
           </a>
         </nav>

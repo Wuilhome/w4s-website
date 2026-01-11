@@ -4,6 +4,7 @@ import Breadcrumb from '../components/layout/Breadcrumb.astro';
 import ContactForm from '../components/sections/ContactForm.astro';
 import Icon from '../components/ui/Icon.astro';
 import { siteConfig } from '../data/site.js';
+import { url } from '../utils/url.js';
 
 const breadcrumbs = [
   { name: 'Contact' }
@@ -107,7 +108,7 @@ const breadcrumbs = [
                   </span>
                 ))}
               </div>
-              <a href="/zones" class="inline-flex items-center gap-1 text-small text-w4s-accent font-medium mt-3 hover:underline">
+              <a href={url('/zones')} class="inline-flex items-center gap-1 text-small text-w4s-accent font-medium mt-3 hover:underline">
                 Voir toutes les zones
                 <Icon name="arrow-right" size={14} />
               </a>

@@ -6,13 +6,14 @@ import Icon from '../../components/ui/Icon.astro';
 import Button from '../../components/ui/Button.astro';
 import EmergencyBand from '../../components/sections/EmergencyBand.astro';
 import { services } from '../../data/services.js';
+import { url } from '../../utils/url.js';
 
 const breadcrumbs = [
   { name: 'Services' }
 ];
 ---
 
-<BaseLayout 
+<BaseLayout
   title="Nos services"
   description="Découvrez tous nos services : bricolage, plomberie, électricité, serrurerie, montage de meubles, maintenance. Artisans vérifiés, devis gratuit."
   canonical="/services"
@@ -20,7 +21,7 @@ const breadcrumbs = [
   <section class="section">
     <div class="container-w4s">
       <Breadcrumb items={breadcrumbs} />
-      
+
       <!-- Header -->
       <div class="text-center max-w-2xl mx-auto mb-12">
         <h1 class="text-h1 font-bold text-w4s-navy mb-4">
@@ -30,11 +31,11 @@ const breadcrumbs = [
           Bricolage, plomberie, électricité, serrurerie... Des artisans vérifiés pour tous vos besoins à domicile.
         </p>
       </div>
-      
+
       <!-- Services Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
         {services.map((service) => (
-          <Card href={`/services/${service.slug}`} padding="lg" class="group">
+          <Card href={url(`/services/${service.slug}`)} padding="lg" class="group">
             <div class="flex flex-col h-full">
               <!-- Icon -->
               <div class="w-16 h-16 bg-w4s-accent/10 rounded-2xl flex items-center justify-center mb-5 group-hover:bg-w4s-accent/20 transition-colors">
@@ -72,7 +73,7 @@ const breadcrumbs = [
         <p class="text-body text-w4s-navy/70 mb-4">
           Vous ne trouvez pas ce que vous cherchez ?
         </p>
-        <Button variant="primary" href="/contact">
+        <Button variant="primary" href={url('/contact')}>
           Décrivez votre besoin
           <Icon name="arrow-right" size={18} />
         </Button>

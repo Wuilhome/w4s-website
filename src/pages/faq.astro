@@ -6,6 +6,7 @@ import Icon from '../components/ui/Icon.astro';
 import EmergencyBand from '../components/sections/EmergencyBand.astro';
 import { faqItems, faqCategories } from '../data/faq.js';
 import { generateFAQSchema } from '../utils/seo.js';
+import { url } from '../utils/url.js';
 
 const breadcrumbs = [
   { name: 'FAQ' }
@@ -87,7 +88,7 @@ const jsonLd = generateFAQSchema(faqItems);
           Notre équipe est disponible pour répondre à toutes vos questions.
         </p>
         <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Button variant="primary" href="/contact">
+          <Button variant="primary" href={url('/contact')}>
             Nous contacter
             <Icon name="arrow-right" size={18} />
           </Button>

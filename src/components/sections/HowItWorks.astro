@@ -1,6 +1,7 @@
 ---
 import Button from '../ui/Button.astro';
 import Icon from '../ui/Icon.astro';
+import { url } from '../../utils/url.js';
 
 const steps = [
   {
@@ -63,7 +64,7 @@ const steps = [
     
     <!-- CTA -->
     <div class="text-center">
-      <Button variant="ghost" href="/comment-ca-marche">
+      <Button variant="ghost" href={url('/comment-ca-marche')}>
         En savoir plus
         <Icon name="arrow-right" size={18} />
       </Button>
