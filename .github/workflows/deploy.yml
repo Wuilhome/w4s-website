@@ -1,0 +1,74 @@
+# Workflow pour déployer un site Astro sur GitHub Pages
+#
+# Pour utiliser ce workflow :
+# 1. Allez dans Settings > Pages de votre repo
+# 2. Sélectionnez "GitHub Actions" comme source
+# 3. Commitez et pushez - le déploiement se fera automatiquement
+
+name: Deploy to GitHub Pages
+
+on:
+  # Se déclenche sur les push vers main
+  push:
+    branches: [main]
+  # Permet de lancer manuellement depuis l'onglet Actions
+  workflow_dispatch:
+
+# Permissions pour déployer sur GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Un seul déploiement à la fois
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+env:
+  BUILD_PATH: "."
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: 'npm'
+          cache-dependency-path: ${{ env.BUILD_PATH }}/package-lock.json
+
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: ${{ env.BUILD_PATH }}
+
+      - name: Build with Astro
+        run: |
+          npm run build
+        working-directory: ${{ env.BUILD_PATH }}
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ env.BUILD_PATH }}/dist
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
