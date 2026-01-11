@@ -1,0 +1,47 @@
+---
+import Card from '../ui/Card.astro';
+import Icon from '../ui/Icon.astro';
+import { services } from '../../data/services.js';
+---
+
+<section class="section bg-white">
+  <div class="container-w4s">
+    <!-- Header -->
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <h2 class="text-h2 font-bold text-w4s-navy mb-4">
+        Des experts pour chaque besoin
+      </h2>
+      <p class="text-body-lg text-w4s-navy/70">
+        Bricolage, plomberie, électricité, serrurerie... Nos artisans interviennent pour tous vos travaux.
+      </p>
+    </div>
+    
+    <!-- Services Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {services.map((service) => (
+        <Card href={`/services/${service.slug}`} padding="lg" class="group">
+          <div class="flex flex-col h-full">
+            <!-- Icon -->
+            <div class="w-14 h-14 bg-w4s-accent/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-w4s-accent/20 transition-colors">
+              <span class="text-2xl">{service.emoji}</span>
+            </div>
+            
+            <!-- Content -->
+            <h3 class="text-h4 font-semibold text-w4s-navy mb-2 group-hover:text-w4s-accent transition-colors">
+              {service.shortTitle}
+            </h3>
+            <p class="text-body text-w4s-navy/70 mb-4 flex-1">
+              {service.description}
+            </p>
+            
+            <!-- Link -->
+            <span class="inline-flex items-center gap-1 text-w4s-accent font-medium text-small group-hover:gap-2 transition-all">
+              Voir ce service
+              <Icon name="arrow-right" size={16} />
+            </span>
+          </div>
+        </Card>
+      ))}
+    </div>
+  </div>
+</section>

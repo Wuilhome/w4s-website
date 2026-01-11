@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="40" viewBox="0 0 160 40">
+  <!-- Background square -->
+  <rect x="0" y="0" width="40" height="40" rx="8" fill="#0A1A2F"/>
+  
+  <!-- W4S text in square -->
+  <text x="20" y="27" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="white" text-anchor="middle">W4S</text>
+  
+  <!-- Full name -->
+  <text x="52" y="27" font-family="system-ui, -apple-system, sans-serif" font-size="24" font-weight="bold" fill="#0A1A2F">W4S</text>
+</svg>

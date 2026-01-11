@@ -1,0 +1,52 @@
+---
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+import { getFaqPreview } from '../../data/faq.js';
+
+const faqItems = getFaqPreview(3);
+---
+
+<section class="section bg-w4s-concrete/20">
+  <div class="container-w4s">
+    <div class="max-w-3xl mx-auto">
+      <!-- Header -->
+      <div class="text-center mb-10">
+        <h2 class="text-h2 font-bold text-w4s-navy mb-4">
+          Questions fréquentes
+        </h2>
+        <p class="text-body-lg text-w4s-navy/70">
+          Les réponses à vos interrogations les plus courantes.
+        </p>
+      </div>
+      
+      <!-- FAQ Items -->
+      <div class="space-y-4 mb-8">
+        {faqItems.map((item) => (
+          <details class="group bg-white rounded-xl shadow-card">
+            <summary class="flex items-center justify-between gap-4 p-6 cursor-pointer list-none">
+              <span class="text-body font-medium text-w4s-navy text-left">
+                {item.question}
+              </span>
+              <Icon 
+                name="chevron-down" 
+                size={20} 
+                class="text-w4s-steel flex-shrink-0 transition-transform group-open:rotate-180" 
+              />
+            </summary>
+            <div class="px-6 pb-6 text-body text-w4s-navy/70">
+              {item.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+      
+      <!-- CTA -->
+      <div class="text-center">
+        <Button variant="ghost" href="/faq">
+          Voir toutes les questions
+          <Icon name="arrow-right" size={18} />
+        </Button>
+      </div>
+    </div>
+  </div>
+</section>

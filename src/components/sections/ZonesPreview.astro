@@ -1,0 +1,38 @@
+---
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+import { siteConfig } from '../../data/site.js';
+---
+
+<section class="section bg-white">
+  <div class="container-w4s">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-h2 font-bold text-w4s-navy mb-4">
+        Où intervenons-nous ?
+      </h2>
+      <p class="text-body-lg text-w4s-navy/70 mb-8">
+        W4S couvre Paris et l'ensemble de l'Île-de-France.
+      </p>
+      
+      <!-- Zones badges -->
+      <div class="flex flex-wrap items-center justify-center gap-3 mb-8">
+        {siteConfig.zones.slice(0, 4).map((zone) => (
+          <span class="inline-flex items-center gap-1.5 px-4 py-2 bg-w4s-concrete/30 rounded-full text-w4s-navy">
+            <Icon name="map-pin" size={16} class="text-w4s-accent" />
+            {zone}
+          </span>
+        ))}
+        {siteConfig.zones.length > 4 && (
+          <span class="inline-flex items-center px-4 py-2 bg-w4s-accent/10 text-w4s-accent rounded-full font-medium">
+            +{siteConfig.zones.length - 4} zones
+          </span>
+        )}
+      </div>
+      
+      <Button variant="ghost" href="/zones">
+        Voir toutes les zones
+        <Icon name="arrow-right" size={18} />
+      </Button>
+    </div>
+  </div>
+</section>

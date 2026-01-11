@@ -1,0 +1,49 @@
+---
+import Icon from '../ui/Icon.astro';
+import { generateBreadcrumbSchema } from '../../utils/seo.js';
+
+export interface Props {
+  items: { name: string; url?: string }[];
+}
+
+const { items } = Astro.props;
+
+// Ajouter "Accueil" au début
+const breadcrumbItems = [
+  { name: 'Accueil', url: '/' },
+  ...items
+];
+
+const schema = generateBreadcrumbSchema(breadcrumbItems);
+---
+
+<nav aria-label="Fil d'Ariane" class="mb-6">
+  <ol class="flex flex-wrap items-center gap-2 text-small" itemscope itemtype="https://schema.org/BreadcrumbList">
+    {breadcrumbItems.map((item, index) => (
+      <li 
+        class="flex items-center gap-2"
+        itemprop="itemListElement" 
+        itemscope 
+        itemtype="https://schema.org/ListItem"
+      >
+        {index > 0 && (
+          <Icon name="chevron-right" size={14} class="text-w4s-steel" />
+        )}
+        {item.url ? (
+          <a 
+            href={item.url} 
+            class="text-w4s-steel hover:text-w4s-navy transition-colors"
+            itemprop="item"
+          >
+            <span itemprop="name">{item.name}</span>
+          </a>
+        ) : (
+          <span class="text-w4s-navy font-medium" itemprop="name">{item.name}</span>
+        )}
+        <meta itemprop="position" content={String(index + 1)} />
+      </li>
+    ))}
+  </ol>
+</nav>
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

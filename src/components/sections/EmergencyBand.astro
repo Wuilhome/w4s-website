@@ -1,0 +1,34 @@
+---
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+import { siteConfig } from '../../data/site.js';
+---
+
+<section class="bg-w4s-urgent py-12 md:py-16">
+  <div class="container-w4s">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-6 text-white">
+      <div class="text-center md:text-left">
+        <h2 class="text-h3 md:text-h2 font-bold mb-2">
+          Une urgence ?
+        </h2>
+        <p class="text-body-lg text-white/90">
+          On intervient 24h/24, 7j/7.
+        </p>
+      </div>
+      
+      <div class="flex flex-col sm:flex-row items-center gap-4">
+        <a 
+          href={`tel:${siteConfig.contact.phoneFormatted}`}
+          class="inline-flex items-center gap-2 bg-white text-w4s-urgent font-bold px-6 py-3 rounded-xl hover:bg-white/90 transition-colors"
+        >
+          <Icon name="phone" size={20} />
+          Appeler maintenant
+        </a>
+        <Button variant="outline" href="/urgence" class="border-white text-white hover:bg-white hover:text-w4s-urgent">
+          Demande urgente
+          <Icon name="arrow-right" size={18} />
+        </Button>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,211 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/ui/Button.astro';
+import Input from '../components/ui/Input.astro';
+import Select from '../components/ui/Select.astro';
+import Textarea from '../components/ui/Textarea.astro';
+import Icon from '../components/ui/Icon.astro';
+import { siteConfig } from '../data/site.js';
+
+const urgencyTypes = [
+  { value: 'plomberie', label: 'Plomberie (fuite, débouchage)' },
+  { value: 'serrurerie', label: 'Serrurerie (porte claquée)' },
+  { value: 'electricite', label: 'Électricité (panne, court-circuit)' },
+  { value: 'autre', label: 'Autre urgence' }
+];
+
+const urgencies = [
+  'Fuite d\'eau / dégât des eaux',
+  'Canalisation bouchée',
+  'Panne de chauffe-eau',
+  'Porte claquée / serrure bloquée',
+  'Panne électrique / court-circuit',
+  'Vitre cassée (mise en sécurité)'
+];
+
+const engagements = [
+  'Intervention sous 2h (zone couverte)',
+  'Devis avant travaux, même en urgence',
+  'Pas de majoration abusive',
+  'Artisans certifiés et assurés'
+];
+---
+
+<BaseLayout 
+  title="Urgence dépannage 24h/24"
+  description="Besoin d'une intervention urgente ? Nos artisans interviennent sous 2h à Paris et Île-de-France. Plombier, serrurier, électricien disponibles 24h/24."
+  canonical="/urgence"
+>
+  <!-- Hero Urgence -->
+  <section class="bg-w4s-navy text-white py-16 md:py-24">
+    <div class="container-w4s">
+      <div class="max-w-3xl mx-auto text-center">
+        <!-- Badge urgence -->
+        <div class="inline-flex items-center gap-2 px-4 py-2 bg-w4s-urgent rounded-full text-white font-medium mb-6">
+          <span class="w-3 h-3 bg-white rounded-full animate-pulse"></span>
+          URGENCE 24H/24
+        </div>
+        
+        <h1 class="text-h1 md:text-display font-bold mb-6">
+          Intervention d'urgence<br/>en moins de 2 heures
+        </h1>
+        
+        <p class="text-body-lg text-white/80 mb-8">
+          Plomberie · Serrurerie · Électricité<br/>
+          Nos artisans sont disponibles maintenant.
+        </p>
+        
+        <!-- Numéro de téléphone -->
+        <a 
+          href={`tel:${siteConfig.contact.phoneFormatted}`}
+          class="inline-flex items-center gap-3 bg-w4s-urgent hover:bg-w4s-urgent-hover text-white font-bold text-h3 px-8 py-5 rounded-2xl transition-colors mb-6"
+        >
+          <Icon name="phone" size={28} />
+          {siteConfig.contact.phone}
+        </a>
+        
+        <p class="text-small text-white/60 mb-8">
+          Appel gratuit, réponse immédiate
+        </p>
+        
+        <div class="flex items-center justify-center gap-2 text-white/60">
+          <span class="w-8 h-px bg-white/30"></span>
+          <span class="text-small">ou</span>
+          <span class="w-8 h-px bg-white/30"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Formulaire Express -->
+  <section class="section bg-white">
+    <div class="container-w4s">
+      <div class="max-w-2xl mx-auto">
+        <h2 class="text-h2 font-bold text-w4s-navy mb-8 text-center">
+          Demande d'intervention urgente
+        </h2>
+        
+        <form 
+          action="https://formspree.io/f/YOUR_FORM_ID" 
+          method="POST"
+          class="space-y-6"
+        >
+          <input type="hidden" name="_subject" value="🚨 URGENCE - Nouvelle demande" />
+          <input type="text" name="_gotcha" style="display:none" />
+          
+          <Select 
+            name="type_urgence" 
+            label="Type d'urgence"
+            options={urgencyTypes}
+            placeholder="Sélectionnez le type d'urgence"
+            required
+          />
+          
+          <Textarea 
+            name="description" 
+            label="Description courte"
+            placeholder="Décrivez brièvement votre problème..."
+            rows={3}
+            required
+          />
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <Input 
+              name="adresse" 
+              label="Adresse"
+              placeholder="Votre adresse"
+              required
+            />
+            <Input 
+              name="code_postal" 
+              label="Code postal"
+              placeholder="75001"
+              required
+            />
+          </div>
+          
+          <Input 
+            type="tel" 
+            name="telephone" 
+            label="Téléphone"
+            placeholder="06 XX XX XX XX"
+            required
+            autocomplete="tel"
+          />
+          
+          <Button type="submit" variant="urgent" size="lg" fullWidth>
+            Envoyer ma demande urgente
+            <Icon name="arrow-right" size={20} />
+          </Button>
+          
+          <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-small text-w4s-navy/60">
+            <span class="flex items-center gap-1.5">
+              <Icon name="check" size={14} class="text-w4s-success" />
+              Rappel sous 15 min
+            </span>
+            <span class="flex items-center gap-1.5">
+              <Icon name="check" size={14} class="text-w4s-success" />
+              Devis avant intervention
+            </span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Urgences couvertes -->
+  <section class="section-sm bg-w4s-concrete/20">
+    <div class="container-w4s">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-h2 font-bold text-w4s-navy mb-8 text-center">
+          On intervient pour
+        </h2>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {urgencies.map((urgency) => (
+            <div class="flex items-center gap-3 bg-white rounded-xl p-4 shadow-card">
+              <div class="w-10 h-10 bg-w4s-urgent/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                <Icon name="alert-circle" size={20} class="text-w4s-urgent" />
+              </div>
+              <span class="text-body text-w4s-navy">{urgency}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Engagements -->
+  <section class="section bg-white">
+    <div class="container-w4s">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-h2 font-bold text-w4s-navy mb-8 text-center">
+          Nos engagements urgence
+        </h2>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {engagements.map((engagement) => (
+            <div class="flex items-center gap-3 p-4">
+              <Icon name="check-circle" size={24} class="text-w4s-success flex-shrink-0" />
+              <span class="text-body text-w4s-navy">{engagement}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- CTA Final -->
+  <section class="bg-w4s-urgent py-12">
+    <div class="container-w4s text-center text-white">
+      <p class="text-body-lg mb-4">Besoin d'aide maintenant ?</p>
+      <a 
+        href={`tel:${siteConfig.contact.phoneFormatted}`}
+        class="inline-flex items-center gap-2 text-h2 font-bold hover:underline"
+      >
+        <Icon name="phone" size={28} />
+        {siteConfig.contact.phone}
+      </a>
+    </div>
+  </section>
+</BaseLayout>

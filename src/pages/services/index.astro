@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/layout/Breadcrumb.astro';
+import Card from '../../components/ui/Card.astro';
+import Icon from '../../components/ui/Icon.astro';
+import Button from '../../components/ui/Button.astro';
+import EmergencyBand from '../../components/sections/EmergencyBand.astro';
+import { services } from '../../data/services.js';
+
+const breadcrumbs = [
+  { name: 'Services' }
+];
+---
+
+<BaseLayout 
+  title="Nos services"
+  description="Découvrez tous nos services : bricolage, plomberie, électricité, serrurerie, montage de meubles, maintenance. Artisans vérifiés, devis gratuit."
+  canonical="/services"
+>
+  <section class="section">
+    <div class="container-w4s">
+      <Breadcrumb items={breadcrumbs} />
+      
+      <!-- Header -->
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <h1 class="text-h1 font-bold text-w4s-navy mb-4">
+          Nos services
+        </h1>
+        <p class="text-body-lg text-w4s-navy/70">
+          Bricolage, plomberie, électricité, serrurerie... Des artisans vérifiés pour tous vos besoins à domicile.
+        </p>
+      </div>
+      
+      <!-- Services Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        {services.map((service) => (
+          <Card href={`/services/${service.slug}`} padding="lg" class="group">
+            <div class="flex flex-col h-full">
+              <!-- Icon -->
+              <div class="w-16 h-16 bg-w4s-accent/10 rounded-2xl flex items-center justify-center mb-5 group-hover:bg-w4s-accent/20 transition-colors">
+                <span class="text-3xl">{service.emoji}</span>
+              </div>
+              
+              <!-- Content -->
+              <h2 class="text-h3 font-semibold text-w4s-navy mb-3 group-hover:text-w4s-accent transition-colors">
+                {service.title}
+              </h2>
+              <p class="text-body text-w4s-navy/70 mb-4 flex-1">
+                {service.longDescription}
+              </p>
+              
+              <!-- Tarif indicatif -->
+              {service.tarifs[0] && (
+                <div class="mb-4 pb-4 border-b border-w4s-concrete">
+                  <span class="text-small text-w4s-steel">À partir de </span>
+                  <span class="text-h4 font-bold text-w4s-accent">{service.tarifs[0].prix}</span>
+                </div>
+              )}
+              
+              <!-- Link -->
+              <span class="inline-flex items-center gap-2 text-w4s-accent font-medium group-hover:gap-3 transition-all">
+                Voir les détails
+                <Icon name="arrow-right" size={18} />
+              </span>
+            </div>
+          </Card>
+        ))}
+      </div>
+      
+      <!-- CTA -->
+      <div class="text-center">
+        <p class="text-body text-w4s-navy/70 mb-4">
+          Vous ne trouvez pas ce que vous cherchez ?
+        </p>
+        <Button variant="primary" href="/contact">
+          Décrivez votre besoin
+          <Icon name="arrow-right" size={18} />
+        </Button>
+      </div>
+    </div>
+  </section>
+  
+  <EmergencyBand />
+</BaseLayout>

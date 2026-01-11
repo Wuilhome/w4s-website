@@ -1,0 +1,39 @@
+---
+export interface Props {
+  name: string;
+  label: string;
+  placeholder?: string;
+  rows?: number;
+  required?: boolean;
+  disabled?: boolean;
+  class?: string;
+}
+
+const {
+  name,
+  label,
+  placeholder = '',
+  rows = 4,
+  required = false,
+  disabled = false,
+  class: className = ''
+} = Astro.props;
+
+const textareaId = `textarea-${name}`;
+---
+
+<div class={`space-y-1.5 ${className}`}>
+  <label for={textareaId} class="block text-small font-medium text-w4s-navy">
+    {label}
+    {required && <span class="text-w4s-urgent ml-0.5">*</span>}
+  </label>
+  <textarea
+    id={textareaId}
+    name={name}
+    placeholder={placeholder}
+    rows={rows}
+    required={required}
+    disabled={disabled}
+    class="w-full px-4 py-3 border border-w4s-concrete rounded-xl text-w4s-navy placeholder:text-w4s-steel focus:outline-none focus:ring-2 focus:ring-w4s-accent focus:border-transparent transition-all duration-200 disabled:bg-w4s-concrete/30 disabled:cursor-not-allowed resize-y"
+  ></textarea>
+</div>

@@ -1,0 +1,131 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/layout/Breadcrumb.astro';
+import ContactForm from '../components/sections/ContactForm.astro';
+import Icon from '../components/ui/Icon.astro';
+import { siteConfig } from '../data/site.js';
+
+const breadcrumbs = [
+  { name: 'Contact' }
+];
+---
+
+<BaseLayout 
+  title="Contact"
+  description="Contactez W4S pour une demande d'intervention, un devis gratuit ou toute question. Réponse sous 30 minutes en heures ouvrées."
+  canonical="/contact"
+>
+  <section class="section">
+    <div class="container-w4s">
+      <Breadcrumb items={breadcrumbs} />
+      
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <!-- Form Column -->
+        <div class="lg:col-span-2">
+          <h1 class="text-h1 font-bold text-w4s-navy mb-4">
+            Demander une intervention
+          </h1>
+          <p class="text-body-lg text-w4s-navy/70 mb-8">
+            Remplissez le formulaire, nous vous recontactons sous 30 minutes en heures ouvrées.
+          </p>
+          
+          <ContactForm variant="full" />
+        </div>
+        
+        <!-- Sidebar -->
+        <div class="lg:col-span-1">
+          <div class="sticky top-24 space-y-6">
+            <!-- Contact direct -->
+            <div class="bg-w4s-concrete/20 rounded-2xl p-6">
+              <h2 class="text-h4 font-semibold text-w4s-navy mb-4">
+                Contact direct
+              </h2>
+              
+              <div class="space-y-4">
+                <a 
+                  href={`tel:${siteConfig.contact.phoneFormatted}`}
+                  class="flex items-center gap-3 p-3 bg-white rounded-xl hover:shadow-card transition-shadow"
+                >
+                  <div class="w-10 h-10 bg-w4s-accent/10 rounded-lg flex items-center justify-center">
+                    <Icon name="phone" size={20} class="text-w4s-accent" />
+                  </div>
+                  <div>
+                    <div class="font-medium text-w4s-navy">{siteConfig.contact.phone}</div>
+                    <div class="text-small text-w4s-navy/60">Appel gratuit</div>
+                  </div>
+                </a>
+                
+                <a 
+                  href={`mailto:${siteConfig.contact.email}`}
+                  class="flex items-center gap-3 p-3 bg-white rounded-xl hover:shadow-card transition-shadow"
+                >
+                  <div class="w-10 h-10 bg-w4s-accent/10 rounded-lg flex items-center justify-center">
+                    <Icon name="mail" size={20} class="text-w4s-accent" />
+                  </div>
+                  <div>
+                    <div class="font-medium text-w4s-navy">{siteConfig.contact.email}</div>
+                    <div class="text-small text-w4s-navy/60">Email</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+            
+            <!-- Horaires -->
+            <div class="bg-w4s-concrete/20 rounded-2xl p-6">
+              <h2 class="text-h4 font-semibold text-w4s-navy mb-4">
+                Horaires
+              </h2>
+              
+              <div class="space-y-2 text-body">
+                <div class="flex justify-between">
+                  <span class="text-w4s-navy/70">{siteConfig.hours.standard.days}</span>
+                  <span class="font-medium text-w4s-navy">{siteConfig.hours.standard.hours}</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-w4s-navy/70">{siteConfig.hours.saturday.days}</span>
+                  <span class="font-medium text-w4s-navy">{siteConfig.hours.saturday.hours}</span>
+                </div>
+                <div class="pt-2 mt-2 border-t border-w4s-concrete">
+                  <div class="flex justify-between">
+                    <span class="text-w4s-urgent font-medium">Urgences</span>
+                    <span class="font-medium text-w4s-urgent">{siteConfig.hours.emergency}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Zones -->
+            <div class="bg-w4s-concrete/20 rounded-2xl p-6">
+              <h2 class="text-h4 font-semibold text-w4s-navy mb-4">
+                Zones couvertes
+              </h2>
+              
+              <div class="flex flex-wrap gap-2">
+                {siteConfig.zones.slice(0, 4).map((zone) => (
+                  <span class="px-3 py-1 bg-white rounded-full text-small text-w4s-navy">
+                    {zone.split(' ')[0]}
+                  </span>
+                ))}
+              </div>
+              <a href="/zones" class="inline-flex items-center gap-1 text-small text-w4s-accent font-medium mt-3 hover:underline">
+                Voir toutes les zones
+                <Icon name="arrow-right" size={14} />
+              </a>
+            </div>
+            
+            <!-- Urgence banner -->
+            <div class="bg-w4s-urgent rounded-2xl p-6 text-white text-center">
+              <div class="text-small font-medium mb-2">URGENCE 24H/24</div>
+              <a 
+                href={`tel:${siteConfig.contact.phoneFormatted}`}
+                class="text-h3 font-bold hover:underline"
+              >
+                {siteConfig.contact.phone}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

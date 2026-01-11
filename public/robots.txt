@@ -1,0 +1,16 @@
+# robots.txt for W4S
+# https://w4s.fr
+
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://w4s.fr/sitemap-index.xml
+
+# Bloquer les pages non indexables
+Disallow: /mentions-legales
+Disallow: /politique-confidentialite
+
+# Bloquer les paramètres de tracking (optionnel)
+Disallow: /*?*utm_
+Disallow: /*?*ref=

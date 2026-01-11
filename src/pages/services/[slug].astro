@@ -1,0 +1,222 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/layout/Breadcrumb.astro';
+import Button from '../../components/ui/Button.astro';
+import Icon from '../../components/ui/Icon.astro';
+import Card from '../../components/ui/Card.astro';
+import EmergencyBand from '../../components/sections/EmergencyBand.astro';
+import { services, getServiceBySlug } from '../../data/services.js';
+import { generateServiceSchema, generateFAQSchema } from '../../utils/seo.js';
+
+export function getStaticPaths() {
+  return services.map(service => ({
+    params: { slug: service.slug },
+    props: { service }
+  }));
+}
+
+const { service } = Astro.props;
+
+const breadcrumbs = [
+  { name: 'Services', url: '/services' },
+  { name: service.shortTitle }
+];
+
+// Services associés (les autres services)
+const relatedServices = services.filter(s => s.slug !== service.slug).slice(0, 3);
+
+// JSON-LD
+const jsonLd = [
+  generateServiceSchema(service),
+  generateFAQSchema(service.faq)
+];
+---
+
+<BaseLayout 
+  title={service.metaTitle.replace(' | W4S', '')}
+  description={service.metaDescription}
+  canonical={`/services/${service.slug}`}
+  jsonLd={jsonLd}
+>
+  <!-- Hero Service -->
+  <section class="bg-gradient-to-b from-w4s-concrete/20 to-white py-12 md:py-20">
+    <div class="container-w4s">
+      <Breadcrumb items={breadcrumbs} />
+      
+      <div class="max-w-3xl">
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-w4s-accent/10 text-w4s-accent rounded-full text-small font-medium mb-4">
+          <span class="text-lg">{service.emoji}</span>
+          {service.shortTitle}
+        </div>
+        
+        <h1 class="text-h1 font-bold text-w4s-navy mb-4">
+          {service.title}
+        </h1>
+        
+        <p class="text-body-lg text-w4s-navy/70 mb-8">
+          {service.heroText}
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-4 mb-6">
+          <Button variant="primary" size="lg" href="/contact">
+            Demander un devis gratuit
+            <Icon name="arrow-right" size={20} />
+          </Button>
+          <Button variant="urgent" size="lg" href="/urgence">
+            <span class="w-2 h-2 bg-white rounded-full"></span>
+            Urgence {service.shortTitle.toLowerCase()}
+          </Button>
+        </div>
+        
+        <div class="flex flex-wrap items-center gap-x-6 gap-y-2 text-small text-w4s-navy/60">
+          <span class="flex items-center gap-1.5">
+            <Icon name="check" size={16} class="text-w4s-success" />
+            Intervention sous 2h possible
+          </span>
+          <span class="flex items-center gap-1.5">
+            <Icon name="check" size={16} class="text-w4s-success" />
+            Devis avant travaux
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Prestations -->
+  <section class="section bg-white">
+    <div class="container-w4s">
+      <h2 class="text-h2 font-bold text-w4s-navy mb-8">
+        Nos interventions {service.shortTitle.toLowerCase()}
+      </h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+        {service.prestations.map((prestation) => (
+          <div class="bg-w4s-concrete/20 rounded-2xl p-6">
+            <h3 class="text-h4 font-semibold text-w4s-navy mb-2">
+              {prestation.title}
+            </h3>
+            <p class="text-body text-w4s-navy/70 mb-3">
+              {prestation.description}
+            </p>
+            <span class="inline-flex items-center gap-1.5 text-small text-w4s-accent font-medium">
+              <Icon name="clock" size={14} />
+              {prestation.delay}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- Tarifs -->
+  <section class="section-sm bg-w4s-concrete/20">
+    <div class="container-w4s">
+      <h2 class="text-h2 font-bold text-w4s-navy mb-8">
+        Tarifs transparents
+      </h2>
+      
+      <div class="bg-white rounded-2xl shadow-card overflow-hidden mb-6">
+        <div class="overflow-x-auto">
+          <table class="w-full">
+            <thead class="bg-w4s-navy text-white">
+              <tr>
+                <th class="text-left px-6 py-4 font-semibold">Intervention</th>
+                <th class="text-left px-6 py-4 font-semibold">À partir de</th>
+                <th class="text-left px-6 py-4 font-semibold">Délai</th>
+              </tr>
+            </thead>
+            <tbody>
+              {service.tarifs.map((tarif, index) => (
+                <tr class={index % 2 === 0 ? 'bg-white' : 'bg-w4s-concrete/10'}>
+                  <td class="px-6 py-4 text-w4s-navy">{tarif.prestation}</td>
+                  <td class="px-6 py-4 font-semibold text-w4s-accent">{tarif.prix}</td>
+                  <td class="px-6 py-4 text-w4s-navy/70">{tarif.delai}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <div class="text-small text-w4s-navy/60 space-y-1">
+        <p>* Déplacement inclus dans la zone couverte.</p>
+        <p>* Devis gratuit et sans engagement.</p>
+        <p>* Tarifs TTC, TVA 10% (entretien/réparation).</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- FAQ Service -->
+  <section class="section bg-white">
+    <div class="container-w4s">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-h2 font-bold text-w4s-navy mb-8 text-center">
+          Questions sur {service.shortTitle.toLowerCase() === 'maintenance' ? 'la' : 'le/la'} {service.shortTitle.toLowerCase()}
+        </h2>
+        
+        <div class="space-y-4" itemscope itemtype="https://schema.org/FAQPage">
+          {service.faq.map((item) => (
+            <details class="group bg-w4s-concrete/20 rounded-xl" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+              <summary class="flex items-center justify-between gap-4 p-6 cursor-pointer list-none">
+                <span class="text-body font-medium text-w4s-navy text-left" itemprop="name">
+                  {item.question}
+                </span>
+                <Icon 
+                  name="chevron-down" 
+                  size={20} 
+                  class="text-w4s-steel flex-shrink-0 transition-transform group-open:rotate-180" 
+                />
+              </summary>
+              <div class="px-6 pb-6" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <p class="text-body text-w4s-navy/70" itemprop="text">
+                  {item.answer}
+                </p>
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- CTA Service -->
+  <section class="section-sm bg-w4s-navy text-white">
+    <div class="container-w4s text-center">
+      <h2 class="text-h2 font-bold mb-4">
+        Besoin d'un {service.shortTitle.toLowerCase() === 'maintenance' ? 'contrat de maintenance' : service.shortTitle.toLowerCase().includes('montage') ? 'monteur' : service.shortTitle.toLowerCase().slice(0, -1) + 'ier'}?
+      </h2>
+      <p class="text-body-lg text-white/80 mb-8">
+        Décrivez votre problème, on vous rappelle sous 30 minutes.
+      </p>
+      <Button variant="secondary" size="lg" href="/contact">
+        Demander un devis gratuit
+        <Icon name="arrow-right" size={20} />
+      </Button>
+    </div>
+  </section>
+  
+  <!-- Services associés -->
+  <section class="section bg-white">
+    <div class="container-w4s">
+      <h2 class="text-h2 font-bold text-w4s-navy mb-8 text-center">
+        Découvrez aussi
+      </h2>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        {relatedServices.map((related) => (
+          <Card href={`/services/${related.slug}`} padding="md" class="group text-center">
+            <div class="w-12 h-12 bg-w4s-accent/10 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:bg-w4s-accent/20 transition-colors">
+              <span class="text-xl">{related.emoji}</span>
+            </div>
+            <h3 class="text-h4 font-semibold text-w4s-navy group-hover:text-w4s-accent transition-colors">
+              {related.shortTitle}
+            </h3>
+          </Card>
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <EmergencyBand />
+</BaseLayout>

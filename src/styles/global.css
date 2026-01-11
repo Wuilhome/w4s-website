@@ -1,0 +1,138 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ========================================
+   W4S Design System - Global Styles
+   ======================================== */
+
+@layer base {
+  /* Typography */
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-white text-w4s-navy font-sans;
+  }
+
+  /* Headings */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold text-w4s-navy;
+  }
+
+  /* Links */
+  a {
+    @apply transition-colors duration-200;
+  }
+
+  /* Focus states for accessibility */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-w4s-accent;
+  }
+
+  /* Selection */
+  ::selection {
+    @apply bg-w4s-accent/20 text-w4s-navy;
+  }
+}
+
+@layer components {
+  /* Container */
+  .container-w4s {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .container-narrow {
+    @apply max-w-4xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Section spacing */
+  .section {
+    @apply py-16 md:py-24;
+  }
+
+  .section-sm {
+    @apply py-12 md:py-16;
+  }
+
+  /* Card base */
+  .card {
+    @apply bg-white rounded-2xl shadow-card transition-shadow duration-300;
+  }
+
+  .card:hover {
+    @apply shadow-card-hover;
+  }
+
+  /* Badge */
+  .badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-small font-medium;
+  }
+
+  .badge-primary {
+    @apply bg-w4s-accent/10 text-w4s-accent;
+  }
+
+  .badge-success {
+    @apply bg-w4s-success/10 text-w4s-success;
+  }
+
+  .badge-urgent {
+    @apply bg-w4s-urgent/10 text-w4s-urgent;
+  }
+
+  /* Prose for content */
+  .prose-w4s {
+    @apply text-w4s-navy/80 leading-relaxed;
+  }
+
+  .prose-w4s p {
+    @apply mb-4;
+  }
+
+  .prose-w4s ul {
+    @apply list-disc list-inside mb-4 space-y-2;
+  }
+
+  /* Skip link for accessibility */
+  .skip-link {
+    @apply absolute -top-10 left-4 z-50 bg-w4s-navy text-white px-4 py-2 rounded-b-lg;
+    @apply focus:top-0 transition-all duration-200;
+  }
+}
+
+@layer utilities {
+  /* Text balance */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    @apply bg-gradient-to-r from-w4s-navy to-w4s-accent bg-clip-text text-transparent;
+  }
+
+  /* Hide scrollbar */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

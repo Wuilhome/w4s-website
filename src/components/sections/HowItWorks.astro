@@ -1,0 +1,72 @@
+---
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+
+const steps = [
+  {
+    number: '1',
+    title: 'Décrivez votre besoin',
+    description: 'Formulaire en ligne ou appel, ça prend 2 minutes.',
+    icon: 'file-text'
+  },
+  {
+    number: '2',
+    title: 'Recevez un devis clair',
+    description: 'Tarif fixe communiqué avant intervention, sans surprise.',
+    icon: 'check-circle'
+  },
+  {
+    number: '3',
+    title: 'Intervention par un pro',
+    description: 'Artisan vérifié, travail garanti, vous êtes serein.',
+    icon: 'thumbs-up'
+  }
+];
+---
+
+<section class="section bg-w4s-concrete/20">
+  <div class="container-w4s">
+    <!-- Header -->
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <h2 class="text-h2 font-bold text-w4s-navy mb-4">
+        Simple, rapide, transparent
+      </h2>
+      <p class="text-body-lg text-w4s-navy/70">
+        En 3 étapes, votre problème est résolu.
+      </p>
+    </div>
+    
+    <!-- Steps -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 max-w-4xl mx-auto mb-12">
+      {steps.map((step, index) => (
+        <div class="relative text-center">
+          <!-- Connector line (hidden on mobile, visible on md+) -->
+          {index < steps.length - 1 && (
+            <div class="hidden md:block absolute top-8 left-1/2 w-full h-0.5 bg-w4s-concrete" style="transform: translateX(50%)"></div>
+          )}
+          
+          <!-- Step number -->
+          <div class="relative z-10 w-16 h-16 bg-w4s-navy text-white rounded-2xl flex items-center justify-center mx-auto mb-4 text-h3 font-bold">
+            {step.number}
+          </div>
+          
+          <!-- Content -->
+          <h3 class="text-h4 font-semibold text-w4s-navy mb-2">
+            {step.title}
+          </h3>
+          <p class="text-body text-w4s-navy/70">
+            {step.description}
+          </p>
+        </div>
+      ))}
+    </div>
+    
+    <!-- CTA -->
+    <div class="text-center">
+      <Button variant="ghost" href="/comment-ca-marche">
+        En savoir plus
+        <Icon name="arrow-right" size={18} />
+      </Button>
+    </div>
+  </div>
+</section>

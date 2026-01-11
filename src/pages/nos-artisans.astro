@@ -1,0 +1,179 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/layout/Breadcrumb.astro';
+import Button from '../components/ui/Button.astro';
+import Icon from '../components/ui/Icon.astro';
+import EmergencyBand from '../components/sections/EmergencyBand.astro';
+import { siteConfig } from '../data/site.js';
+
+const breadcrumbs = [
+  { name: 'Nos artisans' }
+];
+
+const selectionCriteria = [
+  {
+    title: 'Qualifications vérifiées',
+    description: 'Diplômes, certifications professionnelles (Qualibat, RGE, habilitations électriques...) contrôlés avant intégration.',
+    icon: 'file-text'
+  },
+  {
+    title: 'Assurances validées',
+    description: 'Responsabilité civile professionnelle et garantie décennale (si applicable) obligatoires et vérifiées annuellement.',
+    icon: 'shield-check'
+  },
+  {
+    title: 'Expérience confirmée',
+    description: 'Minimum 3 ans d\'exercice professionnel. Références et réalisations analysées.',
+    icon: 'users'
+  },
+  {
+    title: 'Évaluation continue',
+    description: 'Chaque intervention est notée par le client. Les artisans mal évalués sont exclus du réseau.',
+    icon: 'star'
+  }
+];
+
+const values = [
+  {
+    title: 'Ponctualité',
+    description: 'Arriver à l\'heure, prévenir en cas de retard.'
+  },
+  {
+    title: 'Propreté',
+    description: 'Protéger les lieux et nettoyer après intervention.'
+  },
+  {
+    title: 'Transparence',
+    description: 'Expliquer les travaux et justifier les coûts.'
+  },
+  {
+    title: 'Respect',
+    description: 'Courtoisie, écoute et professionnalisme.'
+  }
+];
+
+const stats = [
+  { value: siteConfig.stats.artisans, label: 'artisans dans le réseau' },
+  { value: '100%', label: 'certifiés et assurés' },
+  { value: siteConfig.stats.rating + '/5', label: 'note moyenne' },
+  { value: '<5%', label: 'taux de réclamation' }
+];
+---
+
+<BaseLayout 
+  title="Nos artisans"
+  description="Découvrez notre réseau d'artisans vérifiés : plombiers, électriciens, serruriers, bricoleurs. Certifiés, assurés, évalués par nos clients."
+  canonical="/nos-artisans"
+>
+  <section class="section">
+    <div class="container-w4s">
+      <Breadcrumb items={breadcrumbs} />
+      
+      <!-- Header -->
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <h1 class="text-h1 font-bold text-w4s-navy mb-4">
+          Des artisans de confiance
+        </h1>
+        <p class="text-body-lg text-w4s-navy/70">
+          Chez W4S, chaque professionnel est sélectionné avec rigueur pour vous garantir un service irréprochable.
+        </p>
+      </div>
+      
+      <!-- Stats -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+        {stats.map((stat) => (
+          <div class="text-center p-6 bg-w4s-concrete/20 rounded-2xl">
+            <div class="text-h2 font-bold text-w4s-accent mb-1">{stat.value}</div>
+            <div class="text-small text-w4s-navy/70">{stat.label}</div>
+          </div>
+        ))}
+      </div>
+      
+      <!-- Selection Process -->
+      <div class="mb-16">
+        <h2 class="text-h2 font-bold text-w4s-navy mb-8 text-center">
+          Notre processus de sélection
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {selectionCriteria.map((criterion) => (
+            <div class="flex gap-4 p-6 bg-white rounded-2xl shadow-card">
+              <div class="flex-shrink-0">
+                <div class="w-12 h-12 bg-w4s-accent/10 rounded-xl flex items-center justify-center">
+                  <Icon name={criterion.icon} size={24} class="text-w4s-accent" />
+                </div>
+              </div>
+              <div>
+                <h3 class="text-h4 font-semibold text-w4s-navy mb-2">
+                  {criterion.title}
+                </h3>
+                <p class="text-body text-w4s-navy/70">
+                  {criterion.description}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      
+      <!-- Values / Charter -->
+      <div class="max-w-3xl mx-auto mb-16">
+        <h2 class="text-h2 font-bold text-w4s-navy mb-8 text-center">
+          La charte W4S
+        </h2>
+        <p class="text-body-lg text-w4s-navy/70 text-center mb-8">
+          Tous nos artisans s'engagent à respecter nos valeurs fondamentales :
+        </p>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {values.map((value) => (
+            <div class="flex items-start gap-3 p-4 bg-w4s-concrete/20 rounded-xl">
+              <Icon name="check-circle" size={24} class="text-w4s-success flex-shrink-0" />
+              <div>
+                <h3 class="font-semibold text-w4s-navy">{value.title}</h3>
+                <p class="text-small text-w4s-navy/70">{value.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      
+      <!-- Testimonials mini -->
+      <div class="bg-w4s-navy rounded-3xl p-8 md:p-12 text-white text-center mb-16">
+        <h2 class="text-h2 font-bold mb-4">
+          Ce que disent nos clients
+        </h2>
+        <p class="text-body-lg text-white/80 mb-6">
+          {siteConfig.stats.reviewCount} avis vérifiés, note moyenne de {siteConfig.stats.rating}/5
+        </p>
+        <div class="flex justify-center gap-1 mb-6">
+          {[...Array(5)].map(() => (
+            <Icon name="star" size={24} class="text-yellow-400 fill-yellow-400" />
+          ))}
+        </div>
+        <blockquote class="text-body-lg italic text-white/90 max-w-xl mx-auto mb-4">
+          "{siteConfig.testimonials[0].text}"
+        </blockquote>
+        <p class="text-small text-white/60">
+          — {siteConfig.testimonials[0].author}, {siteConfig.testimonials[0].location}
+        </p>
+      </div>
+      
+      <!-- CTA -->
+      <div class="text-center">
+        <h2 class="text-h2 font-bold text-w4s-navy mb-4">
+          Vous êtes artisan ?
+        </h2>
+        <p class="text-body-lg text-w4s-navy/70 mb-6">
+          Rejoignez notre réseau et accédez à de nouvelles missions.
+        </p>
+        <Button variant="outline" href="/contact">
+          Candidater
+          <Icon name="arrow-right" size={18} />
+        </Button>
+      </div>
+    </div>
+  </section>
+  
+  <EmergencyBand />
+</BaseLayout>

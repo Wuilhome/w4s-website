@@ -1,0 +1,59 @@
+---
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+import { siteConfig } from '../../data/site.js';
+---
+
+<section class="relative overflow-hidden bg-gradient-to-b from-w4s-concrete/20 to-white">
+  <div class="container-w4s py-16 md:py-24 lg:py-32">
+    <div class="max-w-3xl mx-auto text-center">
+      <!-- Badge -->
+      <div class="inline-flex items-center gap-2 px-4 py-2 bg-w4s-accent/10 text-w4s-accent rounded-full text-small font-medium mb-6">
+        <span class="w-2 h-2 bg-w4s-success rounded-full"></span>
+        Artisans disponibles maintenant
+      </div>
+      
+      <!-- Heading -->
+      <h1 class="text-h1 md:text-display font-bold text-w4s-navy mb-6 text-balance">
+        Dépannage et bricolage, <span class="text-w4s-accent">simplifié.</span>
+      </h1>
+      
+      <!-- Subheading -->
+      <p class="text-body-lg text-w4s-navy/70 mb-8 max-w-2xl mx-auto">
+        Artisans vérifiés · Intervention rapide · Devis transparent
+      </p>
+      
+      <!-- CTAs -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
+        <Button variant="primary" size="lg" href="/contact">
+          Demander une intervention
+          <Icon name="arrow-right" size={20} />
+        </Button>
+        <Button variant="urgent" size="lg" href="/urgence">
+          <span class="w-2 h-2 bg-white rounded-full"></span>
+          Urgence 24/7
+        </Button>
+      </div>
+      
+      <!-- Trust badges -->
+      <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-small text-w4s-navy/60">
+        <span class="flex items-center gap-1.5">
+          <Icon name="check" size={16} class="text-w4s-success" />
+          Sans engagement
+        </span>
+        <span class="flex items-center gap-1.5">
+          <Icon name="check" size={16} class="text-w4s-success" />
+          Devis gratuit
+        </span>
+        <span class="flex items-center gap-1.5">
+          <Icon name="check" size={16} class="text-w4s-success" />
+          Pros certifiés
+        </span>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Decorative elements -->
+  <div class="absolute top-1/2 left-0 -translate-y-1/2 w-64 h-64 bg-w4s-accent/5 rounded-full blur-3xl -z-10"></div>
+  <div class="absolute top-1/4 right-0 w-96 h-96 bg-w4s-navy/5 rounded-full blur-3xl -z-10"></div>
+</section>

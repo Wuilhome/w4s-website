@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import StatsBar from '../components/sections/StatsBar.astro';
+import ServicesGrid from '../components/sections/ServicesGrid.astro';
+import HowItWorks from '../components/sections/HowItWorks.astro';
+import Promises from '../components/sections/Promises.astro';
+import Testimonials from '../components/sections/Testimonials.astro';
+import EmergencyBand from '../components/sections/EmergencyBand.astro';
+import ZonesPreview from '../components/sections/ZonesPreview.astro';
+import FaqPreview from '../components/sections/FaqPreview.astro';
+import CtaFinal from '../components/sections/CtaFinal.astro';
+import { generateHomePageSchema } from '../utils/seo.js';
+
+const jsonLd = generateHomePageSchema();
+---
+
+<BaseLayout 
+  canonical="/"
+  jsonLd={jsonLd}
+>
+  <Hero />
+  <StatsBar />
+  <ServicesGrid />
+  <HowItWorks />
+  <Promises />
+  <Testimonials />
+  <EmergencyBand />
+  <ZonesPreview />
+  <FaqPreview />
+  <CtaFinal />
+</BaseLayout>

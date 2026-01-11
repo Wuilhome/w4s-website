@@ -1,0 +1,40 @@
+---
+import Icon from '../ui/Icon.astro';
+import { siteConfig } from '../../data/site.js';
+
+const stats = [
+  {
+    icon: 'star',
+    value: siteConfig.stats.rating + '/5',
+    label: siteConfig.stats.reviewCount + ' avis'
+  },
+  {
+    icon: 'wrench',
+    value: siteConfig.stats.interventions,
+    label: 'interventions'
+  },
+  {
+    icon: 'users',
+    value: siteConfig.stats.artisans,
+    label: 'artisans vérifiés'
+  }
+];
+---
+
+<section class="bg-white border-y border-w4s-concrete/50">
+  <div class="container-w4s py-8">
+    <div class="flex flex-wrap items-center justify-center gap-8 md:gap-16">
+      {stats.map((stat) => (
+        <div class="flex items-center gap-3 text-center">
+          <div class="w-12 h-12 bg-w4s-accent/10 rounded-xl flex items-center justify-center">
+            <Icon name={stat.icon} size={24} class="text-w4s-accent" />
+          </div>
+          <div class="text-left">
+            <div class="text-h3 font-bold text-w4s-navy">{stat.value}</div>
+            <div class="text-small text-w4s-steel">{stat.label}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

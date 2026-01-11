@@ -1,0 +1,147 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/layout/Breadcrumb.astro';
+import Button from '../components/ui/Button.astro';
+import Icon from '../components/ui/Icon.astro';
+import EmergencyBand from '../components/sections/EmergencyBand.astro';
+import { faqItems, faqCategories } from '../data/faq.js';
+import { generateFAQSchema } from '../utils/seo.js';
+
+const breadcrumbs = [
+  { name: 'FAQ' }
+];
+
+const jsonLd = generateFAQSchema(faqItems);
+---
+
+<BaseLayout 
+  title="Questions fréquentes"
+  description="Retrouvez les réponses à toutes vos questions sur W4S : tarifs, délais, garanties, zones d'intervention, moyens de paiement et plus encore."
+  canonical="/faq"
+  jsonLd={jsonLd}
+>
+  <section class="section">
+    <div class="container-w4s">
+      <Breadcrumb items={breadcrumbs} />
+      
+      <!-- Header -->
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <h1 class="text-h1 font-bold text-w4s-navy mb-4">
+          Questions fréquentes
+        </h1>
+        <p class="text-body-lg text-w4s-navy/70">
+          Tout ce que vous devez savoir sur W4S et nos services.
+        </p>
+      </div>
+      
+      <!-- Category filters (optional, JS-enhanced) -->
+      <div class="flex flex-wrap justify-center gap-2 mb-10" id="faq-filters">
+        {faqCategories.map((cat) => (
+          <button 
+            type="button"
+            class="px-4 py-2 rounded-full text-small font-medium transition-colors faq-filter"
+            data-category={cat.id}
+          >
+            {cat.label}
+          </button>
+        ))}
+      </div>
+      
+      <!-- FAQ Items -->
+      <div class="max-w-3xl mx-auto mb-12">
+        <div class="space-y-4" itemscope itemtype="https://schema.org/FAQPage">
+          {faqItems.map((item) => (
+            <details 
+              class="group bg-white rounded-xl shadow-card faq-item"
+              data-category={item.category}
+              itemscope 
+              itemprop="mainEntity" 
+              itemtype="https://schema.org/Question"
+            >
+              <summary class="flex items-center justify-between gap-4 p-6 cursor-pointer list-none">
+                <span class="text-body font-medium text-w4s-navy text-left" itemprop="name">
+                  {item.question}
+                </span>
+                <Icon 
+                  name="chevron-down" 
+                  size={20} 
+                  class="text-w4s-steel flex-shrink-0 transition-transform group-open:rotate-180" 
+                />
+              </summary>
+              <div class="px-6 pb-6" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <p class="text-body text-w4s-navy/70" itemprop="text">
+                  {item.answer}
+                </p>
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+      
+      <!-- Contact CTA -->
+      <div class="max-w-2xl mx-auto text-center bg-w4s-concrete/20 rounded-3xl p-8">
+        <h2 class="text-h3 font-bold text-w4s-navy mb-4">
+          Vous n'avez pas trouvé votre réponse ?
+        </h2>
+        <p class="text-body text-w4s-navy/70 mb-6">
+          Notre équipe est disponible pour répondre à toutes vos questions.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <Button variant="primary" href="/contact">
+            Nous contacter
+            <Icon name="arrow-right" size={18} />
+          </Button>
+          <Button variant="ghost" href="tel:+33XXXXXXXXX">
+            <Icon name="phone" size={18} />
+            Appeler
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <EmergencyBand />
+</BaseLayout>
+
+<style>
+  .faq-filter {
+    background-color: transparent;
+    color: #0A1A2F;
+    border: 1px solid #CED2D4;
+  }
+  .faq-filter:hover,
+  .faq-filter.active {
+    background-color: #0A1A2F;
+    color: white;
+    border-color: #0A1A2F;
+  }
+  .faq-item.hidden {
+    display: none;
+  }
+</style>
+
+<script>
+  const filters = document.querySelectorAll('.faq-filter');
+  const items = document.querySelectorAll('.faq-item');
+
+  // Set initial active state
+  filters[0]?.classList.add('active');
+
+  filters.forEach(filter => {
+    filter.addEventListener('click', () => {
+      // Update active state
+      filters.forEach(f => f.classList.remove('active'));
+      filter.classList.add('active');
+
+      const category = filter.getAttribute('data-category');
+
+      items.forEach(item => {
+        if (category === 'all' || item.getAttribute('data-category') === category) {
+          item.classList.remove('hidden');
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+    });
+  });
+</script>

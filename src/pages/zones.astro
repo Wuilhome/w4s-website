@@ -1,0 +1,187 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/layout/Breadcrumb.astro';
+import Button from '../components/ui/Button.astro';
+import Icon from '../components/ui/Icon.astro';
+import EmergencyBand from '../components/sections/EmergencyBand.astro';
+import { siteConfig } from '../data/site.js';
+
+const breadcrumbs = [
+  { name: 'Zones d\'intervention' }
+];
+
+const zones = [
+  {
+    department: 'Paris (75)',
+    coverage: '100%',
+    urgency: true,
+    areas: ['Tous arrondissements']
+  },
+  {
+    department: 'Hauts-de-Seine (92)',
+    coverage: '100%',
+    urgency: true,
+    areas: ['Boulogne', 'Neuilly', 'Levallois', 'Issy', 'Nanterre', 'Courbevoie', 'et toutes communes']
+  },
+  {
+    department: 'Seine-Saint-Denis (93)',
+    coverage: '100%',
+    urgency: true,
+    areas: ['Saint-Denis', 'Montreuil', 'Bobigny', 'Pantin', 'Aubervilliers', 'et toutes communes']
+  },
+  {
+    department: 'Val-de-Marne (94)',
+    coverage: '100%',
+    urgency: true,
+    areas: ['Créteil', 'Vincennes', 'Vitry', 'Ivry', 'Saint-Maur', 'et toutes communes']
+  },
+  {
+    department: 'Yvelines (78)',
+    coverage: '80%',
+    urgency: true,
+    areas: ['Versailles', 'Saint-Germain', 'Poissy', 'Sartrouville', 'principales communes']
+  },
+  {
+    department: 'Essonne (91)',
+    coverage: '80%',
+    urgency: true,
+    areas: ['Évry', 'Massy', 'Corbeil', 'Savigny', 'principales communes']
+  },
+  {
+    department: 'Val-d\'Oise (95)',
+    coverage: '80%',
+    urgency: true,
+    areas: ['Cergy', 'Argenteuil', 'Sarcelles', 'Pontoise', 'principales communes']
+  },
+  {
+    department: 'Seine-et-Marne (77)',
+    coverage: '60%',
+    urgency: false,
+    areas: ['Meaux', 'Melun', 'Chelles', 'zone ouest principalement']
+  }
+];
+---
+
+<BaseLayout 
+  title="Zones d'intervention"
+  description="W4S intervient à Paris et dans toute l'Île-de-France. Découvrez nos zones de couverture pour le dépannage et bricolage à domicile."
+  canonical="/zones"
+>
+  <section class="section">
+    <div class="container-w4s">
+      <Breadcrumb items={breadcrumbs} />
+      
+      <!-- Header -->
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <h1 class="text-h1 font-bold text-w4s-navy mb-4">
+          Où intervenons-nous ?
+        </h1>
+        <p class="text-body-lg text-w4s-navy/70">
+          W4S couvre Paris et l'ensemble de l'Île-de-France. Vérifiez la disponibilité dans votre secteur.
+        </p>
+      </div>
+      
+      <!-- Map placeholder -->
+      <div class="bg-w4s-concrete/20 rounded-3xl p-8 mb-12 text-center">
+        <div class="w-full h-64 md:h-96 bg-w4s-concrete/50 rounded-2xl flex items-center justify-center mb-4">
+          <div class="text-center">
+            <Icon name="map-pin" size={48} class="text-w4s-steel mx-auto mb-2" />
+            <p class="text-w4s-steel">Carte interactive</p>
+            <p class="text-small text-w4s-steel/70">(à intégrer avec Google Maps ou Mapbox)</p>
+          </div>
+        </div>
+        <p class="text-small text-w4s-navy/60">
+          Zones couvertes en bleu — Intervention urgence disponible en zones vertes
+        </p>
+      </div>
+      
+      <!-- Zones List -->
+      <div class="mb-12">
+        <h2 class="text-h2 font-bold text-w4s-navy mb-8 text-center">
+          Détail par département
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {zones.map((zone) => (
+            <div class="bg-white rounded-2xl shadow-card p-6">
+              <div class="flex items-start justify-between mb-4">
+                <div class="flex items-center gap-3">
+                  <Icon name="map-pin" size={24} class="text-w4s-accent" />
+                  <h3 class="text-h4 font-semibold text-w4s-navy">
+                    {zone.department}
+                  </h3>
+                </div>
+                <div class="flex items-center gap-2">
+                  {zone.urgency && (
+                    <span class="px-2 py-1 bg-w4s-urgent/10 text-w4s-urgent text-small rounded-full font-medium">
+                      Urgence 24/7
+                    </span>
+                  )}
+                </div>
+              </div>
+              
+              <div class="mb-4">
+                <div class="flex items-center justify-between text-small mb-2">
+                  <span class="text-w4s-navy/70">Couverture</span>
+                  <span class="font-medium text-w4s-navy">{zone.coverage}</span>
+                </div>
+                <div class="w-full h-2 bg-w4s-concrete rounded-full overflow-hidden">
+                  <div 
+                    class="h-full bg-w4s-success rounded-full transition-all"
+                    style={`width: ${zone.coverage}`}
+                  ></div>
+                </div>
+              </div>
+              
+              <p class="text-small text-w4s-navy/70">
+                <span class="font-medium">Communes : </span>
+                {zone.areas.join(', ')}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+      
+      <!-- Info boxes -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+        <div class="bg-w4s-accent/10 rounded-2xl p-6">
+          <h3 class="text-h4 font-semibold text-w4s-navy mb-2 flex items-center gap-2">
+            <Icon name="clock" size={20} class="text-w4s-accent" />
+            Délais d'intervention
+          </h3>
+          <ul class="space-y-2 text-body text-w4s-navy/70">
+            <li><strong>Urgence :</strong> Sous 2h dans les zones éligibles</li>
+            <li><strong>Standard :</strong> 24-48h selon disponibilité</li>
+            <li><strong>Sur rendez-vous :</strong> Au créneau de votre choix</li>
+          </ul>
+        </div>
+        
+        <div class="bg-w4s-success/10 rounded-2xl p-6">
+          <h3 class="text-h4 font-semibold text-w4s-navy mb-2 flex items-center gap-2">
+            <Icon name="check-circle" size={20} class="text-w4s-success" />
+            Déplacement inclus
+          </h3>
+          <p class="text-body text-w4s-navy/70">
+            Les frais de déplacement sont inclus dans nos tarifs pour toutes les communes de notre zone de couverture. Pas de supplément caché.
+          </p>
+        </div>
+      </div>
+      
+      <!-- CTA -->
+      <div class="text-center bg-w4s-concrete/20 rounded-3xl p-8">
+        <h2 class="text-h3 font-bold text-w4s-navy mb-4">
+          Votre ville n'est pas listée ?
+        </h2>
+        <p class="text-body text-w4s-navy/70 mb-6">
+          Contactez-nous pour vérifier si nous pouvons intervenir chez vous.
+        </p>
+        <Button variant="primary" href="/contact">
+          Vérifier ma zone
+          <Icon name="arrow-right" size={18} />
+        </Button>
+      </div>
+    </div>
+  </section>
+  
+  <EmergencyBand />
+</BaseLayout>

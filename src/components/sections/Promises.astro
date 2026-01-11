@@ -1,0 +1,39 @@
+---
+import Icon from '../ui/Icon.astro';
+import { siteConfig } from '../../data/site.js';
+---
+
+<section class="section bg-white">
+  <div class="container-w4s">
+    <!-- Header -->
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <h2 class="text-h2 font-bold text-w4s-navy mb-4">
+        Pourquoi choisir W4S ?
+      </h2>
+      <p class="text-body-lg text-w4s-navy/70">
+        Des engagements concrets pour votre tranquillité.
+      </p>
+    </div>
+    
+    <!-- Promises Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+      {siteConfig.promises.map((promise) => (
+        <div class="flex gap-4 p-6 rounded-2xl bg-w4s-concrete/20 hover:bg-w4s-concrete/30 transition-colors">
+          <div class="flex-shrink-0">
+            <div class="w-12 h-12 bg-w4s-success/10 rounded-xl flex items-center justify-center">
+              <Icon name={promise.icon} size={24} class="text-w4s-success" />
+            </div>
+          </div>
+          <div>
+            <h3 class="text-h4 font-semibold text-w4s-navy mb-1">
+              {promise.title}
+            </h3>
+            <p class="text-body text-w4s-navy/70">
+              {promise.description}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

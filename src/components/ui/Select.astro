@@ -1,0 +1,43 @@
+---
+export interface Props {
+  name: string;
+  label: string;
+  options: { value: string; label: string }[];
+  placeholder?: string;
+  required?: boolean;
+  disabled?: boolean;
+  class?: string;
+}
+
+const {
+  name,
+  label,
+  options,
+  placeholder = 'Sélectionnez...',
+  required = false,
+  disabled = false,
+  class: className = ''
+} = Astro.props;
+
+const selectId = `select-${name}`;
+---
+
+<div class={`space-y-1.5 ${className}`}>
+  <label for={selectId} class="block text-small font-medium text-w4s-navy">
+    {label}
+    {required && <span class="text-w4s-urgent ml-0.5">*</span>}
+  </label>
+  <select
+    id={selectId}
+    name={name}
+    required={required}
+    disabled={disabled}
+    class="w-full px-4 py-3 border border-w4s-concrete rounded-xl text-w4s-navy bg-white focus:outline-none focus:ring-2 focus:ring-w4s-accent focus:border-transparent transition-all duration-200 disabled:bg-w4s-concrete/30 disabled:cursor-not-allowed appearance-none cursor-pointer"
+    style="background-image: url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%23A9B0B8%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3cpolyline points=%276 9 12 15 18 9%27%3e%3c/polyline%3e%3c/svg%3e'); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1em;"
+  >
+    <option value="" disabled selected>{placeholder}</option>
+    {options.map(option => (
+      <option value={option.value}>{option.label}</option>
+    ))}
+  </select>
+</div>

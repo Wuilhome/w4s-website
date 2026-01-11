@@ -1,0 +1,175 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/layout/Breadcrumb.astro';
+import Button from '../components/ui/Button.astro';
+import Icon from '../components/ui/Icon.astro';
+import EmergencyBand from '../components/sections/EmergencyBand.astro';
+
+const breadcrumbs = [
+  { name: 'Comment ça marche' }
+];
+
+const steps = [
+  {
+    number: '1',
+    title: 'Décrivez votre besoin',
+    description: 'Via notre formulaire en ligne ou par téléphone, expliquez-nous votre problème en quelques mots. Type d\'intervention, urgence ou non, localisation.',
+    details: [
+      'Formulaire disponible 24h/24',
+      'Appel gratuit et sans engagement',
+      'Description libre ou guidée'
+    ],
+    icon: 'file-text'
+  },
+  {
+    number: '2',
+    title: 'Recevez un devis clair',
+    description: 'En moins de 30 minutes (heures ouvrées), nous vous rappelons pour confirmer le besoin et vous communiquer un tarif précis. Pas de surprise.',
+    details: [
+      'Devis 100% gratuit',
+      'Tarif ferme avant intervention',
+      'Aucun engagement'
+    ],
+    icon: 'check-circle'
+  },
+  {
+    number: '3',
+    title: 'On planifie l\'intervention',
+    description: 'Vous validez le devis ? On cale un créneau qui vous convient. En urgence, intervention possible sous 2 heures dans les zones couvertes.',
+    details: [
+      'Créneau au choix',
+      'Urgence sous 2h possible',
+      'SMS de confirmation'
+    ],
+    icon: 'clock'
+  },
+  {
+    number: '4',
+    title: 'L\'artisan intervient',
+    description: 'Un professionnel vérifié se déplace chez vous. Il réalise les travaux, vous montre le résultat, et vous ne payez qu\'après validation.',
+    details: [
+      'Artisan certifié et assuré',
+      'Travail garanti',
+      'Paiement après intervention'
+    ],
+    icon: 'thumbs-up'
+  }
+];
+
+const guarantees = [
+  {
+    title: 'Artisans vérifiés',
+    description: 'Chaque professionnel est sélectionné sur ses compétences, certifications et assurances. Nous vérifions les avis après chaque intervention.',
+    icon: 'shield-check'
+  },
+  {
+    title: 'Tarifs transparents',
+    description: 'Le prix annoncé est le prix payé. Pas de frais cachés, pas de mauvaise surprise. Le devis détaille chaque ligne.',
+    icon: 'file-text'
+  },
+  {
+    title: 'Garantie satisfaction',
+    description: 'Si le travail n\'est pas conforme à ce qui était prévu, nous renvoyons un artisan pour corriger — sans frais supplémentaires.',
+    icon: 'thumbs-up'
+  },
+  {
+    title: 'Support réactif',
+    description: 'Une question, un problème ? Notre équipe est disponible 7j/7 pour vous accompagner avant, pendant et après l\'intervention.',
+    icon: 'headphones'
+  }
+];
+---
+
+<BaseLayout 
+  title="Comment ça marche"
+  description="Découvrez le fonctionnement de W4S : demande en ligne, devis gratuit, intervention rapide par des artisans vérifiés. Simple, transparent, garanti."
+  canonical="/comment-ca-marche"
+>
+  <section class="section">
+    <div class="container-w4s">
+      <Breadcrumb items={breadcrumbs} />
+      
+      <!-- Header -->
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <h1 class="text-h1 font-bold text-w4s-navy mb-4">
+          Comment ça marche
+        </h1>
+        <p class="text-body-lg text-w4s-navy/70">
+          De votre demande à l'intervention, tout est pensé pour vous simplifier la vie.
+        </p>
+      </div>
+      
+      <!-- Steps Timeline -->
+      <div class="max-w-3xl mx-auto mb-20">
+        {steps.map((step, index) => (
+          <div class="relative pl-16 pb-12 last:pb-0">
+            <!-- Vertical line -->
+            {index < steps.length - 1 && (
+              <div class="absolute left-6 top-14 bottom-0 w-0.5 bg-w4s-concrete"></div>
+            )}
+            
+            <!-- Step number -->
+            <div class="absolute left-0 top-0 w-12 h-12 bg-w4s-navy text-white rounded-xl flex items-center justify-center text-h4 font-bold">
+              {step.number}
+            </div>
+            
+            <!-- Content -->
+            <div class="bg-w4s-concrete/20 rounded-2xl p-6">
+              <h2 class="text-h3 font-semibold text-w4s-navy mb-3">
+                {step.title}
+              </h2>
+              <p class="text-body text-w4s-navy/70 mb-4">
+                {step.description}
+              </p>
+              <ul class="space-y-2">
+                {step.details.map((detail) => (
+                  <li class="flex items-center gap-2 text-small text-w4s-navy/80">
+                    <Icon name="check" size={16} class="text-w4s-success flex-shrink-0" />
+                    {detail}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))}
+      </div>
+      
+      <!-- CTA intermédiaire -->
+      <div class="text-center mb-20">
+        <Button variant="primary" size="lg" href="/contact">
+          Faire une demande
+          <Icon name="arrow-right" size={20} />
+        </Button>
+      </div>
+      
+      <!-- Guarantees -->
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-h2 font-bold text-w4s-navy mb-8 text-center">
+          Nos garanties
+        </h2>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {guarantees.map((guarantee) => (
+            <div class="flex gap-4 p-6 bg-white rounded-2xl shadow-card">
+              <div class="flex-shrink-0">
+                <div class="w-12 h-12 bg-w4s-success/10 rounded-xl flex items-center justify-center">
+                  <Icon name={guarantee.icon} size={24} class="text-w4s-success" />
+                </div>
+              </div>
+              <div>
+                <h3 class="text-h4 font-semibold text-w4s-navy mb-2">
+                  {guarantee.title}
+                </h3>
+                <p class="text-body text-w4s-navy/70">
+                  {guarantee.description}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <EmergencyBand />
+</BaseLayout>

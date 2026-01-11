@@ -1,0 +1,201 @@
+---
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+import { navigation, siteConfig } from '../../data/site.js';
+
+export interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = '/' } = Astro.props;
+---
+
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-nav">
+  <nav class="container-w4s" aria-label="Navigation principale">
+    <div class="flex items-center justify-between h-16 md:h-20">
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-2 font-bold text-xl text-w4s-navy">
+        <!-- Logo placeholder - remplacer par SVG -->
+        <span class="w-10 h-10 bg-w4s-navy rounded-lg flex items-center justify-center text-white font-bold">
+          W4S
+        </span>
+        <span class="hidden sm:inline">W4S</span>
+      </a>
+
+      <!-- Navigation Desktop -->
+      <div class="hidden lg:flex items-center gap-8">
+        {navigation.main.map((item) => (
+          <div class="relative group">
+            {item.hasDropdown ? (
+              <>
+                <button 
+                  class={`flex items-center gap-1 text-body font-medium transition-colors hover:text-w4s-accent ${currentPath.startsWith('/services') ? 'text-w4s-accent' : 'text-w4s-navy'}`}
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                >
+                  {item.name}
+                  <Icon name="chevron-down" size={16} class="transition-transform group-hover:rotate-180" />
+                </button>
+                <!-- Dropdown -->
+                <div class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                  <div class="bg-white rounded-xl shadow-card-hover py-2 min-w-[200px]">
+                    {navigation.services.map((service) => (
+                      <a 
+                        href={service.href}
+                        class={`block px-4 py-2 text-small hover:bg-w4s-concrete/30 transition-colors ${currentPath === service.href ? 'text-w4s-accent font-medium' : 'text-w4s-navy'}`}
+                      >
+                        {service.name}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </>
+            ) : (
+              <a 
+                href={item.href}
+                class={`text-body font-medium transition-colors hover:text-w4s-accent ${currentPath === item.href ? 'text-w4s-accent' : 'text-w4s-navy'}`}
+              >
+                {item.name}
+              </a>
+            )}
+          </div>
+        ))}
+      </div>
+
+      <!-- CTAs Desktop -->
+      <div class="hidden lg:flex items-center gap-3">
+        <Button variant="urgent" size="sm" href="/urgence">
+          <span class="w-2 h-2 bg-white rounded-full animate-pulse"></span>
+          Urgence
+        </Button>
+        <Button variant="primary" size="sm" href="/contact">
+          Demander
+          <Icon name="arrow-right" size={16} />
+        </Button>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button 
+        type="button"
+        class="lg:hidden p-2 text-w4s-navy hover:bg-w4s-concrete/30 rounded-lg transition-colors"
+        aria-label="Ouvrir le menu"
+        id="mobile-menu-button"
+      >
+        <Icon name="menu" size={24} />
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div 
+    id="mobile-menu" 
+    class="lg:hidden fixed inset-0 bg-white z-50 transform translate-x-full transition-transform duration-300"
+    aria-hidden="true"
+  >
+    <div class="flex flex-col h-full">
+      <!-- Mobile Header -->
+      <div class="flex items-center justify-between h-16 px-4 border-b border-w4s-concrete">
+        <a href="/" class="font-bold text-xl text-w4s-navy">W4S</a>
+        <button 
+          type="button"
+          class="p-2 text-w4s-navy hover:bg-w4s-concrete/30 rounded-lg transition-colors"
+          aria-label="Fermer le menu"
+          id="mobile-menu-close"
+        >
+          <Icon name="x" size={24} />
+        </button>
+      </div>
+
+      <!-- Mobile Navigation -->
+      <nav class="flex-1 overflow-y-auto p-4">
+        <div class="space-y-1">
+          {navigation.main.map((item) => (
+            <>
+              {item.hasDropdown ? (
+                <div class="space-y-1">
+                  <span class="block px-4 py-3 text-small font-medium text-w4s-steel uppercase tracking-wide">
+                    {item.name}
+                  </span>
+                  {navigation.services.map((service) => (
+                    <a 
+                      href={service.href}
+                      class={`block px-4 py-3 rounded-lg transition-colors ${currentPath === service.href ? 'bg-w4s-accent/10 text-w4s-accent font-medium' : 'text-w4s-navy hover:bg-w4s-concrete/30'}`}
+                    >
+                      {service.name}
+                    </a>
+                  ))}
+                </div>
+              ) : (
+                <a 
+                  href={item.href}
+                  class={`block px-4 py-3 rounded-lg transition-colors ${currentPath === item.href ? 'bg-w4s-accent/10 text-w4s-accent font-medium' : 'text-w4s-navy hover:bg-w4s-concrete/30'}`}
+                >
+                  {item.name}
+                </a>
+              )}
+            </>
+          ))}
+        </div>
+      </nav>
+
+      <!-- Mobile CTAs -->
+      <div class="p-4 border-t border-w4s-concrete space-y-3">
+        <Button variant="urgent" fullWidth href="/urgence">
+          <span class="w-2 h-2 bg-white rounded-full"></span>
+          Urgence 24/7
+        </Button>
+        <Button variant="primary" fullWidth href="/contact">
+          Demander une intervention
+        </Button>
+        <a href={`tel:${siteConfig.contact.phoneFormatted}`} class="flex items-center justify-center gap-2 text-w4s-navy font-medium py-3">
+          <Icon name="phone" size={18} />
+          {siteConfig.contact.phone}
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Sticky CTA (visible on scroll) -->
+<div class="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-w4s-concrete p-3 z-40 shadow-nav" id="mobile-sticky-cta">
+  <div class="flex gap-2">
+    <Button variant="urgent" size="sm" href="/urgence" class="flex-1">
+      Urgence
+    </Button>
+    <Button variant="primary" size="sm" href="/contact" class="flex-1">
+      Demander
+    </Button>
+  </div>
+</div>
+
+<script>
+  // Mobile menu toggle
+  const menuButton = document.getElementById('mobile-menu-button');
+  const menuClose = document.getElementById('mobile-menu-close');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  function openMenu() {
+    mobileMenu?.classList.remove('translate-x-full');
+    mobileMenu?.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenu() {
+    mobileMenu?.classList.add('translate-x-full');
+    mobileMenu?.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  menuButton?.addEventListener('click', openMenu);
+  menuClose?.addEventListener('click', closeMenu);
+
+  // Close menu on link click
+  mobileMenu?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  // Close on escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMenu();
+  });
+</script>

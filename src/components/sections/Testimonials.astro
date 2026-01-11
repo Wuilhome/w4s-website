@@ -1,0 +1,62 @@
+---
+import Icon from '../ui/Icon.astro';
+import { siteConfig } from '../../data/site.js';
+---
+
+<section class="section bg-w4s-navy text-white">
+  <div class="container-w4s">
+    <!-- Header -->
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <h2 class="text-h2 font-bold mb-4">
+        Ils nous font confiance
+      </h2>
+      <p class="text-body-lg text-w4s-steel">
+        Plus de {siteConfig.stats.reviewCount} clients satisfaits.
+      </p>
+    </div>
+    
+    <!-- Testimonials Carousel (simple version) -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {siteConfig.testimonials.slice(0, 3).map((testimonial) => (
+        <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
+          <!-- Stars -->
+          <div class="flex gap-1 mb-4">
+            {[...Array(testimonial.rating)].map(() => (
+              <Icon name="star" size={18} class="text-yellow-400 fill-yellow-400" />
+            ))}
+          </div>
+          
+          <!-- Quote -->
+          <blockquote class="text-body text-white/90 mb-6">
+            "{testimonial.text}"
+          </blockquote>
+          
+          <!-- Author -->
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-w4s-accent/20 rounded-full flex items-center justify-center text-w4s-accent font-semibold">
+              {testimonial.author.charAt(0)}
+            </div>
+            <div>
+              <div class="font-medium">{testimonial.author}</div>
+              <div class="text-small text-w4s-steel">{testimonial.location}</div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+    
+    <!-- Overall rating -->
+    <div class="mt-12 text-center">
+      <div class="inline-flex items-center gap-3 bg-white/5 rounded-full px-6 py-3">
+        <div class="flex gap-0.5">
+          {[...Array(5)].map(() => (
+            <Icon name="star" size={20} class="text-yellow-400 fill-yellow-400" />
+          ))}
+        </div>
+        <span class="text-body font-medium">
+          {siteConfig.stats.rating}/5 — {siteConfig.stats.reviewCount} avis vérifiés
+        </span>
+      </div>
+    </div>
+  </div>
+</section>

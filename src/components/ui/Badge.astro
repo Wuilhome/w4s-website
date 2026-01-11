@@ -1,0 +1,25 @@
+---
+export interface Props {
+  variant?: 'primary' | 'success' | 'urgent' | 'neutral';
+  class?: string;
+}
+
+const { variant = 'primary', class: className = '' } = Astro.props;
+
+const variants = {
+  primary: 'bg-w4s-accent/10 text-w4s-accent',
+  success: 'bg-w4s-success/10 text-w4s-success',
+  urgent: 'bg-w4s-urgent/10 text-w4s-urgent',
+  neutral: 'bg-w4s-concrete text-w4s-navy'
+};
+
+const classes = [
+  'badge',
+  variants[variant],
+  className
+].filter(Boolean).join(' ');
+---
+
+<span class={classes}>
+  <slot />
+</span>
