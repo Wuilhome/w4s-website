@@ -7,13 +7,13 @@ import tailwind from '@astrojs/tailwind';
 
 export default defineConfig({
   // IMPORTANT: Changez ces valeurs selon votre configuration
-  // Option 1: Site de projet (username.github.io/repo-name/)
-  // site: 'https://USERNAME.github.io',
-  // base: '/w4s-website',
+  // Option 1: GitHub Pages (Wuilhome.github.io/w4s-website/)
+  site: 'https://Wuilhome.github.io',
+  base: '/w4s-website',
 
-  // Option 2: Domaine personnalisé
-  site: 'https://w4s.fr',
-  base: '/',
+  // Option 2: Domaine personnalisé (décommenter si vous avez un domaine)
+  // site: 'https://w4s.fr',
+  // base: '/',
   
   integrations: [
     tailwind()
