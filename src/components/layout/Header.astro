@@ -15,12 +15,8 @@ const { currentPath = '/' } = Astro.props;
   <nav class="container-w4s" aria-label="Navigation principale">
     <div class="flex items-center justify-between h-16 md:h-20">
       <!-- Logo -->
-      <a href={url('/')} class="flex items-center gap-2 font-bold text-xl text-w4s-navy">
-        <!-- Logo placeholder - remplacer par SVG -->
-        <span class="w-10 h-10 bg-w4s-navy rounded-lg flex items-center justify-center text-white font-bold">
-          W4S
-        </span>
-        <span class="hidden sm:inline">W4S</span>
+      <a href={url('/')} class="flex items-center">
+        <img src={url('/images/logo-w4s.webp')} alt="W4S Service" class="h-12 md:h-14 w-auto" />
       </a>
 
       <!-- Navigation Desktop -->
@@ -96,7 +92,9 @@ const { currentPath = '/' } = Astro.props;
     <div class="flex flex-col h-full">
       <!-- Mobile Header -->
       <div class="flex items-center justify-between h-16 px-4 border-b border-w4s-concrete">
-        <a href={url('/')} class="font-bold text-xl text-w4s-navy">W4S</a>
+        <a href={url('/')}>
+          <img src={url('/images/logo-w4s.webp')} alt="W4S Service" class="h-10 w-auto" />
+        </a>
         <button 
           type="button"
           class="p-2 text-w4s-navy hover:bg-w4s-concrete/30 rounded-lg transition-colors"
