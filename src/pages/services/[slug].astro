@@ -4,6 +4,7 @@ import Breadcrumb from '../../components/layout/Breadcrumb.astro';
 import Button from '../../components/ui/Button.astro';
 import Icon from '../../components/ui/Icon.astro';
 import Card from '../../components/ui/Card.astro';
+import FloatingShapes3D from '../../components/ui/FloatingShapes3D.astro';
 import EmergencyBand from '../../components/sections/EmergencyBand.astro';
 import { services, getServiceBySlug } from '../../data/services.js';
 import { generateServiceSchema, generateFAQSchema } from '../../utils/seo.js';
@@ -31,146 +32,223 @@ const jsonLd = [
   generateServiceSchema(service),
   generateFAQSchema(service.faq)
 ];
+
+// Determine 3D variant based on service type
+const get3DVariant = (slug: string) => {
+  if (slug.includes('web') || slug.includes('seo')) return 'tech';
+  if (slug.includes('bricolage') || slug.includes('montage') || slug.includes('electricite')) return 'tools';
+  return 'creative';
+};
 ---
 
-<BaseLayout 
+<BaseLayout
   title={service.metaTitle.replace(' | W4S', '')}
   description={service.metaDescription}
   canonical={`/services/${service.slug}`}
   jsonLd={jsonLd}
 >
-  <!-- Hero Service -->
-  <section class="bg-gradient-to-b from-w4s-concrete/20 to-white py-12 md:py-20">
-    <div class="container-w4s">
+  <!-- Hero Service with 3D shapes -->
+  <section class="relative bg-gradient-to-b from-w4s-concrete/30 via-w4s-concrete/10 to-white py-16 md:py-24 overflow-hidden">
+    <FloatingShapes3D variant={get3DVariant(service.slug)} class="opacity-60" />
+
+    <div class="container-w4s relative z-10">
       <Breadcrumb items={breadcrumbs} />
-      
+
       <div class="max-w-3xl">
-        <!-- Badge -->
-        <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-w4s-accent/10 text-w4s-accent rounded-full text-small font-medium mb-4">
-          <span class="text-lg">{service.emoji}</span>
-          {service.shortTitle}
+        <!-- Badge with animation -->
+        <div class="scroll-animate inline-flex items-center gap-2 px-4 py-2 glass rounded-full text-small font-medium mb-6 shadow-lg">
+          <span class="text-2xl animate-bounce-subtle">{service.emoji}</span>
+          <span class="text-w4s-navy">{service.shortTitle}</span>
         </div>
-        
-        <h1 class="text-h1 font-bold text-w4s-navy mb-4">
+
+        <h1 class="scroll-animate stagger-1 text-4xl md:text-5xl lg:text-6xl font-bold text-w4s-navy mb-6 leading-tight">
           {service.title}
         </h1>
-        
-        <p class="text-body-lg text-w4s-navy/70 mb-8">
+
+        <p class="scroll-animate stagger-2 text-lg md:text-xl text-w4s-navy/70 mb-10 leading-relaxed">
           {service.heroText}
         </p>
-        
-        <div class="flex flex-col sm:flex-row gap-4 mb-6">
-          <Button variant="primary" size="lg" href={url('/contact')}>
-            Demander un devis gratuit
-            <Icon name="arrow-right" size={20} />
-          </Button>
-          <Button variant="urgent" size="lg" href={url('/urgence')}>
-            <span class="w-2 h-2 bg-white rounded-full"></span>
-            Urgence {service.shortTitle.toLowerCase()}
-          </Button>
+
+        <div class="scroll-animate stagger-3 flex flex-col sm:flex-row gap-4 mb-8">
+          <a
+            href={url('/contact')}
+            class="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-w4s-accent text-white font-semibold rounded-xl btn-shimmer btn-glow transition-all duration-300 hover:scale-105"
+          >
+            <span>Demander un devis gratuit</span>
+            <Icon name="arrow-right" size={20} class="transition-transform group-hover:translate-x-1" />
+          </a>
+          <a
+            href={url('/urgence')}
+            class="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-w4s-urgent text-white font-semibold rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-xl"
+          >
+            <span class="relative flex h-2.5 w-2.5">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-white"></span>
+            </span>
+            <span>Urgence {service.shortTitle.toLowerCase()}</span>
+          </a>
         </div>
-        
-        <div class="flex flex-wrap items-center gap-x-6 gap-y-2 text-small text-w4s-navy/60">
-          <span class="flex items-center gap-1.5">
-            <Icon name="check" size={16} class="text-w4s-success" />
-            Intervention sous 2h possible
+
+        <div class="scroll-animate stagger-4 flex flex-wrap items-center gap-x-6 gap-y-3">
+          <span class="flex items-center gap-2 px-4 py-2 bg-white/80 rounded-full shadow-sm">
+            <Icon name="clock" size={16} class="text-w4s-success" />
+            <span class="text-small font-medium text-w4s-navy/80">Intervention sous 2h possible</span>
           </span>
-          <span class="flex items-center gap-1.5">
+          <span class="flex items-center gap-2 px-4 py-2 bg-white/80 rounded-full shadow-sm">
             <Icon name="check" size={16} class="text-w4s-success" />
-            Devis avant travaux
+            <span class="text-small font-medium text-w4s-navy/80">Devis avant travaux</span>
           </span>
         </div>
       </div>
     </div>
   </section>
-  
-  <!-- Prestations -->
-  <section class="section bg-white">
+
+  <!-- Prestations with 3D cards -->
+  <section class="section bg-white relative overflow-hidden">
+    <div class="absolute inset-0 -z-10" aria-hidden="true">
+      <div class="absolute top-0 right-0 w-96 h-96 bg-w4s-accent/5 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-0 left-0 w-80 h-80 bg-w4s-navy/5 rounded-full blur-3xl"></div>
+    </div>
+
     <div class="container-w4s">
-      <h2 class="text-h2 font-bold text-w4s-navy mb-8">
-        Nos interventions {service.shortTitle.toLowerCase()}
-      </h2>
-      
+      <div class="text-center mb-12 scroll-animate">
+        <span class="inline-flex items-center gap-2 px-4 py-2 bg-w4s-accent/10 text-w4s-accent rounded-full text-small font-medium mb-6">
+          <Icon name="list" size={16} />
+          Prestations
+        </span>
+        <h2 class="text-h2 md:text-4xl font-bold text-w4s-navy">
+          Nos interventions <span class="gradient-text">{service.shortTitle.toLowerCase()}</span>
+        </h2>
+      </div>
+
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-        {service.prestations.map((prestation) => (
-          <div class="bg-w4s-concrete/20 rounded-2xl p-6">
-            <h3 class="text-h4 font-semibold text-w4s-navy mb-2">
-              {prestation.title}
-            </h3>
-            <p class="text-body text-w4s-navy/70 mb-3">
-              {prestation.description}
-            </p>
-            <span class="inline-flex items-center gap-1.5 text-small text-w4s-accent font-medium">
-              <Icon name="clock" size={14} />
-              {prestation.delay}
-            </span>
+        {service.prestations.map((prestation, index) => (
+          <div class={`scroll-animate stagger-${index + 1} card-3d-wrapper`}>
+            <div class="tilt-effect bg-gradient-to-br from-white to-w4s-concrete/30 rounded-2xl p-6 h-full border border-w4s-concrete/50 hover:border-w4s-accent/30 hover:shadow-lg transition-all duration-300 group">
+              <div class="flex items-start gap-4">
+                <div class="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-w4s-accent/20 to-w4s-accent/10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <Icon name="check-circle" size={24} class="text-w4s-accent" />
+                </div>
+                <div>
+                  <h3 class="text-h4 font-semibold text-w4s-navy mb-2 group-hover:text-w4s-accent transition-colors">
+                    {prestation.title}
+                  </h3>
+                  <p class="text-body text-w4s-navy/70 mb-3">
+                    {prestation.description}
+                  </p>
+                  <span class="inline-flex items-center gap-1.5 text-small text-w4s-accent font-medium">
+                    <Icon name="clock" size={14} />
+                    {prestation.delay}
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
         ))}
       </div>
     </div>
   </section>
-  
-  <!-- Tarifs -->
-  <section class="section-sm bg-w4s-concrete/20">
-    <div class="container-w4s">
-      <h2 class="text-h2 font-bold text-w4s-navy mb-8">
-        Tarifs transparents
-      </h2>
-      
-      <div class="bg-white rounded-2xl shadow-card overflow-hidden mb-6">
+
+  <!-- Tarifs with glassmorphism -->
+  <section class="section bg-gradient-to-b from-w4s-navy to-w4s-navy/95 relative overflow-hidden">
+    <div class="absolute inset-0 -z-10" aria-hidden="true">
+      <div class="absolute top-0 left-1/4 w-96 h-96 bg-w4s-accent/10 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-0 right-1/4 w-80 h-80 bg-white/5 rounded-full blur-3xl"></div>
+      <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:60px_60px]"></div>
+    </div>
+
+    <div class="container-w4s relative z-10">
+      <div class="text-center mb-12 scroll-animate">
+        <span class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 text-white rounded-full text-small font-medium mb-6 backdrop-blur-sm">
+          <Icon name="credit-card" size={16} />
+          Tarifs
+        </span>
+        <h2 class="text-h2 md:text-4xl font-bold text-white mb-4">
+          Tarifs <span class="text-w4s-accent">transparents</span>
+        </h2>
+        <p class="text-white/70">Pas de surprise, le prix est fixé avant intervention.</p>
+      </div>
+
+      <div class="scroll-animate glass-dark rounded-2xl overflow-hidden mb-8 shadow-2xl">
         <div class="overflow-x-auto">
           <table class="w-full">
-            <thead class="bg-w4s-navy text-white">
+            <thead class="bg-white/10">
               <tr>
-                <th class="text-left px-6 py-4 font-semibold">Intervention</th>
-                <th class="text-left px-6 py-4 font-semibold">À partir de</th>
-                <th class="text-left px-6 py-4 font-semibold">Délai</th>
+                <th class="text-left px-6 py-5 font-semibold text-white">Intervention</th>
+                <th class="text-left px-6 py-5 font-semibold text-white">À partir de</th>
+                <th class="text-left px-6 py-5 font-semibold text-white">Délai</th>
               </tr>
             </thead>
             <tbody>
               {service.tarifs.map((tarif, index) => (
-                <tr class={index % 2 === 0 ? 'bg-white' : 'bg-w4s-concrete/10'}>
-                  <td class="px-6 py-4 text-w4s-navy">{tarif.prestation}</td>
-                  <td class="px-6 py-4 font-semibold text-w4s-accent">{tarif.prix}</td>
-                  <td class="px-6 py-4 text-w4s-navy/70">{tarif.delai}</td>
+                <tr class={`border-t border-white/10 hover:bg-white/5 transition-colors ${index % 2 === 0 ? 'bg-transparent' : 'bg-white/[0.02]'}`}>
+                  <td class="px-6 py-4 text-white">{tarif.prestation}</td>
+                  <td class="px-6 py-4 font-bold text-w4s-accent text-lg">{tarif.prix}</td>
+                  <td class="px-6 py-4 text-white/70">{tarif.delai}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
       </div>
-      
-      <div class="text-small text-w4s-navy/60 space-y-1">
-        <p>* Déplacement inclus dans la zone couverte.</p>
-        <p>* Devis gratuit et sans engagement.</p>
-        <p>* Tarifs TTC, TVA 10% (entretien/réparation).</p>
+
+      <div class="scroll-animate flex flex-wrap justify-center gap-4 text-small text-white/60">
+        <span class="flex items-center gap-2">
+          <Icon name="check" size={14} class="text-w4s-success" />
+          Déplacement inclus
+        </span>
+        <span class="flex items-center gap-2">
+          <Icon name="check" size={14} class="text-w4s-success" />
+          Devis gratuit
+        </span>
+        <span class="flex items-center gap-2">
+          <Icon name="check" size={14} class="text-w4s-success" />
+          TVA 10% incluse
+        </span>
       </div>
     </div>
   </section>
-  
-  <!-- FAQ Service -->
-  <section class="section bg-white">
+
+  <!-- FAQ Service with animations -->
+  <section class="section bg-gradient-to-b from-white to-w4s-concrete/20 relative overflow-hidden">
+    <div class="absolute inset-0 -z-10" aria-hidden="true">
+      <div class="absolute top-1/2 left-0 w-64 h-64 bg-w4s-accent/5 rounded-full blur-3xl"></div>
+    </div>
+
     <div class="container-w4s">
       <div class="max-w-3xl mx-auto">
-        <h2 class="text-h2 font-bold text-w4s-navy mb-8 text-center">
-          Questions sur {service.shortTitle.toLowerCase() === 'maintenance' ? 'la' : 'le/la'} {service.shortTitle.toLowerCase()}
-        </h2>
-        
+        <div class="text-center mb-12 scroll-animate">
+          <span class="inline-flex items-center gap-2 px-4 py-2 bg-w4s-accent/10 text-w4s-accent rounded-full text-small font-medium mb-6">
+            <Icon name="help-circle" size={16} />
+            FAQ
+          </span>
+          <h2 class="text-h2 md:text-4xl font-bold text-w4s-navy">
+            Questions <span class="gradient-text">fréquentes</span>
+          </h2>
+        </div>
+
         <div class="space-y-4" itemscope itemtype="https://schema.org/FAQPage">
-          {service.faq.map((item) => (
-            <details class="group bg-w4s-concrete/20 rounded-xl" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          {service.faq.map((item, index) => (
+            <details class={`scroll-animate stagger-${index + 1} group bg-white rounded-2xl shadow-card hover:shadow-card-hover transition-all duration-300 overflow-hidden`} itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
               <summary class="flex items-center justify-between gap-4 p-6 cursor-pointer list-none">
-                <span class="text-body font-medium text-w4s-navy text-left" itemprop="name">
-                  {item.question}
-                </span>
-                <Icon 
-                  name="chevron-down" 
-                  size={20} 
-                  class="text-w4s-steel flex-shrink-0 transition-transform group-open:rotate-180" 
-                />
+                <div class="flex items-center gap-4">
+                  <span class="flex-shrink-0 w-10 h-10 bg-w4s-accent/10 rounded-xl flex items-center justify-center text-w4s-accent font-bold">
+                    {index + 1}
+                  </span>
+                  <span class="text-body font-semibold text-w4s-navy text-left group-hover:text-w4s-accent transition-colors" itemprop="name">
+                    {item.question}
+                  </span>
+                </div>
+                <div class="flex-shrink-0 w-10 h-10 bg-w4s-concrete/50 rounded-xl flex items-center justify-center group-hover:bg-w4s-accent/10 transition-colors">
+                  <Icon
+                    name="chevron-down"
+                    size={20}
+                    class="text-w4s-steel transition-transform duration-300 group-open:rotate-180 group-hover:text-w4s-accent"
+                  />
+                </div>
               </summary>
               <div class="px-6 pb-6" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-                <p class="text-body text-w4s-navy/70" itemprop="text">
+                <p class="pl-14 text-body text-w4s-navy/70 leading-relaxed border-l-2 border-w4s-accent/20" itemprop="text">
                   {item.answer}
                 </p>
               </div>
@@ -180,44 +258,99 @@ const jsonLd = [
       </div>
     </div>
   </section>
-  
-  <!-- CTA Service -->
-  <section class="section-sm bg-w4s-navy text-white">
-    <div class="container-w4s text-center">
-      <h2 class="text-h2 font-bold mb-4">
-        Besoin d'un {service.shortTitle.toLowerCase() === 'maintenance' ? 'contrat de maintenance' : service.shortTitle.toLowerCase().includes('montage') ? 'monteur' : service.shortTitle.toLowerCase().slice(0, -1) + 'ier'}?
+
+  <!-- CTA Service with gradient animation -->
+  <section class="section bg-gradient-to-r from-w4s-accent via-blue-600 to-w4s-accent bg-[length:200%_100%] animate-gradient relative overflow-hidden">
+    <div class="absolute inset-0 -z-10" aria-hidden="true">
+      <div class="absolute top-10 left-[10%] w-20 h-20 bg-white/10 rounded-full blur-xl floating-element"></div>
+      <div class="absolute bottom-10 right-[15%] w-32 h-32 bg-white/10 rounded-full blur-xl floating-element-delayed"></div>
+      <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:40px_40px]"></div>
+    </div>
+
+    <div class="container-w4s text-center relative z-10">
+      <div class="scroll-animate mb-8">
+        <div class="inline-flex items-center justify-center w-20 h-20 bg-white/20 backdrop-blur-sm rounded-2xl shadow-lg">
+          <span class="text-4xl">{service.emoji}</span>
+        </div>
+      </div>
+      <h2 class="scroll-animate stagger-1 text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
+        Besoin d'un expert {service.shortTitle.toLowerCase()} ?
       </h2>
-      <p class="text-body-lg text-white/80 mb-8">
-        Décrivez votre problème, on vous rappelle sous 30 minutes.
+      <p class="scroll-animate stagger-2 text-lg md:text-xl text-white/90 mb-10 max-w-xl mx-auto">
+        Décrivez votre besoin, on vous rappelle sous 30 minutes.
       </p>
-      <Button variant="secondary" size="lg" href={url('/contact')}>
-        Demander un devis gratuit
-        <Icon name="arrow-right" size={20} />
-      </Button>
+      <div class="scroll-animate stagger-3">
+        <a
+          href={url('/contact')}
+          class="group inline-flex items-center gap-2 px-8 py-4 bg-white text-w4s-accent font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+        >
+          <span>Demander un devis gratuit</span>
+          <Icon name="arrow-right" size={20} class="transition-transform group-hover:translate-x-1" />
+        </a>
+      </div>
     </div>
   </section>
-  
-  <!-- Services associés -->
-  <section class="section bg-white">
+
+  <!-- Services associés with 3D hover -->
+  <section class="section bg-white relative overflow-hidden">
+    <div class="absolute inset-0 -z-10" aria-hidden="true">
+      <div class="absolute bottom-0 left-1/4 w-96 h-96 bg-w4s-accent/5 rounded-full blur-3xl"></div>
+    </div>
+
     <div class="container-w4s">
-      <h2 class="text-h2 font-bold text-w4s-navy mb-8 text-center">
-        Découvrez aussi
-      </h2>
-      
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        {relatedServices.map((related) => (
-          <Card href={url(`/services/${related.slug}`)} padding="md" class="group text-center">
-            <div class="w-12 h-12 bg-w4s-accent/10 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:bg-w4s-accent/20 transition-colors">
-              <span class="text-xl">{related.emoji}</span>
-            </div>
-            <h3 class="text-h4 font-semibold text-w4s-navy group-hover:text-w4s-accent transition-colors">
-              {related.shortTitle}
-            </h3>
-          </Card>
+      <div class="text-center mb-12 scroll-animate">
+        <h2 class="text-h2 md:text-4xl font-bold text-w4s-navy">
+          Découvrez <span class="gradient-text">aussi</span>
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
+        {relatedServices.map((related, index) => (
+          <div class={`scroll-animate stagger-${index + 1}`}>
+            <a
+              href={url(`/services/${related.slug}`)}
+              class="tilt-effect block bg-white rounded-2xl p-8 shadow-card hover:shadow-card-hover transition-all duration-300 text-center group border border-transparent hover:border-w4s-accent/20"
+            >
+              <div class="relative w-16 h-16 mx-auto mb-4">
+                <div class="absolute inset-0 bg-w4s-accent/20 rounded-2xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div class="relative w-16 h-16 bg-gradient-to-br from-w4s-accent/10 to-w4s-accent/5 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <span class="text-3xl">{related.emoji}</span>
+                </div>
+              </div>
+              <h3 class="text-h4 font-bold text-w4s-navy group-hover:text-w4s-accent transition-colors mb-2">
+                {related.shortTitle}
+              </h3>
+              <p class="text-small text-w4s-navy/60 mb-4 line-clamp-2">
+                {related.description}
+              </p>
+              <span class="inline-flex items-center gap-1 text-w4s-accent font-semibold text-small">
+                Découvrir
+                <Icon name="arrow-right" size={14} class="transition-transform group-hover:translate-x-1" />
+              </span>
+            </a>
+          </div>
         ))}
       </div>
     </div>
   </section>
-  
+
   <EmergencyBand />
 </BaseLayout>
+
+<style>
+  @keyframes gradient {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  .animate-gradient {
+    animation: gradient 8s ease infinite;
+  }
+
+  @keyframes bounce-subtle {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+  }
+  .animate-bounce-subtle {
+    animation: bounce-subtle 2s ease-in-out infinite;
+  }
+</style>

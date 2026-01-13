@@ -4,6 +4,7 @@ import Breadcrumb from '../../components/layout/Breadcrumb.astro';
 import Card from '../../components/ui/Card.astro';
 import Icon from '../../components/ui/Icon.astro';
 import Button from '../../components/ui/Button.astro';
+import FloatingShapes3D from '../../components/ui/FloatingShapes3D.astro';
 import EmergencyBand from '../../components/sections/EmergencyBand.astro';
 import { services } from '../../data/services.js';
 import { url } from '../../utils/url.js';
@@ -18,68 +19,99 @@ const breadcrumbs = [
   description="Découvrez tous nos services : bricolage, plomberie, électricité, serrurerie, montage de meubles, maintenance. Artisans vérifiés, devis gratuit."
   canonical="/services"
 >
-  <section class="section">
-    <div class="container-w4s">
+  <!-- Hero section -->
+  <section class="relative bg-gradient-to-b from-w4s-concrete/30 via-w4s-concrete/10 to-white py-16 md:py-24 overflow-hidden">
+    <FloatingShapes3D variant="default" class="opacity-50" />
+
+    <div class="container-w4s relative z-10">
       <Breadcrumb items={breadcrumbs} />
 
       <!-- Header -->
-      <div class="text-center max-w-2xl mx-auto mb-12">
-        <h1 class="text-h1 font-bold text-w4s-navy mb-4">
-          Nos services
-        </h1>
-        <p class="text-body-lg text-w4s-navy/70">
-          Bricolage, plomberie, électricité, serrurerie... Des artisans vérifiés pour tous vos besoins à domicile.
-        </p>
-      </div>
+      <div class="text-center max-w-3xl mx-auto">
+        <div class="scroll-animate inline-flex items-center gap-2 px-4 py-2 glass rounded-full text-small font-medium mb-6 shadow-lg">
+          <Icon name="grid" size={16} class="text-w4s-accent" />
+          <span class="text-w4s-navy">Tous nos services</span>
+        </div>
 
-      <!-- Services Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-        {services.map((service) => (
-          <Card href={url(`/services/${service.slug}`)} padding="lg" class="group">
-            <div class="flex flex-col h-full">
-              <!-- Icon -->
-              <div class="w-16 h-16 bg-w4s-accent/10 rounded-2xl flex items-center justify-center mb-5 group-hover:bg-w4s-accent/20 transition-colors">
-                <span class="text-3xl">{service.emoji}</span>
-              </div>
-              
-              <!-- Content -->
-              <h2 class="text-h3 font-semibold text-w4s-navy mb-3 group-hover:text-w4s-accent transition-colors">
-                {service.title}
-              </h2>
-              <p class="text-body text-w4s-navy/70 mb-4 flex-1">
-                {service.longDescription}
-              </p>
-              
-              <!-- Tarif indicatif -->
-              {service.tarifs[0] && (
-                <div class="mb-4 pb-4 border-b border-w4s-concrete">
-                  <span class="text-small text-w4s-steel">À partir de </span>
-                  <span class="text-h4 font-bold text-w4s-accent">{service.tarifs[0].prix}</span>
-                </div>
-              )}
-              
-              <!-- Link -->
-              <span class="inline-flex items-center gap-2 text-w4s-accent font-medium group-hover:gap-3 transition-all">
-                Voir les détails
-                <Icon name="arrow-right" size={18} />
-              </span>
-            </div>
-          </Card>
-        ))}
-      </div>
-      
-      <!-- CTA -->
-      <div class="text-center">
-        <p class="text-body text-w4s-navy/70 mb-4">
-          Vous ne trouvez pas ce que vous cherchez ?
+        <h1 class="scroll-animate stagger-1 text-4xl md:text-5xl lg:text-6xl font-bold text-w4s-navy mb-6 leading-tight">
+          Des <span class="gradient-text-animated">experts</span> pour chaque besoin
+        </h1>
+
+        <p class="scroll-animate stagger-2 text-lg md:text-xl text-w4s-navy/70 max-w-2xl mx-auto">
+          Du digital au bricolage, des artisans vérifiés interviennent pour tous vos projets avec expertise et passion.
         </p>
-        <Button variant="primary" href={url('/contact')}>
-          Décrivez votre besoin
-          <Icon name="arrow-right" size={18} />
-        </Button>
       </div>
     </div>
   </section>
-  
+
+  <!-- Services Grid -->
+  <section class="section bg-white relative overflow-hidden">
+    <div class="absolute inset-0 -z-10" aria-hidden="true">
+      <div class="absolute top-0 right-0 w-96 h-96 bg-w4s-accent/5 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-0 left-0 w-80 h-80 bg-w4s-navy/5 rounded-full blur-3xl"></div>
+    </div>
+
+    <div class="container-w4s">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        {services.map((service, index) => (
+          <div class={`scroll-animate stagger-${(index % 6) + 1} card-3d-wrapper`}>
+            <a
+              href={url(`/services/${service.slug}`)}
+              class="tilt-effect block bg-white rounded-2xl p-6 h-full shadow-card hover:shadow-card-hover transition-all duration-300 border border-transparent hover:border-w4s-accent/20 group"
+            >
+              <div class="flex flex-col h-full">
+                <!-- Icon with glow -->
+                <div class="relative w-16 h-16 mb-5">
+                  <div class="absolute inset-0 bg-w4s-accent/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div class="relative w-16 h-16 bg-gradient-to-br from-w4s-accent/10 to-w4s-accent/5 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <span class="text-3xl">{service.emoji}</span>
+                  </div>
+                </div>
+
+                <!-- Content -->
+                <h2 class="text-h3 font-bold text-w4s-navy mb-3 group-hover:text-w4s-accent transition-colors">
+                  {service.title}
+                </h2>
+                <p class="text-body text-w4s-navy/70 mb-6 flex-1 leading-relaxed">
+                  {service.longDescription}
+                </p>
+
+                <!-- Tarif indicatif -->
+                {service.tarifs[0] && (
+                  <div class="mb-5 pb-5 border-b border-w4s-concrete/50">
+                    <span class="text-small text-w4s-steel">À partir de </span>
+                    <span class="text-h4 font-bold text-w4s-accent">{service.tarifs[0].prix}</span>
+                  </div>
+                )}
+
+                <!-- Link -->
+                <span class="inline-flex items-center gap-2 text-w4s-accent font-semibold">
+                  <span class="underline-animate">Voir les détails</span>
+                  <Icon name="arrow-right" size={18} class="transition-transform duration-300 group-hover:translate-x-2" />
+                </span>
+              </div>
+            </a>
+          </div>
+        ))}
+      </div>
+
+      <!-- CTA -->
+      <div class="text-center scroll-animate">
+        <div class="inline-flex flex-col items-center glass rounded-2xl p-8 shadow-lg">
+          <p class="text-body text-w4s-navy/70 mb-4">
+            Vous ne trouvez pas ce que vous cherchez ?
+          </p>
+          <a
+            href={url('/contact')}
+            class="group inline-flex items-center gap-2 px-6 py-3 bg-w4s-accent text-white font-semibold rounded-xl btn-shimmer btn-glow transition-all duration-300 hover:scale-105"
+          >
+            <span>Décrivez votre besoin</span>
+            <Icon name="arrow-right" size={18} class="transition-transform group-hover:translate-x-1" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <EmergencyBand />
 </BaseLayout>

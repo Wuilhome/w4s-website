@@ -1,0 +1,197 @@
+---
+/**
+ * FloatingShapes3D - Animated 3D floating shapes background
+ * Uses pure CSS 3D transforms for performance
+ */
+export interface Props {
+  variant?: 'default' | 'tech' | 'tools' | 'creative';
+  class?: string;
+}
+
+const { variant = 'default', class: className = '' } = Astro.props;
+
+const shapes = {
+  default: [
+    { type: 'cube', size: 60, color: 'from-blue-400/20 to-blue-600/20', delay: 0, duration: 20, x: 10, y: 20 },
+    { type: 'sphere', size: 80, color: 'from-purple-400/20 to-purple-600/20', delay: 2, duration: 25, x: 80, y: 15 },
+    { type: 'pyramid', size: 50, color: 'from-green-400/20 to-green-600/20', delay: 4, duration: 22, x: 20, y: 70 },
+    { type: 'ring', size: 70, color: 'from-orange-400/20 to-orange-600/20', delay: 1, duration: 28, x: 75, y: 60 },
+    { type: 'cube', size: 40, color: 'from-cyan-400/20 to-cyan-600/20', delay: 3, duration: 18, x: 50, y: 40 },
+  ],
+  tech: [
+    { type: 'cube', size: 70, color: 'from-blue-500/25 to-indigo-500/25', delay: 0, duration: 20, x: 15, y: 25 },
+    { type: 'cube', size: 50, color: 'from-cyan-400/20 to-blue-500/20', delay: 3, duration: 25, x: 85, y: 20 },
+    { type: 'ring', size: 90, color: 'from-purple-400/15 to-blue-400/15', delay: 1, duration: 30, x: 70, y: 65 },
+    { type: 'sphere', size: 60, color: 'from-blue-400/20 to-cyan-400/20', delay: 2, duration: 22, x: 25, y: 75 },
+  ],
+  tools: [
+    { type: 'cube', size: 80, color: 'from-orange-400/25 to-amber-500/25', delay: 0, duration: 22, x: 10, y: 30 },
+    { type: 'pyramid', size: 60, color: 'from-yellow-400/20 to-orange-400/20', delay: 2, duration: 26, x: 80, y: 25 },
+    { type: 'ring', size: 70, color: 'from-red-400/15 to-orange-400/15', delay: 4, duration: 28, x: 30, y: 70 },
+    { type: 'sphere', size: 50, color: 'from-amber-400/20 to-yellow-400/20', delay: 1, duration: 20, x: 75, y: 55 },
+  ],
+  creative: [
+    { type: 'sphere', size: 90, color: 'from-pink-400/20 to-purple-500/20', delay: 0, duration: 25, x: 15, y: 20 },
+    { type: 'ring', size: 80, color: 'from-violet-400/15 to-pink-400/15', delay: 2, duration: 30, x: 80, y: 30 },
+    { type: 'pyramid', size: 60, color: 'from-fuchsia-400/20 to-purple-400/20', delay: 1, duration: 22, x: 25, y: 65 },
+    { type: 'cube', size: 50, color: 'from-purple-400/25 to-indigo-400/25', delay: 3, duration: 28, x: 70, y: 70 },
+  ],
+};
+
+const currentShapes = shapes[variant];
+---
+
+<div class={`floating-shapes-3d absolute inset-0 overflow-hidden pointer-events-none ${className}`} aria-hidden="true">
+  {currentShapes.map((shape, index) => (
+    <div
+      class={`floating-shape-container absolute`}
+      style={`left: ${shape.x}%; top: ${shape.y}%; animation-delay: ${shape.delay}s; animation-duration: ${shape.duration}s;`}
+    >
+      {shape.type === 'cube' && (
+        <div class="shape-3d cube preserve-3d" style={`width: ${shape.size}px; height: ${shape.size}px;`}>
+          <div class={`cube-face cube-front bg-gradient-to-br ${shape.color}`}></div>
+          <div class={`cube-face cube-back bg-gradient-to-br ${shape.color}`}></div>
+          <div class={`cube-face cube-right bg-gradient-to-br ${shape.color}`}></div>
+          <div class={`cube-face cube-left bg-gradient-to-br ${shape.color}`}></div>
+          <div class={`cube-face cube-top bg-gradient-to-br ${shape.color}`}></div>
+          <div class={`cube-face cube-bottom bg-gradient-to-br ${shape.color}`}></div>
+        </div>
+      )}
+
+      {shape.type === 'sphere' && (
+        <div
+          class={`shape-3d sphere bg-gradient-to-br ${shape.color} backdrop-blur-sm`}
+          style={`width: ${shape.size}px; height: ${shape.size}px;`}
+        ></div>
+      )}
+
+      {shape.type === 'pyramid' && (
+        <div class="shape-3d pyramid preserve-3d" style={`width: ${shape.size}px; height: ${shape.size}px;`}>
+          <div class={`pyramid-face pyramid-front bg-gradient-to-t ${shape.color}`}></div>
+          <div class={`pyramid-face pyramid-right bg-gradient-to-t ${shape.color}`}></div>
+          <div class={`pyramid-face pyramid-back bg-gradient-to-t ${shape.color}`}></div>
+          <div class={`pyramid-face pyramid-left bg-gradient-to-t ${shape.color}`}></div>
+        </div>
+      )}
+
+      {shape.type === 'ring' && (
+        <div
+          class={`shape-3d ring border-4 ${shape.color.includes('blue') ? 'border-blue-400/30' : shape.color.includes('purple') ? 'border-purple-400/30' : shape.color.includes('orange') ? 'border-orange-400/30' : 'border-pink-400/30'}`}
+          style={`width: ${shape.size}px; height: ${shape.size}px;`}
+        ></div>
+      )}
+    </div>
+  ))}
+</div>
+
+<style>
+  .floating-shape-container {
+    animation: float-around 20s ease-in-out infinite;
+    perspective: 1000px;
+  }
+
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+
+  .shape-3d {
+    animation: rotate-3d 15s linear infinite;
+  }
+
+  /* Cube */
+  .cube {
+    position: relative;
+    transform-style: preserve-3d;
+  }
+
+  .cube-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .cube-front { transform: translateZ(calc(var(--size, 50px) / 2)); }
+  .cube-back { transform: rotateY(180deg) translateZ(calc(var(--size, 50px) / 2)); }
+  .cube-right { transform: rotateY(90deg) translateZ(calc(var(--size, 50px) / 2)); }
+  .cube-left { transform: rotateY(-90deg) translateZ(calc(var(--size, 50px) / 2)); }
+  .cube-top { transform: rotateX(90deg) translateZ(calc(var(--size, 50px) / 2)); }
+  .cube-bottom { transform: rotateX(-90deg) translateZ(calc(var(--size, 50px) / 2)); }
+
+  .cube { --size: 60px; }
+  .cube-front { transform: translateZ(30px); }
+  .cube-back { transform: rotateY(180deg) translateZ(30px); }
+  .cube-right { transform: rotateY(90deg) translateZ(30px); }
+  .cube-left { transform: rotateY(-90deg) translateZ(30px); }
+  .cube-top { transform: rotateX(90deg) translateZ(30px); }
+  .cube-bottom { transform: rotateX(-90deg) translateZ(30px); }
+
+  /* Sphere */
+  .sphere {
+    border-radius: 50%;
+    box-shadow:
+      inset -10px -10px 30px rgba(0, 0, 0, 0.1),
+      inset 10px 10px 30px rgba(255, 255, 255, 0.2);
+  }
+
+  /* Pyramid */
+  .pyramid {
+    position: relative;
+    transform-style: preserve-3d;
+  }
+
+  .pyramid-face {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    border-bottom: 50px solid;
+    opacity: 0.6;
+  }
+
+  .pyramid-front { transform: translateZ(20px) translateX(0); border-bottom-color: rgba(147, 51, 234, 0.3); }
+  .pyramid-right { transform: rotateY(90deg) translateZ(20px); border-bottom-color: rgba(147, 51, 234, 0.2); }
+  .pyramid-back { transform: rotateY(180deg) translateZ(20px); border-bottom-color: rgba(147, 51, 234, 0.3); }
+  .pyramid-left { transform: rotateY(-90deg) translateZ(20px); border-bottom-color: rgba(147, 51, 234, 0.2); }
+
+  /* Ring */
+  .ring {
+    border-radius: 50%;
+    background: transparent;
+  }
+
+  @keyframes float-around {
+    0%, 100% {
+      transform: translateY(0) translateX(0);
+    }
+    25% {
+      transform: translateY(-20px) translateX(10px);
+    }
+    50% {
+      transform: translateY(-10px) translateX(-15px);
+    }
+    75% {
+      transform: translateY(-25px) translateX(5px);
+    }
+  }
+
+  @keyframes rotate-3d {
+    0% {
+      transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+    }
+    100% {
+      transform: rotateX(360deg) rotateY(360deg) rotateZ(180deg);
+    }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .floating-shape-container,
+    .shape-3d {
+      animation: none;
+    }
+  }
+</style>

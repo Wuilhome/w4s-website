@@ -11,7 +11,7 @@ export interface Props {
 const { currentPath = '/' } = Astro.props;
 ---
 
-<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-nav">
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-nav" transition:persist>
   <nav class="container-w4s" aria-label="Navigation principale">
     <div class="flex items-center justify-between h-16 md:h-20">
       <!-- Logo -->
