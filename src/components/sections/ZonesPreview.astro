@@ -12,28 +12,31 @@ import { url } from '../../utils/url.js';
         Où intervenons-nous ?
       </h2>
       <p class="text-body-lg text-w4s-navy/70 mb-8">
-        W4S couvre Paris et l'ensemble de l'Île-de-France.
+        Services à domicile dans l'Oise, à Amiens et à Paris. Services digitaux dans toute la France.
       </p>
-      
+
       <!-- Zones badges -->
-      <div class="flex flex-wrap items-center justify-center gap-3 mb-8">
-        {siteConfig.zones.slice(0, 4).map((zone) => (
+      <div class="flex flex-wrap items-center justify-center gap-3 mb-6">
+        {siteConfig.zones.map((zone) => (
           <span class="inline-flex items-center gap-1.5 px-4 py-2 bg-w4s-concrete/30 rounded-full text-w4s-navy">
             <Icon name="map-pin" size={16} class="text-w4s-accent" />
             {zone}
           </span>
         ))}
-        {siteConfig.zones.length > 4 && (
-          <span class="inline-flex items-center px-4 py-2 bg-w4s-accent/10 text-w4s-accent rounded-full font-medium">
-            +{siteConfig.zones.length - 4} zones
-          </span>
-        )}
       </div>
-      
-      <Button variant="ghost" href={url('/zones')}>
-        Voir toutes les zones
-        <Icon name="arrow-right" size={18} />
-      </Button>
+
+      <!-- Digital services highlight -->
+      <div class="inline-flex items-center gap-2 px-4 py-2 bg-w4s-accent/10 text-w4s-accent rounded-full font-medium mb-8">
+        <span class="text-lg">🌐</span>
+        Services digitaux : France entière
+      </div>
+
+      <div>
+        <Button variant="ghost" href={url('/zones')}>
+          Voir toutes les zones
+          <Icon name="arrow-right" size={18} />
+        </Button>
+      </div>
     </div>
   </div>
 </section>

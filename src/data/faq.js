@@ -2,7 +2,7 @@ export const faqItems = [
   {
     id: 1,
     question: "Combien coûte une intervention W4S ?",
-    answer: "Les tarifs varient selon le service : à partir de 49 € pour du petit bricolage, 79 € pour un débouchage, 89 € pour une réparation de fuite. Tous les devis sont gratuits et communiqués avant intervention, sans surprise.",
+    answer: "Les tarifs varient selon le service : à partir de 49 € pour du petit bricolage, 39 € pour un montage de meuble simple, 490 € pour un site web one-page. Tous les devis sont gratuits et communiqués avant intervention, sans surprise.",
     category: "tarifs"
   },
   {
@@ -32,7 +32,7 @@ export const faqItems = [
   {
     id: 6,
     question: "Quelles zones couvrez-vous ?",
-    answer: "W4S intervient à Paris et en Île-de-France (75, 92, 93, 94, 77, 78, 91, 95). Certains services sont disponibles dans d'autres régions — contactez-nous pour vérifier.",
+    answer: "Pour les services à domicile (bricolage, montage, électricité, maintenance), W4S intervient dans l'Oise (Compiègne, Senlis, Chantilly, Beauvais, Creil...), à Amiens et à Paris. Pour les services digitaux (création de sites web, SEO/ADS), nous travaillons avec des clients dans toute la France.",
     category: "zones"
   },
   {

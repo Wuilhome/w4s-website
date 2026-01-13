@@ -11,138 +11,131 @@ const breadcrumbs = [
   { name: 'Zones d\'intervention' }
 ];
 
-const zones = [
+const zonesPhysiques = [
   {
-    department: 'Paris (75)',
-    coverage: '100%',
+    region: 'Oise (60)',
+    description: 'Zone principale d\'intervention',
     urgency: true,
-    areas: ['Tous arrondissements']
+    areas: ['Compiègne', 'Senlis', 'Chantilly', 'Clermont', 'Beauvais', 'Creil', 'Liancourt', 'Cauffry', 'Nogent-sur-Oise', 'Pont-Sainte-Maxence']
   },
   {
-    department: 'Hauts-de-Seine (92)',
-    coverage: '100%',
+    region: 'Somme (80)',
+    description: 'Amiens et environs',
     urgency: true,
-    areas: ['Boulogne', 'Neuilly', 'Levallois', 'Issy', 'Nanterre', 'Courbevoie', 'et toutes communes']
+    areas: ['Amiens', 'Abbeville', 'Albert']
   },
   {
-    department: 'Seine-Saint-Denis (93)',
-    coverage: '100%',
-    urgency: true,
-    areas: ['Saint-Denis', 'Montreuil', 'Bobigny', 'Pantin', 'Aubervilliers', 'et toutes communes']
-  },
-  {
-    department: 'Val-de-Marne (94)',
-    coverage: '100%',
-    urgency: true,
-    areas: ['Créteil', 'Vincennes', 'Vitry', 'Ivry', 'Saint-Maur', 'et toutes communes']
-  },
-  {
-    department: 'Yvelines (78)',
-    coverage: '80%',
-    urgency: true,
-    areas: ['Versailles', 'Saint-Germain', 'Poissy', 'Sartrouville', 'principales communes']
-  },
-  {
-    department: 'Essonne (91)',
-    coverage: '80%',
-    urgency: true,
-    areas: ['Évry', 'Massy', 'Corbeil', 'Savigny', 'principales communes']
-  },
-  {
-    department: 'Val-d\'Oise (95)',
-    coverage: '80%',
-    urgency: true,
-    areas: ['Cergy', 'Argenteuil', 'Sarcelles', 'Pontoise', 'principales communes']
-  },
-  {
-    department: 'Seine-et-Marne (77)',
-    coverage: '60%',
+    region: 'Paris & Île-de-France',
+    description: 'Interventions ponctuelles',
     urgency: false,
-    areas: ['Meaux', 'Melun', 'Chelles', 'zone ouest principalement']
+    areas: ['Paris', 'Proche banlieue']
   }
 ];
 ---
 
-<BaseLayout 
+<BaseLayout
   title="Zones d'intervention"
-  description="W4S intervient à Paris et dans toute l'Île-de-France. Découvrez nos zones de couverture pour le dépannage et bricolage à domicile."
+  description="W4S intervient dans l'Oise, à Amiens et à Paris pour les services à domicile. Services digitaux disponibles dans toute la France."
   canonical="/zones"
 >
   <section class="section">
     <div class="container-w4s">
       <Breadcrumb items={breadcrumbs} />
-      
+
       <!-- Header -->
       <div class="text-center max-w-2xl mx-auto mb-12">
         <h1 class="text-h1 font-bold text-w4s-navy mb-4">
           Où intervenons-nous ?
         </h1>
         <p class="text-body-lg text-w4s-navy/70">
-          W4S couvre Paris et l'ensemble de l'Île-de-France. Vérifiez la disponibilité dans votre secteur.
+          Services à domicile dans l'Oise, la Somme et Paris. Services digitaux dans toute la France.
         </p>
       </div>
-      
-      <!-- Map placeholder -->
-      <div class="bg-w4s-concrete/20 rounded-3xl p-8 mb-12 text-center">
-        <div class="w-full h-64 md:h-96 bg-w4s-concrete/50 rounded-2xl flex items-center justify-center mb-4">
-          <div class="text-center">
-            <Icon name="map-pin" size={48} class="text-w4s-steel mx-auto mb-2" />
-            <p class="text-w4s-steel">Carte interactive</p>
-            <p class="text-small text-w4s-steel/70">(à intégrer avec Google Maps ou Mapbox)</p>
+
+      <!-- Digital services banner -->
+      <div class="bg-gradient-to-r from-w4s-accent to-w4s-accent/80 rounded-2xl p-6 mb-12 text-white">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+              <span class="text-2xl">🌐</span>
+            </div>
+            <div>
+              <h2 class="text-h4 font-semibold">Services digitaux : France entière</h2>
+              <p class="text-white/80">Création de sites web et gestion SEO/ADS disponibles partout en France</p>
+            </div>
           </div>
+          <Button variant="secondary" href={url('/services/creation-site-web')}>
+            En savoir plus
+            <Icon name="arrow-right" size={18} />
+          </Button>
         </div>
-        <p class="text-small text-w4s-navy/60">
-          Zones couvertes en bleu — Intervention urgence disponible en zones vertes
+      </div>
+
+      <!-- Map -->
+      <div class="bg-w4s-concrete/20 rounded-3xl p-4 md:p-8 mb-12">
+        <h2 class="text-h3 font-bold text-w4s-navy mb-6 text-center">
+          Notre zone d'intervention principale
+        </h2>
+        <div class="w-full h-64 md:h-96 rounded-2xl overflow-hidden">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d653752.6394393426!2d2.0687779249999996!3d49.4169!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e7b4a5f9b7e16d%3A0x406651748c5fe30!2sOise!5e0!3m2!1sfr!2sfr!4v1704067200000!5m2!1sfr!2sfr"
+            width="100%"
+            height="100%"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Carte des zones d'intervention W4S"
+          ></iframe>
+        </div>
+        <p class="text-small text-w4s-navy/60 mt-4 text-center">
+          Oise, Somme (Amiens), Paris et Île-de-France
         </p>
       </div>
-      
+
       <!-- Zones List -->
       <div class="mb-12">
         <h2 class="text-h2 font-bold text-w4s-navy mb-8 text-center">
-          Détail par département
+          Services à domicile
         </h2>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {zones.map((zone) => (
+        <p class="text-body text-w4s-navy/70 text-center mb-8 max-w-2xl mx-auto">
+          Bricolage, montage de meubles, électricité, maintenance : nos interventions physiques sont disponibles dans les zones suivantes.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {zonesPhysiques.map((zone) => (
             <div class="bg-white rounded-2xl shadow-card p-6">
               <div class="flex items-start justify-between mb-4">
                 <div class="flex items-center gap-3">
                   <Icon name="map-pin" size={24} class="text-w4s-accent" />
                   <h3 class="text-h4 font-semibold text-w4s-navy">
-                    {zone.department}
+                    {zone.region}
                   </h3>
                 </div>
-                <div class="flex items-center gap-2">
-                  {zone.urgency && (
-                    <span class="px-2 py-1 bg-w4s-urgent/10 text-w4s-urgent text-small rounded-full font-medium">
-                      Urgence 24/7
-                    </span>
-                  )}
-                </div>
               </div>
-              
-              <div class="mb-4">
-                <div class="flex items-center justify-between text-small mb-2">
-                  <span class="text-w4s-navy/70">Couverture</span>
-                  <span class="font-medium text-w4s-navy">{zone.coverage}</span>
-                </div>
-                <div class="w-full h-2 bg-w4s-concrete rounded-full overflow-hidden">
-                  <div 
-                    class="h-full bg-w4s-success rounded-full transition-all"
-                    style={`width: ${zone.coverage}`}
-                  ></div>
-                </div>
-              </div>
-              
-              <p class="text-small text-w4s-navy/70">
-                <span class="font-medium">Communes : </span>
-                {zone.areas.join(', ')}
+
+              {zone.urgency && (
+                <span class="inline-flex px-2 py-1 bg-w4s-urgent/10 text-w4s-urgent text-small rounded-full font-medium mb-3">
+                  Urgence disponible
+                </span>
+              )}
+
+              <p class="text-small text-w4s-navy/60 mb-4">
+                {zone.description}
               </p>
+
+              <div class="flex flex-wrap gap-2">
+                {zone.areas.map((area) => (
+                  <span class="px-2 py-1 bg-w4s-concrete/30 text-w4s-navy text-small rounded-full">
+                    {area}
+                  </span>
+                ))}
+              </div>
             </div>
           ))}
         </div>
       </div>
-      
+
       <!-- Info boxes -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
         <div class="bg-w4s-accent/10 rounded-2xl p-6">
@@ -151,23 +144,23 @@ const zones = [
             Délais d'intervention
           </h3>
           <ul class="space-y-2 text-body text-w4s-navy/70">
-            <li><strong>Urgence :</strong> Sous 2h dans les zones éligibles</li>
+            <li><strong>Urgence :</strong> Sous 2h dans l'Oise et Amiens</li>
             <li><strong>Standard :</strong> 24-48h selon disponibilité</li>
             <li><strong>Sur rendez-vous :</strong> Au créneau de votre choix</li>
           </ul>
         </div>
-        
+
         <div class="bg-w4s-success/10 rounded-2xl p-6">
           <h3 class="text-h4 font-semibold text-w4s-navy mb-2 flex items-center gap-2">
             <Icon name="check-circle" size={20} class="text-w4s-success" />
             Déplacement inclus
           </h3>
           <p class="text-body text-w4s-navy/70">
-            Les frais de déplacement sont inclus dans nos tarifs pour toutes les communes de notre zone de couverture. Pas de supplément caché.
+            Les frais de déplacement sont inclus dans nos tarifs pour l'Oise et Amiens. Supplément possible pour Paris selon la distance.
           </p>
         </div>
       </div>
-      
+
       <!-- CTA -->
       <div class="text-center bg-w4s-concrete/20 rounded-3xl p-8">
         <h2 class="text-h3 font-bold text-w4s-navy mb-4">
@@ -183,6 +176,6 @@ const zones = [
       </div>
     </div>
   </section>
-  
+
   <EmergencyBand />
 </BaseLayout>

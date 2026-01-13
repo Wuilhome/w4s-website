@@ -1,9 +1,9 @@
 export const siteConfig = {
   name: 'W4S',
-  tagline: 'Dépannage et bricolage, simplifié.',
-  description: 'W4S met en relation particuliers et artisans vérifiés pour vos travaux de bricolage, plomberie, électricité, serrurerie. Devis gratuit, intervention rapide.',
+  tagline: 'Services à domicile et digital, simplifié.',
+  description: 'W4S propose des services de bricolage, montage de meubles, électricité, maintenance à domicile, ainsi que création de sites web et référencement SEO. Devis gratuit.',
   url: 'https://w4s.fr',
-  
+
   // Contact - À COMPLÉTER
   contact: {
     phone: '01 XX XX XX XX', // À remplacer
@@ -11,15 +11,15 @@ export const siteConfig = {
     email: 'contact@w4s.fr',
     address: {
       street: '[Adresse à compléter]',
-      city: 'Paris',
-      postalCode: '[Code postal]',
-      region: 'Île-de-France',
+      city: 'Compiègne',
+      postalCode: '60200',
+      region: 'Hauts-de-France',
       country: 'FR'
     },
-    // Coordonnées GPS - À COMPLÉTER
+    // Coordonnées GPS Compiègne
     geo: {
-      latitude: '48.8566',
-      longitude: '2.3522'
+      latitude: '49.4178',
+      longitude: '2.8262'
     }
   },
 
@@ -27,25 +27,39 @@ export const siteConfig = {
   hours: {
     standard: {
       days: 'Lundi - Vendredi',
-      hours: '8h00 - 20h00'
+      hours: '8h00 - 19h00'
     },
     saturday: {
       days: 'Samedi',
-      hours: '9h00 - 18h00'
+      hours: '9h00 - 17h00'
     },
-    emergency: '24h/24, 7j/7'
+    emergency: 'Sur demande'
   },
 
-  // Zones d'intervention
+  // Zones d'intervention - Services à domicile
+  zonesPhysiques: [
+    {
+      region: 'Oise (60)',
+      villes: ['Compiègne', 'Senlis', 'Chantilly', 'Clermont', 'Beauvais', 'Creil', 'Liancourt', 'Cauffry', 'Nogent-sur-Oise', 'Pont-Sainte-Maxence']
+    },
+    {
+      region: 'Somme (80)',
+      villes: ['Amiens']
+    },
+    {
+      region: 'Paris & Île-de-France',
+      villes: ['Paris', 'Proche banlieue']
+    }
+  ],
+
+  // Zones pour services digitaux
+  zonesDigitales: 'France entière',
+
+  // Liste simplifiée pour affichage rapide
   zones: [
-    'Paris (75)',
-    'Hauts-de-Seine (92)',
-    'Seine-Saint-Denis (93)',
-    'Val-de-Marne (94)',
-    'Seine-et-Marne (77)',
-    'Yvelines (78)',
-    'Essonne (91)',
-    'Val-d\'Oise (95)'
+    'Oise (60) - Compiègne, Senlis, Chantilly...',
+    'Amiens (80)',
+    'Paris & Île-de-France'
   ],
 
   // Réseaux sociaux - À COMPLÉTER
@@ -55,14 +69,6 @@ export const siteConfig = {
     linkedin: 'https://www.linkedin.com/company/w4s'
   },
 
-  // Statistiques (à ajuster)
-  stats: {
-    rating: '4.8',
-    reviewCount: '250',
-    interventions: '+2 000',
-    artisans: '85'
-  },
-
   // Moyens de paiement
   payment: ['Carte bancaire', 'Virement', 'Chèque', 'CESU'],
 
@@ -70,8 +76,8 @@ export const siteConfig = {
   promises: [
     {
       icon: 'shield-check',
-      title: 'Artisans vérifiés',
-      description: 'Chaque professionnel est sélectionné, formé et certifié.'
+      title: 'Professionnels qualifiés',
+      description: 'Chaque intervenant est sélectionné pour son expertise.'
     },
     {
       icon: 'file-text',
@@ -80,83 +86,13 @@ export const siteConfig = {
     },
     {
       icon: 'clock',
-      title: 'Intervention rapide',
-      description: 'Sous 24h en standard, ou le jour même en urgence.'
+      title: 'Réactivité',
+      description: 'Réponse rapide et intervention selon vos disponibilités.'
     },
     {
       icon: 'thumbs-up',
-      title: 'Garantie satisfaction',
-      description: 'Travail non conforme ? On revient corriger, sans frais.'
-    },
-    {
-      icon: 'headphones',
-      title: 'Support 7j/7',
-      description: 'Une équipe disponible pour répondre à vos questions.'
-    },
-    {
-      icon: 'credit-card',
-      title: 'Paiement sécurisé',
-      description: 'CB, virement, CESU — vous choisissez.'
-    }
-  ],
-
-  // Témoignages
-  testimonials: [
-    {
-      id: 1,
-      text: "Fuite d'eau un dimanche soir. Intervention en 45 minutes, travail impeccable, prix annoncé respecté. Je recommande !",
-      author: 'Marie L.',
-      location: 'Paris 11e',
-      rating: 5,
-      service: 'plomberie'
-    },
-    {
-      id: 2,
-      text: "Montage de ma cuisine IKEA en une journée. Propre, carré, pro. Exactement ce que je cherchais.",
-      author: 'Thomas R.',
-      location: 'Boulogne',
-      rating: 5,
-      service: 'montage'
-    },
-    {
-      id: 3,
-      text: "Porte claquée à 23h. Le serrurier est arrivé en 30 min, sans majoration abusive. Parfait.",
-      author: 'Sophie M.',
-      location: 'Paris 15e',
-      rating: 5,
-      service: 'serrurerie'
-    },
-    {
-      id: 4,
-      text: "Électricien très compétent, a diagnostiqué ma panne en 10 minutes. Tarif conforme au devis.",
-      author: 'Laurent D.',
-      location: 'Neuilly',
-      rating: 5,
-      service: 'electricite'
-    },
-    {
-      id: 5,
-      text: "J'utilise W4S pour mon immeuble depuis 6 mois. Réactivité top, artisans sérieux. Mon syndic est ravi.",
-      author: 'Catherine P.',
-      location: 'Paris 16e',
-      rating: 5,
-      service: 'maintenance'
-    },
-    {
-      id: 6,
-      text: "Site vitrine livré en 10 jours, design moderne et pro. Mes clients me trouvent facilement sur Google maintenant.",
-      author: 'Marc B.',
-      location: 'Versailles',
-      rating: 5,
-      service: 'creation-site-web'
-    },
-    {
-      id: 7,
-      text: "Grâce au référencement local, mon cabinet dentaire apparaît en première page. +40% de nouveaux patients en 4 mois.",
-      author: 'Dr. Nadia K.',
-      location: 'Paris 8e',
-      rating: 5,
-      service: 'seo-ads'
+      title: 'Satisfaction garantie',
+      description: 'Travail soigné et conforme à vos attentes.'
     }
   ]
 };
@@ -165,33 +101,28 @@ export const navigation = {
   main: [
     { name: 'Services', href: '/services', hasDropdown: true },
     { name: 'Comment ça marche', href: '/comment-ca-marche' },
-    { name: 'Nos artisans', href: '/nos-artisans' },
     { name: 'FAQ', href: '/faq' }
   ],
+  // Services principaux (prioritaires)
   services: [
-    { name: 'Bricolage', href: '/services/bricolage' },
-    { name: 'Plomberie', href: '/services/plomberie' },
-    { name: 'Électricité', href: '/services/electricite' },
-    { name: 'Serrurerie', href: '/services/serrurerie' },
-    { name: 'Montage meubles', href: '/services/montage-meubles' },
-    { name: 'Maintenance', href: '/services/maintenance' },
-    { name: 'Création site web', href: '/services/creation-site-web' },
-    { name: 'SEO & ADS', href: '/services/seo-ads' }
+    { name: 'Création site web', href: '/services/creation-site-web', category: 'digital' },
+    { name: 'SEO & ADS', href: '/services/seo-ads', category: 'digital' },
+    { name: 'Bricolage', href: '/services/bricolage', category: 'domicile' },
+    { name: 'Montage meubles', href: '/services/montage-meubles', category: 'domicile' },
+    { name: 'Électricité', href: '/services/electricite', category: 'domicile' },
+    { name: 'Maintenance', href: '/services/maintenance', category: 'domicile' }
   ],
   footer: {
     services: [
-      { name: 'Bricolage', href: '/services/bricolage' },
-      { name: 'Plomberie', href: '/services/plomberie' },
-      { name: 'Électricité', href: '/services/electricite' },
-      { name: 'Serrurerie', href: '/services/serrurerie' },
-      { name: 'Montage meubles', href: '/services/montage-meubles' },
-      { name: 'Maintenance', href: '/services/maintenance' },
       { name: 'Création site web', href: '/services/creation-site-web' },
-      { name: 'SEO & ADS', href: '/services/seo-ads' }
+      { name: 'SEO & ADS', href: '/services/seo-ads' },
+      { name: 'Bricolage', href: '/services/bricolage' },
+      { name: 'Montage meubles', href: '/services/montage-meubles' },
+      { name: 'Électricité', href: '/services/electricite' },
+      { name: 'Maintenance', href: '/services/maintenance' }
     ],
     info: [
       { name: 'Comment ça marche', href: '/comment-ca-marche' },
-      { name: 'Nos artisans', href: '/nos-artisans' },
       { name: 'FAQ', href: '/faq' },
       { name: 'Contact', href: '/contact' },
       { name: 'Zones d\'intervention', href: '/zones' }
