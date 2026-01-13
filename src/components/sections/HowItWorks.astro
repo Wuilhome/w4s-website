@@ -8,66 +8,90 @@ const steps = [
     number: '1',
     title: 'Décrivez votre besoin',
     description: 'Formulaire en ligne ou appel, ça prend 2 minutes.',
-    icon: 'file-text'
+    icon: 'file-text',
+    color: 'from-blue-500 to-blue-600'
   },
   {
     number: '2',
     title: 'Recevez un devis clair',
     description: 'Tarif fixe communiqué avant intervention, sans surprise.',
-    icon: 'check-circle'
+    icon: 'check-circle',
+    color: 'from-green-500 to-green-600'
   },
   {
     number: '3',
     title: 'Intervention par un pro',
     description: 'Artisan vérifié, travail garanti, vous êtes serein.',
-    icon: 'thumbs-up'
+    icon: 'thumbs-up',
+    color: 'from-purple-500 to-purple-600'
   }
 ];
 ---
 
-<section class="section bg-w4s-concrete/20">
+<section class="section bg-gradient-to-b from-w4s-concrete/30 to-white relative overflow-hidden">
+  <!-- Decorative background -->
+  <div class="absolute inset-0 -z-10" aria-hidden="true">
+    <div class="absolute top-1/2 left-0 w-64 h-64 bg-w4s-accent/5 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 right-0 w-80 h-80 bg-w4s-success/5 rounded-full blur-3xl"></div>
+  </div>
+
   <div class="container-w4s">
     <!-- Header -->
-    <div class="text-center max-w-2xl mx-auto mb-12">
-      <h2 class="text-h2 font-bold text-w4s-navy mb-4">
-        Simple, rapide, transparent
+    <div class="text-center max-w-2xl mx-auto mb-16 scroll-animate">
+      <span class="inline-flex items-center gap-2 px-4 py-2 bg-w4s-navy/10 text-w4s-navy rounded-full text-small font-medium mb-6">
+        <Icon name="zap" size={16} />
+        Comment ça marche
+      </span>
+      <h2 class="text-h2 md:text-4xl font-bold text-w4s-navy mb-4">
+        Simple, <span class="gradient-text">rapide</span>, transparent
       </h2>
       <p class="text-body-lg text-w4s-navy/70">
         En 3 étapes, votre problème est résolu.
       </p>
     </div>
-    
-    <!-- Steps -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 max-w-4xl mx-auto mb-12">
-      {steps.map((step, index) => (
-        <div class="relative text-center">
-          <!-- Connector line (hidden on mobile, visible on md+) -->
-          {index < steps.length - 1 && (
-            <div class="hidden md:block absolute top-8 left-1/2 w-full h-0.5 bg-w4s-concrete" style="transform: translateX(50%)"></div>
-          )}
-          
-          <!-- Step number -->
-          <div class="relative z-10 w-16 h-16 bg-w4s-navy text-white rounded-2xl flex items-center justify-center mx-auto mb-4 text-h3 font-bold">
-            {step.number}
+
+    <!-- Steps with connecting line -->
+    <div class="relative max-w-5xl mx-auto mb-16">
+      <!-- Connecting line for desktop -->
+      <div class="hidden md:block absolute top-16 left-[15%] right-[15%] h-1 bg-gradient-to-r from-blue-200 via-green-200 to-purple-200 rounded-full"></div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+        {steps.map((step, index) => (
+          <div class={`scroll-animate stagger-${index + 1} relative text-center group`}>
+            <!-- Step number with gradient and glow -->
+            <div class="relative z-10 mx-auto mb-6">
+              <div class={`absolute inset-0 bg-gradient-to-br ${step.color} rounded-2xl blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-500`}></div>
+              <div class={`relative w-20 h-20 bg-gradient-to-br ${step.color} text-white rounded-2xl flex items-center justify-center mx-auto text-3xl font-bold shadow-lg transform group-hover:scale-110 group-hover:-rotate-3 transition-all duration-300`}>
+                {step.number}
+              </div>
+            </div>
+
+            <!-- Icon -->
+            <div class="w-12 h-12 mx-auto mb-4 bg-white rounded-xl shadow-md flex items-center justify-center group-hover:shadow-lg transition-shadow">
+              <Icon name={step.icon} size={24} class="text-w4s-navy/70" />
+            </div>
+
+            <!-- Content -->
+            <h3 class="text-h4 font-bold text-w4s-navy mb-3">
+              {step.title}
+            </h3>
+            <p class="text-body text-w4s-navy/70 max-w-xs mx-auto">
+              {step.description}
+            </p>
           </div>
-          
-          <!-- Content -->
-          <h3 class="text-h4 font-semibold text-w4s-navy mb-2">
-            {step.title}
-          </h3>
-          <p class="text-body text-w4s-navy/70">
-            {step.description}
-          </p>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
-    
+
     <!-- CTA -->
-    <div class="text-center">
-      <Button variant="ghost" href={url('/comment-ca-marche')}>
-        En savoir plus
-        <Icon name="arrow-right" size={18} />
-      </Button>
+    <div class="text-center scroll-animate">
+      <a
+        href={url('/comment-ca-marche')}
+        class="inline-flex items-center gap-2 px-6 py-3 bg-transparent border-2 border-w4s-navy text-w4s-navy font-semibold rounded-xl hover:bg-w4s-navy hover:text-white transition-all duration-300 group"
+      >
+        <span>En savoir plus</span>
+        <Icon name="arrow-right" size={18} class="transition-transform group-hover:translate-x-1" />
+      </a>
     </div>
   </div>
 </section>

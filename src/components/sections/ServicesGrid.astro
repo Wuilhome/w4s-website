@@ -6,44 +6,76 @@ import { services } from '../../data/services.js';
 const base = import.meta.env.BASE_URL;
 ---
 
-<section class="section bg-white">
+<section class="section bg-gradient-to-b from-white via-w4s-concrete/10 to-white relative overflow-hidden">
+  <!-- Decorative background elements -->
+  <div class="absolute inset-0 -z-10" aria-hidden="true">
+    <div class="absolute top-0 left-1/4 w-72 h-72 bg-w4s-accent/5 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-w4s-navy/5 rounded-full blur-3xl"></div>
+  </div>
+
   <div class="container-w4s">
-    <!-- Header -->
-    <div class="text-center max-w-2xl mx-auto mb-12">
-      <h2 class="text-h2 font-bold text-w4s-navy mb-4">
-        Des experts pour chaque besoin
+    <!-- Header with animation -->
+    <div class="text-center max-w-2xl mx-auto mb-16 scroll-animate">
+      <span class="inline-flex items-center gap-2 px-4 py-2 bg-w4s-accent/10 text-w4s-accent rounded-full text-small font-medium mb-6">
+        <Icon name="wrench" size={16} />
+        Nos Services
+      </span>
+      <h2 class="text-h2 md:text-4xl font-bold text-w4s-navy mb-4">
+        Des <span class="gradient-text">experts</span> pour chaque besoin
       </h2>
       <p class="text-body-lg text-w4s-navy/70">
-        Bricolage, plomberie, électricité, serrurerie... Nos artisans interviennent pour tous vos travaux.
+        Du digital au bricolage, nos professionnels interviennent pour tous vos projets avec expertise et passion.
       </p>
     </div>
 
-    <!-- Services Grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {services.map((service) => (
-        <Card href={`${base}services/${service.slug}`} padding="lg" class="group">
-          <div class="flex flex-col h-full">
-            <!-- Icon -->
-            <div class="w-14 h-14 bg-w4s-accent/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-w4s-accent/20 transition-colors">
-              <span class="text-2xl">{service.emoji}</span>
+    <!-- Services Grid with 3D cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      {services.map((service, index) => (
+        <div class={`scroll-animate stagger-${index + 1} card-3d-wrapper`}>
+          <a
+            href={`${base}services/${service.slug}`}
+            class="card-3d-inner tilt-effect block bg-white rounded-2xl p-6 shadow-card hover:shadow-card-hover transition-all duration-300 h-full border border-transparent hover:border-w4s-accent/20 group"
+          >
+            <div class="flex flex-col h-full">
+              <!-- Icon with glow effect -->
+              <div class="relative w-16 h-16 mb-5">
+                <div class="absolute inset-0 bg-w4s-accent/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div class="relative w-16 h-16 bg-gradient-to-br from-w4s-accent/10 to-w4s-accent/5 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <span class="text-3xl">{service.emoji}</span>
+                </div>
+              </div>
+
+              <!-- Content -->
+              <h3 class="text-h4 font-semibold text-w4s-navy mb-3 group-hover:text-w4s-accent transition-colors duration-300">
+                {service.shortTitle}
+              </h3>
+              <p class="text-body text-w4s-navy/70 mb-6 flex-1 leading-relaxed">
+                {service.description}
+              </p>
+
+              <!-- Link with arrow animation -->
+              <span class="inline-flex items-center gap-2 text-w4s-accent font-semibold text-small">
+                <span class="underline-animate">Découvrir</span>
+                <Icon name="arrow-right" size={16} class="transition-transform duration-300 group-hover:translate-x-2" />
+              </span>
             </div>
-            
-            <!-- Content -->
-            <h3 class="text-h4 font-semibold text-w4s-navy mb-2 group-hover:text-w4s-accent transition-colors">
-              {service.shortTitle}
-            </h3>
-            <p class="text-body text-w4s-navy/70 mb-4 flex-1">
-              {service.description}
-            </p>
-            
-            <!-- Link -->
-            <span class="inline-flex items-center gap-1 text-w4s-accent font-medium text-small group-hover:gap-2 transition-all">
-              Voir ce service
-              <Icon name="arrow-right" size={16} />
-            </span>
-          </div>
-        </Card>
+          </a>
+        </div>
       ))}
+    </div>
+
+    <!-- Bottom CTA -->
+    <div class="text-center mt-16 scroll-animate">
+      <p class="text-body text-w4s-navy/60 mb-4">
+        Vous ne trouvez pas ce que vous cherchez ?
+      </p>
+      <a
+        href={`${base}contact`}
+        class="inline-flex items-center gap-2 px-6 py-3 bg-w4s-navy text-white font-semibold rounded-xl btn-shimmer hover:bg-w4s-navy/90 transition-colors group"
+      >
+        <span>Contactez-nous</span>
+        <Icon name="arrow-right" size={18} class="transition-transform group-hover:translate-x-1" />
+      </a>
     </div>
   </div>
 </section>
