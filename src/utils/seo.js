@@ -80,13 +80,6 @@ export function generateOrganizationSchema() {
       "@type": "AdministrativeArea",
       "name": zone
     })),
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": siteConfig.stats.rating,
-      "reviewCount": siteConfig.stats.reviewCount,
-      "bestRating": "5",
-      "worstRating": "1"
-    },
     "sameAs": Object.values(siteConfig.social)
   };
 }
@@ -158,7 +151,7 @@ export function generateServiceSchema(service) {
     },
     "areaServed": {
       "@type": "AdministrativeArea",
-      "name": "Île-de-France"
+      "name": service.zone || "Oise, Amiens, Paris"
     },
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
