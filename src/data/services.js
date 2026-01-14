@@ -51,7 +51,7 @@ export const services = [
       },
       {
         question: 'Puis-je modifier mon site moi-même après livraison ?',
-        answer: 'Oui, nous vous formons à l\'utilisation de votre site. Selon le type de projet, nous proposons des solutions de gestion de contenu simples pour que vous puissiez mettre à jour vos textes et images facilement.'
+        answer: 'Les modifications de contenu (textes, images) sont incluses dans nos forfaits maintenance. Pour les clients souhaitant être autonomes, nous proposons des solutions avec interface d\'administration simple en option.'
       },
       {
         question: 'Proposez-vous le design graphique ?',

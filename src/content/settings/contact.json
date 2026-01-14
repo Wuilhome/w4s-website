@@ -1,0 +1,11 @@
+{
+  "phone": "01 XX XX XX XX",
+  "phoneFormatted": "+33XXXXXXXXX",
+  "email": "contact@w4s.fr",
+  "address": {
+    "street": "[Adresse à compléter]",
+    "city": "Compiègne",
+    "postalCode": "60200",
+    "region": "Hauts-de-France"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "standard": {
+    "days": "Lundi - Vendredi",
+    "hours": "8h00 - 19h00"
+  },
+  "saturday": {
+    "days": "Samedi",
+    "hours": "9h00 - 17h00"
+  },
+  "emergency": "Sur demande"
+}

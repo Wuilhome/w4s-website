@@ -1,0 +1,95 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Pour tester en local sans authentification
+local_backend: true
+
+# Dossier où les médias (images) sont uploadés
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+# Langue de l'interface
+locale: 'fr'
+
+collections:
+  # Configuration générale du site
+  - name: "settings"
+    label: "Paramètres du site"
+    files:
+      - name: "general"
+        label: "Informations générales"
+        file: "src/content/settings/general.json"
+        fields:
+          - { name: "siteName", label: "Nom du site", widget: "string", default: "W4S" }
+          - { name: "tagline", label: "Slogan", widget: "string" }
+          - { name: "description", label: "Description du site", widget: "text" }
+
+      - name: "contact"
+        label: "Contact"
+        file: "src/content/settings/contact.json"
+        fields:
+          - { name: "phone", label: "Téléphone (affiché)", widget: "string", hint: "Ex: 01 23 45 67 89" }
+          - { name: "phoneFormatted", label: "Téléphone (format international)", widget: "string", hint: "Ex: +33123456789" }
+          - { name: "email", label: "Email", widget: "string" }
+          - label: "Adresse"
+            name: "address"
+            widget: "object"
+            fields:
+              - { name: "street", label: "Rue", widget: "string" }
+              - { name: "city", label: "Ville", widget: "string" }
+              - { name: "postalCode", label: "Code postal", widget: "string" }
+              - { name: "region", label: "Région", widget: "string" }
+
+      - name: "hours"
+        label: "Horaires"
+        file: "src/content/settings/hours.json"
+        fields:
+          - label: "Semaine"
+            name: "standard"
+            widget: "object"
+            fields:
+              - { name: "days", label: "Jours", widget: "string", default: "Lundi - Vendredi" }
+              - { name: "hours", label: "Horaires", widget: "string", default: "8h00 - 19h00" }
+          - label: "Samedi"
+            name: "saturday"
+            widget: "object"
+            fields:
+              - { name: "days", label: "Jours", widget: "string", default: "Samedi" }
+              - { name: "hours", label: "Horaires", widget: "string", default: "9h00 - 17h00" }
+          - { name: "emergency", label: "Urgence", widget: "string", default: "Sur demande" }
+
+      - name: "social"
+        label: "Réseaux sociaux"
+        file: "src/content/settings/social.json"
+        fields:
+          - { name: "facebook", label: "Facebook URL", widget: "string", required: false }
+          - { name: "instagram", label: "Instagram URL", widget: "string", required: false }
+          - { name: "linkedin", label: "LinkedIn URL", widget: "string", required: false }
+
+  # Page d'accueil
+  - name: "homepage"
+    label: "Page d'accueil"
+    files:
+      - name: "hero"
+        label: "Section Hero"
+        file: "src/content/homepage/hero.json"
+        fields:
+          - { name: "badge", label: "Badge (texte vert)", widget: "string", default: "Artisans disponibles maintenant" }
+          - { name: "title", label: "Titre principal", widget: "string" }
+          - { name: "titleHighlight", label: "Mot mis en avant", widget: "string", default: "simplifié." }
+          - { name: "subtitle1", label: "Point 1", widget: "string", default: "Artisans vérifiés" }
+          - { name: "subtitle2", label: "Point 2", widget: "string", default: "Intervention rapide" }
+          - { name: "subtitle3", label: "Point 3", widget: "string", default: "Devis transparent" }
+
+  # Promesses / Engagements
+  - name: "promises"
+    label: "Nos engagements"
+    folder: "src/content/promises"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { name: "title", label: "Titre", widget: "string" }
+      - { name: "description", label: "Description", widget: "text" }
+      - { name: "icon", label: "Icône", widget: "select", options: ["shield-check", "file-text", "clock", "thumbs-up", "check-circle", "star", "heart", "zap"] }
+      - { name: "order", label: "Ordre d'affichage", widget: "number", default: 1 }
