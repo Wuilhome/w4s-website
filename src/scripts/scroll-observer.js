@@ -221,13 +221,33 @@ class TiltEffect {
   }
 }
 
-// Initialisation au chargement du DOM
-document.addEventListener('DOMContentLoaded', () => {
+/**
+ * Initialise tous les effets
+ * Appelé au chargement initial et après chaque navigation (View Transitions)
+ */
+function initAllEffects() {
+  // Réinitialiser les éléments scroll-animate (enlever is-visible pour re-animer)
+  document.querySelectorAll('.scroll-animate').forEach(el => {
+    el.classList.remove('is-visible');
+  });
+
+  // Détruire l'ancien observer s'il existe
+  if (window.scrollObserver) {
+    window.scrollObserver.destroy();
+  }
+
   // Scroll animations
   window.scrollObserver = new ScrollObserver();
 
-  // Counter animations
+  // Counter animations - reset et réobserver
   const counters = document.querySelectorAll('.counter[data-target]');
+  counters.forEach(counter => {
+    // Reset le texte pour permettre la ré-animation
+    const target = counter.dataset.target;
+    const suffix = counter.dataset.suffix || '';
+    counter.textContent = '0' + suffix;
+  });
+
   const counterObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -250,7 +270,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Tilt effect
   new TiltEffect();
-});
+}
+
+// Initialisation au chargement du DOM
+document.addEventListener('DOMContentLoaded', initAllEffects);
+
+// Réinitialisation après chaque navigation avec View Transitions (Astro)
+document.addEventListener('astro:page-load', initAllEffects);
 
 // Export pour utilisation dans d'autres scripts
-export { ScrollObserver, CounterAnimation, ParallaxEffect, MagneticEffect, TiltEffect };
+export { ScrollObserver, CounterAnimation, ParallaxEffect, MagneticEffect, TiltEffect, initAllEffects };
