@@ -2,7 +2,7 @@ export const siteConfig = {
   name: 'W4S',
   tagline: 'Services à domicile et digital, simplifié.',
   description: 'W4S propose des services de bricolage, montage de meubles, électricité, maintenance à domicile, ainsi que création de sites web et référencement SEO. Devis gratuit.',
-  url: 'https://w4s.fr',
+  url: 'https://w4service.fr',
 
   // Contact
   contact: {
