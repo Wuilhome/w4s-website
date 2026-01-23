@@ -1,20 +1,23 @@
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 
+// Détecte l'environnement de développement
+const isDev = process.env.NODE_ENV === 'development' || process.argv.includes('dev');
+
 // GitHub Pages config
 // Pour un repo nommé "w4s-website" sur github.com/USERNAME/w4s-website
 // Le site sera accessible sur https://USERNAME.github.io/w4s-website/
 
 export default defineConfig({
-  // IMPORTANT: Changez ces valeurs selon votre configuration
-  // Option 1: GitHub Pages (Wuilhome.github.io/w4s-website/)
-  site: 'https://Wuilhome.github.io',
-  base: '/w4s-website',
+  // En dev local: pas de base path pour accéder facilement à /admin
+  // En production: base path pour GitHub Pages
+  site: isDev ? 'http://localhost:4321' : 'https://Wuilhome.github.io',
+  base: isDev ? '/' : '/w4s-website',
 
   // Option 2: Domaine personnalisé (décommenter si vous avez un domaine)
   // site: 'https://w4s.fr',
   // base: '/',
-  
+
   integrations: [
     tailwind()
   ],
@@ -26,5 +29,6 @@ export default defineConfig({
     build: {
       cssMinify: true
     }
-  }
+  },
+  trailingSlash: 'ignore'
 });

@@ -2,6 +2,10 @@
 import Icon from '../ui/Icon.astro';
 import { navigation, siteConfig } from '../../data/site.js';
 import { url } from '../../utils/url.js';
+
+const contact = siteConfig.contact;
+const hours = siteConfig.hours;
+const social = siteConfig.social;
 ---
 
 <footer class="bg-w4s-navy text-white">
@@ -11,24 +15,11 @@ import { url } from '../../utils/url.js';
       <!-- Brand -->
       <div class="lg:col-span-1">
         <a href={url('/')} class="inline-block mb-4">
-          <img src={url('/images/logo-w4s.webp')} alt="W4S Service" class="h-14 w-auto brightness-0 invert" />
+          <img src={url('/images/logo-w4s.webp')} alt="W4S Service" class="h-14 w-auto" />
         </a>
         <p class="text-w4s-steel mb-4">
           Du digital au bricolage, des spécialistes à votre service. Intervention rapide, devis gratuit.
         </p>
-        <div class="flex gap-4">
-          {Object.entries(siteConfig.social).map(([name, url]) => (
-            <a 
-              href={url} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              class="text-w4s-steel hover:text-white transition-colors"
-              aria-label={`Suivez-nous sur ${name}`}
-            >
-              <Icon name="external-link" size={20} />
-            </a>
-          ))}
-        </div>
       </div>
 
       <!-- Services -->
@@ -64,33 +55,33 @@ import { url } from '../../utils/url.js';
         <h3 class="font-semibold mb-4">Contact</h3>
         <ul class="space-y-3">
           <li>
-            <a 
-              href={`tel:${siteConfig.contact.phoneFormatted}`}
+            <a
+              href={`tel:${contact.phoneFormatted}`}
               class="flex items-center gap-2 text-w4s-steel hover:text-white transition-colors"
             >
               <Icon name="phone" size={18} />
-              {siteConfig.contact.phone}
+              {contact.phone}
             </a>
           </li>
           <li>
-            <a 
-              href={`mailto:${siteConfig.contact.email}`}
+            <a
+              href={`mailto:${contact.email}`}
               class="flex items-center gap-2 text-w4s-steel hover:text-white transition-colors"
             >
               <Icon name="mail" size={18} />
-              {siteConfig.contact.email}
+              {contact.email}
             </a>
           </li>
           <li class="flex items-start gap-2 text-w4s-steel">
             <Icon name="map-pin" size={18} class="flex-shrink-0 mt-1" />
             <span>
-              {siteConfig.contact.address.city}<br/>
-              {siteConfig.contact.address.region}
+              {contact.address.street}<br/>
+              {contact.address.postalCode} {contact.address.city}
             </span>
           </li>
           <li class="flex items-center gap-2 text-w4s-steel">
             <Icon name="clock" size={18} />
-            <span>Urgences : {siteConfig.hours.emergency}</span>
+            <span>Urgences : {hours.emergency}</span>
           </li>
         </ul>
       </div>
@@ -102,11 +93,11 @@ import { url } from '../../utils/url.js';
     <div class="container-w4s py-4">
       <div class="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-center">
         <span class="font-medium">Urgence 24h/24 :</span>
-        <a 
-          href={`tel:${siteConfig.contact.phoneFormatted}`}
+        <a
+          href={`tel:${contact.phoneFormatted}`}
           class="font-bold text-lg hover:underline"
         >
-          {siteConfig.contact.phone}
+          {contact.phone}
         </a>
       </div>
     </div>

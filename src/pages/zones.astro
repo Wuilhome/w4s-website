@@ -14,18 +14,21 @@ const breadcrumbs = [
 const zonesPhysiques = [
   {
     region: 'Oise (60)',
+    slug: 'oise',
     description: 'Zone principale d\'intervention',
     urgency: true,
     areas: ['Compiègne', 'Senlis', 'Chantilly', 'Clermont', 'Beauvais', 'Creil', 'Liancourt', 'Cauffry', 'Nogent-sur-Oise', 'Pont-Sainte-Maxence']
   },
   {
     region: 'Somme (80)',
+    slug: 'somme',
     description: 'Amiens et environs',
     urgency: true,
     areas: ['Amiens', 'Abbeville', 'Albert']
   },
   {
     region: 'Paris & Île-de-France',
+    slug: 'paris',
     description: 'Interventions ponctuelles',
     urgency: false,
     areas: ['Paris', 'Proche banlieue']
@@ -88,7 +91,7 @@ const zonesPhysiques = [
             title="Carte des zones d'intervention W4S"
           ></iframe>
         </div>
-        <p class="text-small text-w4s-navy/60 mt-4 text-center">
+        <p class="text-small text-w4s-navy/70 mt-4 text-center">
           Oise, Somme (Amiens), Paris et Île-de-France
         </p>
       </div>
@@ -104,14 +107,15 @@ const zonesPhysiques = [
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           {zonesPhysiques.map((zone) => (
-            <div class="bg-white rounded-2xl shadow-card p-6">
+            <a href={url(`/zones/${zone.slug}`)} class="block bg-white rounded-2xl shadow-card p-6 transition-all duration-300 hover:shadow-card-hover hover:-translate-y-1 group scroll-animate">
               <div class="flex items-start justify-between mb-4">
                 <div class="flex items-center gap-3">
                   <Icon name="map-pin" size={24} class="text-w4s-accent" />
-                  <h3 class="text-h4 font-semibold text-w4s-navy">
+                  <h3 class="text-h4 font-semibold text-w4s-navy group-hover:text-w4s-accent transition-colors">
                     {zone.region}
                   </h3>
                 </div>
+                <Icon name="arrow-right" size={20} class="text-w4s-navy/40 group-hover:text-w4s-accent group-hover:translate-x-1 transition-all" />
               </div>
 
               {zone.urgency && (
@@ -120,18 +124,29 @@ const zonesPhysiques = [
                 </span>
               )}
 
-              <p class="text-small text-w4s-navy/60 mb-4">
+              <p class="text-small text-w4s-navy/70 mb-4">
                 {zone.description}
               </p>
 
               <div class="flex flex-wrap gap-2">
-                {zone.areas.map((area) => (
+                {zone.areas.slice(0, 5).map((area) => (
                   <span class="px-2 py-1 bg-w4s-concrete/30 text-w4s-navy text-small rounded-full">
                     {area}
                   </span>
                 ))}
+                {zone.areas.length > 5 && (
+                  <span class="px-2 py-1 bg-w4s-accent/10 text-w4s-accent text-small rounded-full font-medium">
+                    +{zone.areas.length - 5} villes
+                  </span>
+                )}
               </div>
-            </div>
+
+              <div class="mt-4 pt-4 border-t border-w4s-concrete/30">
+                <span class="text-small font-semibold text-w4s-accent group-hover:underline">
+                  Voir les détails →
+                </span>
+              </div>
+            </a>
           ))}
         </div>
       </div>

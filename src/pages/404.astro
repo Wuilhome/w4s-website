@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/ui/Icon.astro';
+import { url } from '../utils/url.js';
+---
+
+<BaseLayout
+  title="Page non trouvée"
+  description="La page que vous recherchez n'existe pas ou a été déplacée."
+  noindex={true}
+>
+  <section class="min-h-[70vh] flex items-center justify-center bg-gradient-to-b from-w4s-concrete/30 to-white">
+    <div class="container-w4s py-16 text-center">
+      <!-- 404 Icon -->
+      <div class="mb-8">
+        <span class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-w4s-accent/10">
+          <Icon name="alert-triangle" size={48} class="text-w4s-accent" />
+        </span>
+      </div>
+
+      <!-- Error Code -->
+      <p class="text-8xl font-bold text-w4s-navy/20 mb-4">404</p>
+
+      <!-- Title -->
+      <h1 class="text-3xl md:text-4xl font-bold text-w4s-navy mb-4">
+        Page non trouvée
+      </h1>
+
+      <!-- Description -->
+      <p class="text-lg text-w4s-navy/70 mb-8 max-w-md mx-auto">
+        La page que vous recherchez n'existe pas ou a été déplacée.
+      </p>
+
+      <!-- Actions -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+        <a
+          href={url('/')}
+          class="inline-flex items-center gap-2 px-6 py-3 bg-w4s-accent text-white font-semibold rounded-xl hover:bg-w4s-accent/90 transition-colors"
+        >
+          <Icon name="home" size={20} />
+          Retour à l'accueil
+        </a>
+        <a
+          href={url('/contact')}
+          class="inline-flex items-center gap-2 px-6 py-3 bg-w4s-navy text-white font-semibold rounded-xl hover:bg-w4s-navy/90 transition-colors"
+        >
+          <Icon name="mail" size={20} />
+          Nous contacter
+        </a>
+      </div>
+
+      <!-- Helpful Links -->
+      <div class="border-t border-w4s-navy/10 pt-8">
+        <p class="text-sm text-w4s-navy/60 mb-4">Pages populaires :</p>
+        <nav class="flex flex-wrap items-center justify-center gap-4">
+          <a href={url('/services/creation-site-web')} class="text-w4s-accent hover:underline">
+            Création site web
+          </a>
+          <span class="text-w4s-navy/30">•</span>
+          <a href={url('/services/bricolage')} class="text-w4s-accent hover:underline">
+            Bricolage
+          </a>
+          <span class="text-w4s-navy/30">•</span>
+          <a href={url('/zones')} class="text-w4s-accent hover:underline">
+            Zones d'intervention
+          </a>
+          <span class="text-w4s-navy/30">•</span>
+          <a href={url('/faq')} class="text-w4s-accent hover:underline">
+            FAQ
+          </a>
+        </nav>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

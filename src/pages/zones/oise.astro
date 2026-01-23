@@ -1,0 +1,286 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/layout/Breadcrumb.astro';
+import Button from '../../components/ui/Button.astro';
+import Icon from '../../components/ui/Icon.astro';
+import EmergencyBand from '../../components/sections/EmergencyBand.astro';
+import { siteConfig } from '../../data/site.js';
+import { url } from '../../utils/url.js';
+import { generateBreadcrumbSchema } from '../../utils/seo.js';
+
+const breadcrumbs = [
+  { name: 'Zones', url: '/zones' },
+  { name: 'Oise (60)' }
+];
+
+const cities = [
+  { name: 'Compiègne', population: '40 000', distance: '5 km' },
+  { name: 'Senlis', population: '16 000', distance: '25 km' },
+  { name: 'Chantilly', population: '11 000', distance: '30 km' },
+  { name: 'Clermont', population: '11 000', distance: '35 km' },
+  { name: 'Beauvais', population: '55 000', distance: '60 km' },
+  { name: 'Creil', population: '35 000', distance: '40 km' },
+  { name: 'Liancourt', population: '8 000', distance: '30 km' },
+  { name: 'Nogent-sur-Oise', population: '20 000', distance: '40 km' },
+  { name: 'Pont-Sainte-Maxence', population: '13 000', distance: '15 km' },
+  { name: 'Verneuil-en-Halatte', population: '4 500', distance: 'Siège' }
+];
+
+const services = [
+  { name: 'Bricolage', icon: 'tool', desc: 'Petits travaux, réparations' },
+  { name: 'Montage meubles', icon: 'box', desc: 'IKEA, Conforama, etc.' },
+  { name: 'Électricité', icon: 'zap', desc: 'Dépannage, installation' },
+  { name: 'Maintenance', icon: 'settings', desc: 'Entretien régulier' }
+];
+
+const localSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "W4S - Services à domicile Oise",
+  "description": "Services de bricolage, montage de meubles, électricité et maintenance à domicile dans l'Oise (60). Intervention rapide, devis gratuit.",
+  "url": `${siteConfig.url}/zones/oise`,
+  "telephone": siteConfig.contact.phoneFormatted,
+  "email": siteConfig.contact.email,
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": siteConfig.contact.address.street,
+    "addressLocality": siteConfig.contact.address.city,
+    "postalCode": siteConfig.contact.address.postalCode,
+    "addressRegion": "Oise",
+    "addressCountry": "FR"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": siteConfig.contact.geo.latitude,
+    "longitude": siteConfig.contact.geo.longitude
+  },
+  "areaServed": cities.map(c => ({
+    "@type": "City",
+    "name": c.name
+  })),
+  "priceRange": "€€"
+};
+---
+
+<BaseLayout
+  title="Services à domicile dans l'Oise (60)"
+  description="W4S intervient dans toute l'Oise : Compiègne, Senlis, Chantilly, Beauvais, Creil... Bricolage, montage meubles, électricité. Devis gratuit, intervention rapide."
+  canonical="/zones/oise"
+  jsonLd={[localSchema, generateBreadcrumbSchema(breadcrumbs)]}
+>
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden bg-gradient-to-b from-w4s-concrete/30 via-white to-white py-16 md:py-24">
+    <!-- Animated background -->
+    <div class="absolute inset-0 overflow-hidden -z-10" aria-hidden="true">
+      <div class="gradient-orb gradient-orb-1"></div>
+      <div class="gradient-orb gradient-orb-2"></div>
+      <div class="absolute inset-0 bg-[linear-gradient(rgba(10,26,47,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(10,26,47,0.03)_1px,transparent_1px)] bg-[size:60px_60px]"></div>
+    </div>
+
+    <div class="container-w4s relative z-10">
+      <Breadcrumb items={breadcrumbs} />
+
+      <div class="max-w-4xl mx-auto text-center">
+        <!-- Badge -->
+        <div class="scroll-animate inline-flex items-center gap-2 px-5 py-2.5 glass rounded-full text-small font-medium mb-8 shadow-lg">
+          <span class="relative flex h-2.5 w-2.5">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-w4s-success opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-w4s-success"></span>
+          </span>
+          <span class="text-w4s-navy">Urgence disponible 24h/24</span>
+        </div>
+
+        <h1 class="scroll-animate stagger-1 text-4xl sm:text-5xl md:text-6xl font-bold text-w4s-navy mb-6 text-balance leading-tight">
+          Services à domicile
+          <span class="block mt-2">
+            <span class="gradient-text-animated">dans l'Oise (60)</span>
+          </span>
+        </h1>
+
+        <p class="scroll-animate stagger-2 text-body-lg text-w4s-navy/70 mb-8 max-w-2xl mx-auto">
+          Bricolage, montage de meubles, électricité, maintenance. Notre équipe intervient rapidement dans tout le département de l'Oise.
+        </p>
+
+        <!-- Stats -->
+        <div class="scroll-animate stagger-3 grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+          <div class="bg-white/80 rounded-xl p-4 shadow-card">
+            <div class="text-2xl md:text-3xl font-bold text-w4s-accent counter" data-target="10">0</div>
+            <div class="text-small text-w4s-navy/70">Villes couvertes</div>
+          </div>
+          <div class="bg-white/80 rounded-xl p-4 shadow-card">
+            <div class="text-2xl md:text-3xl font-bold text-w4s-success">&lt;2h</div>
+            <div class="text-small text-w4s-navy/70">Urgence</div>
+          </div>
+          <div class="bg-white/80 rounded-xl p-4 shadow-card">
+            <div class="text-2xl md:text-3xl font-bold text-w4s-accent">0€</div>
+            <div class="text-small text-w4s-navy/70">Déplacement</div>
+          </div>
+          <div class="bg-white/80 rounded-xl p-4 shadow-card">
+            <div class="text-2xl md:text-3xl font-bold text-w4s-navy">7j/7</div>
+            <div class="text-small text-w4s-navy/70">Disponibilité</div>
+          </div>
+        </div>
+
+        <!-- CTAs -->
+        <div class="scroll-animate stagger-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a
+            href={url('/contact')}
+            class="group relative inline-flex items-center gap-2 px-8 py-4 bg-w4s-accent text-white font-semibold rounded-xl btn-shimmer btn-glow transition-all duration-300 hover:scale-105"
+          >
+            <span>Demander un devis gratuit</span>
+            <Icon name="arrow-right" size={20} class="transition-transform group-hover:translate-x-1" />
+          </a>
+          <a
+            href={`tel:${siteConfig.contact.phoneFormatted}`}
+            class="group relative inline-flex items-center gap-2 px-8 py-4 bg-white border-2 border-w4s-navy text-w4s-navy font-semibold rounded-xl transition-all duration-300 hover:bg-w4s-navy hover:text-white"
+          >
+            <Icon name="phone" size={20} />
+            <span>{siteConfig.contact.phone}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="section bg-white">
+    <div class="container-w4s">
+      <div class="text-center mb-12">
+        <h2 class="scroll-animate text-h2 font-bold text-w4s-navy mb-4">Nos services dans l'Oise</h2>
+        <p class="scroll-animate stagger-1 text-body-lg text-w4s-navy/70 max-w-2xl mx-auto">
+          Une équipe de spécialistes à votre service pour tous vos besoins à domicile.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {services.map((service, i) => (
+          <div class={`scroll-animate stagger-${i + 1} bg-white rounded-2xl shadow-card hover:shadow-card-hover p-6 transition-all duration-300 hover:-translate-y-2 card-3d`}>
+            <div class="w-14 h-14 bg-w4s-accent/10 rounded-xl flex items-center justify-center mb-4">
+              <Icon name={service.icon} size={28} class="text-w4s-accent" />
+            </div>
+            <h3 class="text-h4 font-semibold text-w4s-navy mb-2">{service.name}</h3>
+            <p class="text-body text-w4s-navy/70">{service.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Cities Section -->
+  <section class="section bg-w4s-concrete/10">
+    <div class="container-w4s">
+      <div class="text-center mb-12">
+        <h2 class="scroll-animate text-h2 font-bold text-w4s-navy mb-4">Villes d'intervention</h2>
+        <p class="scroll-animate stagger-1 text-body-lg text-w4s-navy/70 max-w-2xl mx-auto">
+          Nous intervenons dans les principales villes de l'Oise et leurs environs.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        {cities.map((city, i) => (
+          <div class={`scroll-animate stagger-${(i % 5) + 1} bg-white rounded-xl p-4 shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1`}>
+            <div class="flex items-start gap-3">
+              <Icon name="map-pin" size={18} class="text-w4s-accent mt-0.5 flex-shrink-0" />
+              <div>
+                <div class="font-semibold text-w4s-navy">{city.name}</div>
+                <div class="text-small text-w4s-navy/70">{city.distance}</div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="scroll-animate mt-8 text-center">
+        <p class="text-body text-w4s-navy/70 mb-4">
+          Votre ville n'est pas listée ? Contactez-nous pour vérifier si nous pouvons intervenir.
+        </p>
+        <Button variant="outline" href={url('/contact')}>
+          Vérifier ma zone
+          <Icon name="arrow-right" size={18} />
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Map Section -->
+  <section class="section bg-white">
+    <div class="container-w4s">
+      <div class="bg-w4s-navy rounded-3xl overflow-hidden">
+        <div class="grid md:grid-cols-2 items-center">
+          <div class="p-8 md:p-12 text-white">
+            <h2 class="scroll-animate text-h2 font-bold mb-4">Notre zone d'intervention</h2>
+            <p class="scroll-animate stagger-1 text-body-lg text-white/80 mb-6">
+              Basés à Verneuil-en-Halatte, nous couvrons l'ensemble du département de l'Oise avec des délais d'intervention rapides.
+            </p>
+            <ul class="scroll-animate stagger-2 space-y-3 mb-8">
+              <li class="flex items-center gap-3">
+                <Icon name="check-circle" size={20} class="text-w4s-success" />
+                <span>Intervention sous 2h en urgence</span>
+              </li>
+              <li class="flex items-center gap-3">
+                <Icon name="check-circle" size={20} class="text-w4s-success" />
+                <span>Déplacement gratuit dans tout le 60</span>
+              </li>
+              <li class="flex items-center gap-3">
+                <Icon name="check-circle" size={20} class="text-w4s-success" />
+                <span>Disponible 7j/7</span>
+              </li>
+            </ul>
+            <div class="scroll-animate stagger-3 flex flex-wrap gap-4">
+              <a
+                href={url('/urgence')}
+                class="inline-flex items-center gap-2 px-6 py-3 bg-w4s-urgent text-white font-semibold rounded-xl transition-all duration-300 hover:bg-w4s-urgent-hover"
+              >
+                <span class="relative flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+                </span>
+                Urgence 24/7
+              </a>
+            </div>
+          </div>
+          <div class="h-64 md:h-full min-h-[300px]">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d327876.3197196713!2d2.2!3d49.35!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e7b4a5f9b7e16d%3A0x406651748c5fe30!2sOise!5e0!3m2!1sfr!2sfr!4v1704067200000!5m2!1sfr!2sfr"
+              width="100%"
+              height="100%"
+              style="border:0;"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Carte de l'Oise - Zone d'intervention W4S"
+            ></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section bg-gradient-to-r from-w4s-accent to-w4s-accent/90 text-white">
+    <div class="container-w4s text-center">
+      <h2 class="scroll-animate text-h2 font-bold mb-4">Besoin d'un spécialiste dans l'Oise ?</h2>
+      <p class="scroll-animate stagger-1 text-body-lg text-white/80 mb-8 max-w-2xl mx-auto">
+        Devis gratuit sous 24h, intervention rapide, satisfaction garantie.
+      </p>
+      <div class="scroll-animate stagger-2 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a
+          href={url('/contact')}
+          class="group inline-flex items-center gap-2 px-8 py-4 bg-white text-w4s-accent font-semibold rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-xl"
+        >
+          <span>Demander un devis gratuit</span>
+          <Icon name="arrow-right" size={20} class="transition-transform group-hover:translate-x-1" />
+        </a>
+        <a
+          href={`tel:${siteConfig.contact.phoneFormatted}`}
+          class="inline-flex items-center gap-2 px-8 py-4 bg-transparent border-2 border-white text-white font-semibold rounded-xl transition-all duration-300 hover:bg-white hover:text-w4s-accent"
+        >
+          <Icon name="phone" size={20} />
+          <span>{siteConfig.contact.phone}</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <EmergencyBand />
+</BaseLayout>

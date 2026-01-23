@@ -5,21 +5,25 @@ export default {
     extend: {
       colors: {
         'w4s': {
-          'navy': '#0A1A2F',
-          'navy-light': '#132B4D',
-          'white': '#FFFFFF',
-          'steel': '#A9B0B8',
-          'concrete': '#CED2D4',
-          'accent': '#2563EB',
+          // Palette W4S officielle
+          'navy': '#0A1A2F',        // Bleu Nuit Pro - couleur principale
+          'navy-light': '#132B4D',  // Variante plus claire
+          'white': '#FFFFFF',       // Blanc Pur
+          'steel': '#A9B0B8',       // Gris Acier - éléments secondaires
+          'steel-dark': '#6B7280',  // Gris Acier foncé (pour texte sur fond clair, WCAG)
+          'concrete': '#CED2D4',    // Gris Béton - fonds secondaires
+          'concrete-light': '#E5E7EB', // Gris Béton clair
+          // Couleurs d'action
+          'accent': '#2563EB',      // Bleu accent pour CTAs
           'accent-hover': '#1D4ED8',
-          'urgent': '#DC2626',
+          'urgent': '#DC2626',      // Rouge urgence
           'urgent-hover': '#B91C1C',
-          'success': '#16A34A',
-          'warning': '#D97706',
+          'success': '#16A34A',     // Vert succès
+          'warning': '#D97706',     // Orange alerte
         }
       },
       fontFamily: {
-        'sans': ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        'sans': ['DM Sans', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
       },
       fontSize: {
         'display': ['3.5rem', { lineHeight: '1.1', letterSpacing: '-0.02em' }],

@@ -17,16 +17,30 @@ const serviceOptions = services.map(s => ({
   value: s.slug,
   label: s.shortTitle
 }));
+
+const sourceOptions = [
+  { value: 'reseaux-sociaux', label: 'Réseaux sociaux' },
+  { value: 'recherche-google', label: 'Site web / Recherche Google' },
+  { value: 'bouche-a-oreille', label: 'Bouche-à-oreille' },
+  { value: 'flyers-affiches', label: 'Flyers / Affiches' },
+  { value: 'carte-visite', label: 'Carte de visite' },
+  { value: 'evenement-salon', label: 'Événement / Salon' },
+  { value: 'presse-media', label: 'Presse / Média' },
+  { value: 'autre', label: 'Autre' }
+];
 ---
 
-<form 
-  action="https://formspree.io/f/YOUR_FORM_ID" 
+<form
+  action="https://formsubmit.co/contact@w4service.fr"
   method="POST"
   class="space-y-6"
   id="contact-form"
 >
+  <!-- FormSubmit configuration -->
+  <input type="hidden" name="_subject" value="Nouvelle demande W4S" />
+  <input type="hidden" name="_template" value="table" />
   <!-- Honeypot anti-spam -->
-  <input type="text" name="_gotcha" style="display:none" />
+  <input type="text" name="_honey" style="display:none" aria-hidden="true" tabindex="-1" autocomplete="off" />
   
   {variant === 'full' && (
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -82,14 +96,21 @@ const serviceOptions = services.map(s => ({
     />
   </div>
   
-  <Textarea 
-    name="message" 
-    label="Description du besoin" 
+  <Textarea
+    name="message"
+    label="Description du besoin"
     placeholder="Décrivez votre problème en quelques mots..."
     rows={4}
     required
   />
-  
+
+  <Select
+    name="source"
+    label="Comment nous avez-vous connu ?"
+    options={sourceOptions}
+    placeholder="Sélectionnez une option"
+  />
+
   <!-- Consent -->
   <div class="flex items-start gap-3">
     <input 
@@ -137,16 +158,62 @@ const serviceOptions = services.map(s => ({
   const successMsg = document.getElementById('form-success');
   const errorMsg = document.getElementById('form-error');
 
+  // Validation du téléphone français
+  function validatePhone(phone: string): boolean {
+    // Supprime les espaces, tirets, points
+    const cleaned = phone.replace(/[\s\-\.]/g, '');
+    // Format français: 10 chiffres commençant par 0, ou format international +33
+    const frenchPattern = /^(0[1-9][0-9]{8}|\+33[1-9][0-9]{8})$/;
+    return frenchPattern.test(cleaned);
+  }
+
+  // Validation en temps réel du téléphone
+  const phoneInput = form?.querySelector('input[name="telephone"]') as HTMLInputElement;
+  phoneInput?.addEventListener('blur', () => {
+    const isValid = validatePhone(phoneInput.value);
+    const errorEl = phoneInput.parentElement?.querySelector('.phone-error');
+
+    if (!isValid && phoneInput.value) {
+      phoneInput.classList.add('border-w4s-urgent');
+      if (!errorEl) {
+        const error = document.createElement('p');
+        error.className = 'phone-error text-small text-w4s-urgent mt-1';
+        error.textContent = 'Format invalide. Ex: 06 12 34 56 78';
+        error.setAttribute('role', 'alert');
+        phoneInput.parentElement?.appendChild(error);
+      }
+    } else {
+      phoneInput.classList.remove('border-w4s-urgent');
+      errorEl?.remove();
+    }
+  });
+
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
-    
+
+    // Validation téléphone avant envoi
+    const phone = (form.querySelector('input[name="telephone"]') as HTMLInputElement)?.value;
+    if (!validatePhone(phone)) {
+      const phoneInput = form.querySelector('input[name="telephone"]') as HTMLInputElement;
+      phoneInput?.focus();
+      return;
+    }
+
+    // Désactive le bouton pendant l'envoi
+    const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    const originalText = submitBtn?.innerHTML;
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="animate-pulse">Envoi en cours...</span>';
+    }
+
     try {
       const response = await fetch(form.action, {
         method: 'POST',
         body: new FormData(form),
         headers: { 'Accept': 'application/json' }
       });
-      
+
       if (response.ok) {
         form.style.display = 'none';
         successMsg?.classList.remove('hidden');
@@ -155,6 +222,10 @@ const serviceOptions = services.map(s => ({
       }
     } catch (error) {
       errorMsg?.classList.remove('hidden');
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText || 'Envoyer ma demande';
+      }
     }
   });
 </script>

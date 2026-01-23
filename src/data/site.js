@@ -4,22 +4,22 @@ export const siteConfig = {
   description: 'W4S propose des services de bricolage, montage de meubles, électricité, maintenance à domicile, ainsi que création de sites web et référencement SEO. Devis gratuit.',
   url: 'https://w4s.fr',
 
-  // Contact - À COMPLÉTER
+  // Contact
   contact: {
-    phone: '01 XX XX XX XX', // À remplacer
-    phoneFormatted: '+33XXXXXXXXX', // À remplacer
-    email: 'contact@w4s.fr',
+    phone: '03 44 26 12 98',
+    phoneFormatted: '+33344261298',
+    email: 'contact@w4service.fr',
     address: {
-      street: '[Adresse à compléter]',
-      city: 'Compiègne',
-      postalCode: '60200',
+      street: '15 rue Henri Sainte-Claire Deville',
+      city: 'Verneuil-en-Halatte',
+      postalCode: '60550',
       region: 'Hauts-de-France',
       country: 'FR'
     },
-    // Coordonnées GPS Compiègne
+    // Coordonnées GPS Verneuil-en-Halatte
     geo: {
-      latitude: '49.4178',
-      longitude: '2.8262'
+      latitude: '49.2847',
+      longitude: '2.5236'
     }
   },
 
@@ -71,6 +71,13 @@ export const siteConfig = {
 
   // Moyens de paiement
   payment: ['Carte bancaire', 'Virement', 'Chèque', 'CESU'],
+
+  // Analytics & Tracking
+  // TODO: Remplacer par vos IDs réels après création des comptes
+  analytics: {
+    gtmId: 'GTM-XXXXXXX',     // Google Tag Manager - https://tagmanager.google.com
+    ga4Id: 'G-XXXXXXXXXX',    // Google Analytics 4 - https://analytics.google.com
+  },
 
   // Promesses / USPs
   promises: [

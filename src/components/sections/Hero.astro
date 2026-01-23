@@ -3,6 +3,15 @@ import Button from '../ui/Button.astro';
 import Icon from '../ui/Icon.astro';
 import { siteConfig } from '../../data/site.js';
 import { url } from '../../utils/url.js';
+
+const hero = {
+  badge: 'Spécialistes disponibles maintenant',
+  title: 'Experts à votre',
+  titleHighlight: 'service.',
+  subtitle1: 'Spécialistes vérifiés',
+  subtitle2: 'Intervention rapide',
+  subtitle3: 'Devis transparent'
+};
 ---
 
 <section class="relative overflow-hidden bg-gradient-to-b from-w4s-concrete/30 via-white to-white min-h-[90vh] flex items-center">
@@ -31,14 +40,14 @@ import { url } from '../../utils/url.js';
           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-w4s-success opacity-75"></span>
           <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-w4s-success"></span>
         </span>
-        <span class="text-w4s-navy">Spécialistes disponibles maintenant</span>
+        <span class="text-w4s-navy">{hero.badge}</span>
       </div>
 
       <!-- Main Heading with gradient animation -->
       <h1 class="scroll-animate stagger-1 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-w4s-navy mb-6 text-balance leading-tight">
-        Experts à votre
+        {hero.title}
         <span class="block mt-2">
-          <span class="gradient-text-animated">service.</span>
+          <span class="gradient-text-animated">{hero.titleHighlight}</span>
         </span>
       </h1>
 
@@ -48,21 +57,21 @@ import { url } from '../../utils/url.js';
           <span class="w-8 h-8 rounded-full bg-w4s-accent/10 flex items-center justify-center">
             <Icon name="users" size={16} class="text-w4s-accent" />
           </span>
-          Spécialistes vérifiés
+          {hero.subtitle1}
         </span>
         <span class="hidden sm:block w-1.5 h-1.5 bg-w4s-navy/30 rounded-full"></span>
         <span class="flex items-center gap-2">
           <span class="w-8 h-8 rounded-full bg-w4s-success/10 flex items-center justify-center">
             <Icon name="clock" size={16} class="text-w4s-success" />
           </span>
-          Intervention rapide
+          {hero.subtitle2}
         </span>
         <span class="hidden sm:block w-1.5 h-1.5 bg-w4s-navy/30 rounded-full"></span>
         <span class="flex items-center gap-2">
           <span class="w-8 h-8 rounded-full bg-w4s-navy/10 flex items-center justify-center">
             <Icon name="check" size={16} class="text-w4s-navy" />
           </span>
-          Devis transparent
+          {hero.subtitle3}
         </span>
       </div>
 
@@ -112,7 +121,7 @@ import { url } from '../../utils/url.js';
   </div>
 
   <!-- Scroll indicator -->
-  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-w4s-navy/40 animate-bounce">
+  <div class="absolute bottom-8 lg:bottom-8 left-0 right-0 flex flex-col items-center gap-2 text-w4s-navy/60 animate-bounce">
     <span class="text-xs font-medium uppercase tracking-wider">Découvrir</span>
     <Icon name="arrow-down" size={20} />
   </div>

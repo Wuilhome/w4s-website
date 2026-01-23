@@ -4,25 +4,36 @@
       <stop offset="0%" style="stop-color:#0A1A2F"/>
       <stop offset="100%" style="stop-color:#132B4D"/>
     </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#2563EB"/>
+      <stop offset="100%" style="stop-color:#3B82F6"/>
+    </linearGradient>
   </defs>
-  
+
   <!-- Background -->
   <rect width="1200" height="630" fill="url(#bg)"/>
-  
+
+  <!-- Decorative elements -->
+  <circle cx="1050" cy="280" r="220" fill="#2563EB" opacity="0.08"/>
+  <circle cx="1150" cy="420" r="160" fill="#2563EB" opacity="0.05"/>
+  <circle cx="950" cy="450" r="100" fill="#2563EB" opacity="0.03"/>
+
   <!-- Logo/Brand -->
   <text x="100" y="200" font-family="system-ui, -apple-system, sans-serif" font-size="120" font-weight="bold" fill="white">W4S</text>
-  
+
   <!-- Tagline -->
-  <text x="100" y="300" font-family="system-ui, -apple-system, sans-serif" font-size="48" fill="white" opacity="0.9">Dépannage et bricolage, simplifié.</text>
-  
+  <text x="100" y="300" font-family="system-ui, -apple-system, sans-serif" font-size="52" fill="white" opacity="0.95">Experts à votre service.</text>
+
   <!-- Subtitle -->
-  <text x="100" y="380" font-family="system-ui, -apple-system, sans-serif" font-size="28" fill="#2563EB">Artisans vérifiés · Intervention rapide · Devis transparent</text>
-  
-  <!-- Decorative elements -->
-  <circle cx="1000" cy="300" r="200" fill="#2563EB" opacity="0.1"/>
-  <circle cx="1100" cy="400" r="150" fill="#2563EB" opacity="0.05"/>
-  
+  <text x="100" y="380" font-family="system-ui, -apple-system, sans-serif" font-size="28" fill="#60A5FA">Spécialistes vérifiés · Intervention rapide · Devis transparent</text>
+
+  <!-- Services highlight -->
+  <text x="100" y="450" font-family="system-ui, -apple-system, sans-serif" font-size="22" fill="white" opacity="0.7">Digital · Bricolage · Électricité · Maintenance</text>
+
   <!-- Bottom bar -->
   <rect x="0" y="580" width="1200" height="50" fill="#DC2626"/>
-  <text x="100" y="615" font-family="system-ui, -apple-system, sans-serif" font-size="24" fill="white">Urgence 24h/24 — Paris &amp; Île-de-France</text>
+  <text x="100" y="615" font-family="system-ui, -apple-system, sans-serif" font-size="24" fill="white">Urgence 24/7 — Oise · Somme · Île-de-France</text>
+
+  <!-- Contact info -->
+  <text x="850" y="615" font-family="system-ui, -apple-system, sans-serif" font-size="20" fill="white" opacity="0.9">03 44 26 12 98</text>
 </svg>
