@@ -168,33 +168,51 @@ const { currentPath = '/' } = Astro.props;
 </div>
 
 <script>
-  // Mobile menu toggle
-  const menuButton = document.getElementById('mobile-menu-button');
-  const menuClose = document.getElementById('mobile-menu-close');
-  const mobileMenu = document.getElementById('mobile-menu');
+  function initMobileMenu() {
+    const menuButton = document.getElementById('mobile-menu-button');
+    const menuClose = document.getElementById('mobile-menu-close');
+    const mobileMenu = document.getElementById('mobile-menu');
 
-  function openMenu() {
-    mobileMenu?.classList.remove('translate-x-full');
-    mobileMenu?.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
+    if (!menuButton || !mobileMenu) return;
+
+    function openMenu() {
+      mobileMenu?.classList.remove('translate-x-full');
+      mobileMenu?.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMenu() {
+      mobileMenu?.classList.add('translate-x-full');
+      mobileMenu?.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    // Remove old listeners by cloning
+    const newMenuButton = menuButton.cloneNode(true);
+    menuButton.parentNode?.replaceChild(newMenuButton, menuButton);
+    newMenuButton.addEventListener('click', openMenu);
+
+    if (menuClose) {
+      const newMenuClose = menuClose.cloneNode(true);
+      menuClose.parentNode?.replaceChild(newMenuClose, menuClose);
+      newMenuClose.addEventListener('click', closeMenu);
+    }
+
+    // Close menu on link click
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    // Close on escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeMenu();
+    });
   }
 
-  function closeMenu() {
-    mobileMenu?.classList.add('translate-x-full');
-    mobileMenu?.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
-  }
+  // Init on page load
+  initMobileMenu();
 
-  menuButton?.addEventListener('click', openMenu);
-  menuClose?.addEventListener('click', closeMenu);
-
-  // Close menu on link click
-  mobileMenu?.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', closeMenu);
-  });
-
-  // Close on escape
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeMenu();
-  });
+  // Re-init after Astro page transitions
+  document.addEventListener('astro:after-swap', initMobileMenu);
+  document.addEventListener('astro:page-load', initMobileMenu);
 </script>
