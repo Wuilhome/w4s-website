@@ -12,33 +12,43 @@ export const services = [
     zone: 'France entière',
     prestations: [
       {
-        title: 'Site vitrine basique',
-        description: 'Site one-page ou multi-pages simple. Présentation de votre activité, formulaire de contact, responsive mobile. Idéal pour artisans et indépendants.',
-        delay: '1-2 semaines'
+        title: 'Site one-page',
+        description: 'Design personnalisé, jusqu\'à 5 sections, responsive mobile/tablette, formulaire de contact, SEO de base. Idéal pour présenter une activité simple.',
+        delay: '5-7 jours'
       },
       {
-        title: 'Site vitrine avancé',
-        description: 'Site complet avec plusieurs pages, blog intégré, animations, galerie photos/vidéos. Design personnalisé selon votre charte graphique.',
-        delay: '2-4 semaines'
+        title: 'Site vitrine (3-5 pages)',
+        description: 'Pages Accueil, Services, À propos, Contact + 1 optionnelle. Design sur mesure, SEO optimisé, formulaire + Google Maps, sécurité & performances.',
+        delay: '10-15 jours'
       },
       {
-        title: 'Site e-commerce',
-        description: 'Boutique en ligne complète : catalogue produits, panier, paiement sécurisé, gestion des commandes et stocks. Formation incluse.',
+        title: 'Site vitrine avancé (5-10 pages)',
+        description: 'Arborescence complète, SEO avancé, animations légères, UX optimisée, blog ou actualités, optimisation Core Web Vitals.',
+        delay: '3-4 semaines'
+      },
+      {
+        title: 'Site e-commerce starter',
+        description: 'Boutique en ligne clé en main jusqu\'à 50 produits. Paiement CB, Stripe, PayPal. Gestion stocks & commandes, SEO e-commerce, formation incluse.',
         delay: '4-6 semaines'
       },
       {
-        title: 'Refonte & maintenance',
-        description: 'Modernisation de site existant, amélioration des performances, mises à jour régulières, corrections de bugs.',
-        delay: 'Sur devis'
+        title: 'Site e-commerce complet',
+        description: 'Produits illimités, variantes, promos, codes promo. Tunnel de vente optimisé, SEO avancé, sécurité renforcée, accompagnement & formation complète.',
+        delay: '6-8 semaines'
+      },
+      {
+        title: 'Maintenance mensuelle',
+        description: 'Modifications mineures incluses, support technique. Recommandé pour garder votre site à jour et sécurisé.',
+        delay: 'Optionnel'
       }
     ],
     tarifs: [
-      { prestation: 'Site one-page', prix: '490 €', delai: '1 semaine' },
-      { prestation: 'Site vitrine (3-5 pages)', prix: '990 €', delai: '2 semaines' },
-      { prestation: 'Site vitrine avancé (5-10 pages)', prix: '1 990 €', delai: '3-4 semaines' },
-      { prestation: 'Site e-commerce starter (jusqu\'à 50 produits)', prix: '2 490 €', delai: '4-5 semaines' },
-      { prestation: 'Site e-commerce complet (illimité)', prix: '3 990 €', delai: '5-6 semaines' },
-      { prestation: 'Maintenance mensuelle', prix: 'Dès 49 €/mois', delai: 'Engagement 12 mois' }
+      { prestation: 'Site one-page', prix: 'À partir de 600 € HT', delai: '5-7 jours' },
+      { prestation: 'Site vitrine (3-5 pages)', prix: 'À partir de 1 200 € HT', delai: '10-15 jours' },
+      { prestation: 'Site vitrine avancé (5-10 pages)', prix: 'À partir de 2 000 € HT', delai: '3-4 semaines' },
+      { prestation: 'Site e-commerce starter (jusqu\'à 50 produits)', prix: 'À partir de 3 000 € HT', delai: '4-6 semaines' },
+      { prestation: 'Site e-commerce complet (produits illimités)', prix: 'À partir de 5 000 € HT', delai: '6-8 semaines' },
+      { prestation: 'Maintenance mensuelle', prix: '49 € HT/mois', delai: 'Optionnel' }
     ],
     faq: [
       {
@@ -56,6 +66,10 @@ export const services = [
       {
         question: 'Proposez-vous le design graphique ?',
         answer: 'Oui, la création du design est incluse. Nous vous proposons 2 maquettes au choix, puis affinons selon vos retours. Vous pouvez aussi fournir votre propre charte graphique.'
+      },
+      {
+        question: 'Proposez-vous des options supplémentaires ?',
+        answer: 'Oui, nous proposons plusieurs options en supplément : SEO avancé (à partir de 500 €), site multilingue (+400 €), connexion CRM ou outils métiers (sur devis). Contactez-nous pour un devis personnalisé.'
       }
     ],
     metaTitle: 'Création de site web professionnel — Vitrine & e-commerce | W4S',
