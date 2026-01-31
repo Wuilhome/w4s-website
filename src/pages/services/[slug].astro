@@ -401,14 +401,26 @@ const get3DVariant = (slug: string) => {
   }
 </style>
 
-<script>
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function() {
+    initTarifsTable();
+  });
+
+  document.addEventListener('astro:page-load', function() {
+    initTarifsTable();
+  });
+
   function initTarifsTable() {
     const rows = document.querySelectorAll('[data-has-specs="true"]');
     rows.forEach(row => {
-      row.addEventListener('click', () => {
-        const index = row.getAttribute('data-tarif-row');
-        const specsRow = document.querySelector(`[data-specs-for="${index}"]`);
-        const chevron = row.querySelector('.tarif-chevron');
+      // Éviter les listeners dupliqués
+      if (row.dataset.initialized) return;
+      row.dataset.initialized = 'true';
+
+      row.addEventListener('click', function() {
+        const index = this.getAttribute('data-tarif-row');
+        const specsRow = document.querySelector('[data-specs-for="' + index + '"]');
+        const chevron = this.querySelector('.tarif-chevron');
 
         if (specsRow) {
           specsRow.classList.toggle('hidden');
@@ -419,7 +431,4 @@ const get3DVariant = (slug: string) => {
       });
     });
   }
-
-  initTarifsTable();
-  document.addEventListener('astro:page-load', initTarifsTable);
 </script>
