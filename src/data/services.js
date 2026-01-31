@@ -48,7 +48,10 @@ export const services = [
       { prestation: 'Site vitrine avancé (5-10 pages)', prix: 'À partir de 2 000 € HT', delai: '3-4 semaines' },
       { prestation: 'Site e-commerce starter (jusqu\'à 50 produits)', prix: 'À partir de 3 000 € HT', delai: '4-6 semaines' },
       { prestation: 'Site e-commerce complet (produits illimités)', prix: 'À partir de 5 000 € HT', delai: '6-8 semaines' },
-      { prestation: 'Maintenance mensuelle', prix: '49 € HT/mois', delai: 'Optionnel' }
+      { prestation: 'Maintenance mensuelle', prix: '49 € HT/mois', delai: 'Optionnel' },
+      { prestation: 'Option SEO avancé', prix: 'À partir de 500 €', delai: 'Sur devis', isOption: true },
+      { prestation: 'Option Multilingue', prix: '+400 €', delai: 'Sur devis', isOption: true },
+      { prestation: 'Option Connexion CRM / outils métiers', prix: 'Sur devis', delai: 'Sur devis', isOption: true }
     ],
     faq: [
       {
