@@ -169,7 +169,7 @@ const get3DVariant = (slug: string) => {
         <p class="text-white/70">Pas de surprise, le prix est fixé avant intervention.</p>
       </div>
 
-      <div class="scroll-animate glass-dark rounded-2xl overflow-hidden mb-8 shadow-2xl">
+      <div class="scroll-animate glass-dark rounded-2xl overflow-hidden mb-8 shadow-2xl" id="tarifs-table">
         <div class="overflow-x-auto">
           <table class="w-full">
             <thead class="bg-white/10">
@@ -180,17 +180,67 @@ const get3DVariant = (slug: string) => {
               </tr>
             </thead>
             <tbody>
-              {service.tarifs.map((tarif, index) => (
-                <tr class={`border-t border-white/10 hover:bg-white/5 transition-colors ${index % 2 === 0 ? 'bg-transparent' : 'bg-white/[0.02]'}`}>
-                  <td class="px-6 py-4 text-white">{tarif.prestation}</td>
-                  <td class="px-6 py-4 font-bold text-w4s-accent text-lg">{tarif.prix}</td>
-                  <td class="px-6 py-4 text-white/70">{tarif.delai}</td>
-                </tr>
+              {service.tarifs.filter(t => !t.isOption).map((tarif, index) => (
+                <>
+                  <tr
+                    class={`border-t border-white/10 transition-colors ${tarif.specs ? 'cursor-pointer hover:bg-white/10' : 'hover:bg-white/5'} ${index % 2 === 0 ? 'bg-transparent' : 'bg-white/[0.02]'}`}
+                    data-has-specs={tarif.specs ? 'true' : undefined}
+                    data-tarif-row={index}
+                  >
+                    <td class="px-6 py-4 text-white">
+                      <span class="flex items-center gap-2">
+                        {tarif.specs && <Icon name="chevron-down" size={16} class="tarif-chevron transition-transform text-w4s-accent" />}
+                        {tarif.prestation}
+                      </span>
+                    </td>
+                    <td class="px-6 py-4 font-bold text-w4s-accent text-lg">{tarif.prix}</td>
+                    <td class="px-6 py-4 text-white/70">{tarif.delai}</td>
+                  </tr>
+                  {tarif.specs && (
+                    <tr class="tarif-specs hidden" data-specs-for={index}>
+                      <td colspan="3" class="px-6 py-4 bg-white/5">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2 pl-6">
+                          {tarif.specs.map((spec) => (
+                            <span class="flex items-center gap-2 text-white/80 text-small">
+                              <Icon name="check" size={14} class="text-w4s-success flex-shrink-0" />
+                              {spec}
+                            </span>
+                          ))}
+                        </div>
+                        <div class="flex items-center gap-2 mt-3 pl-6 text-white/60 text-small">
+                          <Icon name="clock" size={14} class="text-w4s-accent" />
+                          Délai : {tarif.delai}
+                        </div>
+                      </td>
+                    </tr>
+                  )}
+                </>
               ))}
             </tbody>
           </table>
         </div>
       </div>
+
+      {service.tarifs.some(t => t.isOption) && (
+        <div class="scroll-animate glass-dark rounded-2xl overflow-hidden mb-8 shadow-xl border border-white/10">
+          <div class="bg-white/5 px-6 py-4 border-b border-white/10">
+            <h3 class="text-white font-semibold flex items-center gap-2">
+              <Icon name="settings" size={18} class="text-w4s-accent" />
+              Options disponibles (en supplément)
+            </h3>
+          </div>
+          <div class="p-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {service.tarifs.filter(t => t.isOption).map((option) => (
+                <div class="bg-white/5 rounded-xl p-4 hover:bg-white/10 transition-colors">
+                  <p class="text-white font-medium mb-1">{option.prestation.replace('Option ', '')}</p>
+                  <p class="text-w4s-accent font-bold">{option.prix}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       <div class="scroll-animate flex flex-wrap justify-center gap-4 text-small text-white/60">
         <span class="flex items-center gap-2">
@@ -350,3 +400,26 @@ const get3DVariant = (slug: string) => {
     animation: bounce-subtle 2s ease-in-out infinite;
   }
 </style>
+
+<script>
+  function initTarifsTable() {
+    const rows = document.querySelectorAll('[data-has-specs="true"]');
+    rows.forEach(row => {
+      row.addEventListener('click', () => {
+        const index = row.getAttribute('data-tarif-row');
+        const specsRow = document.querySelector(`[data-specs-for="${index}"]`);
+        const chevron = row.querySelector('.tarif-chevron');
+
+        if (specsRow) {
+          specsRow.classList.toggle('hidden');
+          if (chevron) {
+            chevron.classList.toggle('rotate-180');
+          }
+        }
+      });
+    });
+  }
+
+  initTarifsTable();
+  document.addEventListener('astro:page-load', initTarifsTable);
+</script>

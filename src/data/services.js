@@ -43,12 +43,42 @@ export const services = [
       }
     ],
     tarifs: [
-      { prestation: 'Site one-page', prix: 'À partir de 600 € HT', delai: '5-7 jours' },
-      { prestation: 'Site vitrine (3-5 pages)', prix: 'À partir de 1 200 € HT', delai: '10-15 jours' },
-      { prestation: 'Site vitrine avancé (5-10 pages)', prix: 'À partir de 2 000 € HT', delai: '3-4 semaines' },
-      { prestation: 'Site e-commerce starter (jusqu\'à 50 produits)', prix: 'À partir de 3 000 € HT', delai: '4-6 semaines' },
-      { prestation: 'Site e-commerce complet (produits illimités)', prix: 'À partir de 5 000 € HT', delai: '6-8 semaines' },
-      { prestation: 'Maintenance mensuelle', prix: '49 € HT/mois', delai: 'Optionnel' },
+      {
+        prestation: 'Site one-page',
+        prix: 'À partir de 600 € HT',
+        delai: '5-7 jours',
+        specs: ['Design personnalisé', 'Contenu jusqu\'à 5 sections', 'Responsive (mobile / tablette)', 'Formulaire de contact', 'SEO de base']
+      },
+      {
+        prestation: 'Site vitrine (3-5 pages)',
+        prix: 'À partir de 1 200 € HT',
+        delai: '10-15 jours',
+        specs: ['Pages : Accueil, Services, À propos, Contact (+1 optionnelle)', 'Design sur mesure', 'SEO de base + structure optimisée', 'Formulaire + Google Maps', 'Sécurité & performances']
+      },
+      {
+        prestation: 'Site vitrine avancé (5-10 pages)',
+        prix: 'À partir de 2 000 € HT',
+        delai: '3-4 semaines',
+        specs: ['Arborescence complète', 'SEO avancé (balises, performances, indexation)', 'Animations légères / UX optimisée', 'Blog ou actualités', 'Optimisation vitesse (Core Web Vitals)']
+      },
+      {
+        prestation: 'Site e-commerce starter (jusqu\'à 50 produits)',
+        prix: 'À partir de 3 000 € HT',
+        delai: '4-6 semaines',
+        specs: ['Boutique en ligne clé en main', 'Jusqu\'à 50 produits', 'Paiement en ligne (CB, Stripe, PayPal)', 'Gestion des stocks & commandes', 'SEO e-commerce de base', 'Formation à l\'utilisation']
+      },
+      {
+        prestation: 'Site e-commerce complet (produits illimités)',
+        prix: 'À partir de 5 000 € HT',
+        delai: '6-8 semaines',
+        specs: ['Produits illimités', 'Variantes, promos, codes promo', 'Tunnel de vente optimisé', 'SEO avancé e-commerce', 'Sécurité renforcée', 'Accompagnement & formation complète']
+      },
+      {
+        prestation: 'Maintenance mensuelle',
+        prix: '49 € HT/mois',
+        delai: 'Optionnel',
+        specs: ['Modifications mineures incluses', 'Support technique']
+      },
       { prestation: 'Option SEO avancé', prix: 'À partir de 500 €', delai: 'Sur devis', isOption: true },
       { prestation: 'Option Multilingue', prix: '+400 €', delai: 'Sur devis', isOption: true },
       { prestation: 'Option Connexion CRM / outils métiers', prix: 'Sur devis', delai: 'Sur devis', isOption: true }
